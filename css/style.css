@@ -209,18 +209,13 @@ body {
           .main .main-content .dados-child .tabela-consumos table tbody .textTR td input.xInput:-moz-placeholder,
           .main .main-content .dados-child .tabela-consumos table tbody .textTR td.in input.xInput:-moz-placeholder {
             color: #DCDCDC; }
-          .main .main-content .dados-child .tabela-consumos table tbody tr td i.fa-times,
-          .main .main-content .dados-child .tabela-consumos table tbody tr td.in i.fa-times,
-          .main .main-content .dados-child .tabela-consumos table tbody .textTR td i.fa-times,
-          .main .main-content .dados-child .tabela-consumos table tbody .textTR td.in i.fa-times {
-            color: red;
-            padding: 8px; }
-          .main .main-content .dados-child .tabela-consumos table tbody tr td i.fa-plus,
-          .main .main-content .dados-child .tabela-consumos table tbody tr td.in i.fa-plus,
-          .main .main-content .dados-child .tabela-consumos table tbody .textTR td i.fa-plus,
-          .main .main-content .dados-child .tabela-consumos table tbody .textTR td.in i.fa-plus {
-            color: green;
-            padding: 8px; }
+          .main .main-content .dados-child .tabela-consumos table tbody tr td .but-dados,
+          .main .main-content .dados-child .tabela-consumos table tbody tr td.in .but-dados,
+          .main .main-content .dados-child .tabela-consumos table tbody .textTR td .but-dados,
+          .main .main-content .dados-child .tabela-consumos table tbody .textTR td.in .but-dados {
+            width: 100%;
+            height: 100%;
+            background-color: #fff; }
         .main .main-content .dados-child .tabela-consumos table tbody tr td.input-table,
         .main .main-content .dados-child .tabela-consumos table tbody .textTR td.input-table {
           height: 40px;

@@ -4132,3 +4132,19 @@ var correcao_inclinacao = [
         ]
     }
 ];
+
+var idades = [
+    {
+        nome: "< 10 anos",
+        valorMax: 10
+    },
+    {
+        nome: "> 20 anos",
+        valorMin: 20
+    },
+    {
+        nome: "10 a 20 anos",
+        valorMin: 10,
+        valorMax: 20
+    }
+];

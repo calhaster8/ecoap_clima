@@ -15,6 +15,9 @@ $(document).ready(function() {
     buildFonteNewAquecimento();
     buildFonteNewArrefecimento();
     buildDesvios();
+    buildIdade();
+    rendCopLink();
+    fonteAqLink();
   
 
     $('#escolhe').change(fonteToTecnologia);
@@ -26,11 +29,15 @@ $(document).ready(function() {
     $('#ano').change(anoLinks);
     $('#fonte-aq').change(fonteAqLink);
     $('#rendimento').change(rendCopLink);
-    //$('#rend-med').change(rendCopLinkMed);
-    //$('#cop').change(rendCopLink);
     $('#use-aqs').change(useAqsLink);
+    $('#escolhe').change(responsiveFunctionTable);
     $('#use-aqs').change(responsiveFunctionTable);
-    $('#use-aqs').change(buildTipoConsumoTable);
+    $('#consumo-quest').change(responsiveFunctionTable);
+    $('#cons-aqs').change(responsiveFunctionTable);
+    $('#cons-aqs').change(buildTipoConsumoTable);
+    $('#escolhe').change(buildTipoConsumoTable);
+    $('#consumo-quest').change(buildTipoConsumoTable);
+
     $('#aquecimento-consumo').change(buildConsumoTable);
     $('#arrefecimento-consumo').change(buildConsumoTable);
     $('#aqs-consumo').change(buildConsumoTable);
@@ -73,7 +80,11 @@ $(document).ready(function() {
     });
 });
 
-
+function buildIdade() {
+    for (var i = 0; i < idades.length; i++) {
+        $('#idade').append($('<option class="op"></option>').val(i).html(idades[i].nome));
+    }
+}
 
 //width select (grande texto)
 function selWidth() {
@@ -109,10 +120,16 @@ function buildFontesEnergia() {
 }
 
 function getFontesEnergiaData() {
-    var id = new Number($(this).val());
-    $('#unidade-consumo').html(fonteEnergeticaI[id].unidade[0].unid_nome);
-    $('#unidade-custo-consumo').html(fonteEnergeticaI[id].unidade[1].unid_custo_nome);
-    $(this).parent().parent().next().find('#valor-pred-consumo').val(fonteEnergeticaI[id].unidade[1].valor);
+    var id = $(this).val();
+    if (id != "" && id != undefined && id >= 0) {
+        $(this).parent().parent().find("#unidade-consumo").html(fonteEnergeticaI[id].unidade[0].unid_nome);
+        $(this).parent().parent().next().find('#unidade-custo-consumo').html(fonteEnergeticaI[id].unidade[1].unid_custo_nome);
+        $(this).parent().parent().next().find('#valor-pred-consumo').val(new Number(fonteEnergeticaI[id].unidade[1].valor * fonteEnergeticaI[id].unidade[0].valor).toFixed(2));
+    } else {
+        $(this).parent().parent().find("#unidade-consumo").html("unidade");
+        $(this).parent().parent().next().find('#unidade-custo-consumo').html("€/unidade");
+        $(this).parent().parent().next().find('#valor-pred-consumo').val(0);
+    }
 
     dadosFirstTotal();
 }
@@ -345,7 +362,7 @@ function classeLinks() {
 }
 
 function anoLinks() {
-    if ($('#ano').val() == 0 || $('#ano').val() == 2 || $('#ano').val() == 3) {
+    if (($('#ano').val() == 0 || $('#ano').val() == 2 || $('#ano').val() == 3) && $('#ano').val() != "" && $('#ano').val() != undefined) {
         $('.hid-ano').removeClass('ano-construct-link');
     } else {
         $('.hid-ano').addClass('ano-construct-link');
@@ -355,8 +372,44 @@ function anoLinks() {
 function fonteAqLink() {
     var idLocal = $('#fonte-aq').val();
 
+    if (idLocal == 4 || idLocal == 5) {
+        $(".rend").show();
+        $("#labelRendimento").html("COP");
+        $("#rendimento").val("");
+        $("#labelIRendman").html("Insira o COP");
+        $("#rendimento").val("");
+        $("#labelIRendman").hide();
+        $("#iRendMan").hide();
+        $("#iRendMan").removeAttr("disabled");
+    } else if (idLocal == 6) {
+        $(".rend").hide();
+        $("#labelRendimento").hide();
+        $("#rendimento").hide();
+        $("#rendimento").val("2");
+        $("#iRendMan").val("1");
 
-    $('#custo-en-unit-aq').val(tecnologia_atual_aquecimento[idLocal].custo_unit);
+    } else if (idLocal != "" && idLocal != undefined && idLocal >= 0) {
+        $(".rend").show();
+        $("#labelRendimento").html("Rendimento (%)");
+        $("#rendimento").val("");
+        $("#idade").val("");
+        $("#labelIRendman").hide();
+        $("#iRendMan").hide();
+        $("#iRendMan").removeAttr("disabled");
+    } else {
+        $(".rend").show();
+        $("#labelRendimento").html("Rendimento (%) / COP");
+        $("#rendimento").val("");
+        $("#idade").val("");
+        $("#idade").hide();
+        $("#labelIRendman").hide();
+        $("#iRendMan").hide();
+        $("#iRendMan").removeAttr("disabled");
+    }
+    if (idLocal != "" && idLocal != undefined && idLocal >= 0) {
+        $('#custo-en-unit-aq').val(tecnologia_atual_aquecimento[idLocal].custo_unit);
+    }
+    rendCopLink();
 }
 
 function getCustoUnit() {
@@ -382,31 +435,34 @@ function getCustoUnit() {
 
 function rendCopLink() {
     //NOVO
+    var idLocal = $('#fonte-aq').val();
     var selectedRend = $('#rendimento').val();
-    if (selectedRend == 2) {
+    if (selectedRend == 2 && (idLocal == 4 || idLocal == 5)) {
+        $('#rendimento').find("option[value='2']").html("Inserir COP");
         $('#iRendMan').show();
-        $('#labelIRendman').show();
-
-    } else {
+        $('#labelIRendman').hide();
+    } else if (selectedRend == 2 && $('#fonte-aq').val() != 6) {
+        $('#rendimento').find("option[value='2']").html("Inserir rendimento");
+        $('#iRendMan').show();
+        $('#labelIRendman').hide();
+    } else if ($('#fonte-aq').val() != 6) {
         $('#iRendMan').val("");
+        $('#iRendMan').hide();
+        $('#labelIRendman').hide();
+    } else {
+        $('#rendimento').find("option[value='2']").html("Inserir rendimento");
         $('#iRendMan').hide();
         $('#labelIRendman').hide();
     }
 
     if (selectedRend == 0 && selectedRend != "" && selectedRend != undefined) {
         $('.age').show();
+        $('#idade').show();
     } else {
         $('.age').hide();
-        $('#age').val("");
+        $('#idade').val("");
     }
 
-
-    //ANTIGO
-    /*if ($('#escolhe').val() == 1 && $('#rendimento').val() == 1) {
-        $('.age').removeClass('rend-cop-link');
-    } else {
-        $('.age').addClass('rend-cop-link');
-    }*/
 }
 
 function buildTipoConsumoTable() {
@@ -417,17 +473,54 @@ function buildTipoConsumoTable() {
     $('#aqs-consumo').find('option[value=0]').remove();
     $('#aqs-consumo').find('option[value=1]').remove();
 
+    var html = '';
+    var option = [];
+    var size = 0;
+    var escolha = $('#escolhe').val();
+    var escolhaConsumosCli = $('#consumo-quest').val();
+    var aqs = $('#use-aqs').val();
+    var aqs_cons = $('#cons-aqs').val();
+
+    //clean as tabelas
+    option[size++] = 'aquecimento';
+    option[size++] = 'arrefecimento';
+    option[size++] = 'aqs';
+    for (j = 0; j < 3; j++) {
+        $("#tabela-consumo-" + option[j]).html(html);
+    }
+
+    option = [];
+
     for (var i = 0; i < consumos.length; i++) {
-        $('#aquecimento-consumo').append($('<option class="op"></option>').val(i).html(consumos[i]));
-        $('#arrefecimento-consumo').append($('<option class="op"></option>').val(i).html(consumos[i]));
-        $('#aqs-consumo').append($('<option class="op"></option>').val(i).html(consumos[i]));
+        if (escolhaConsumosCli != "" && escolhaConsumosCli != undefined && escolhaConsumosCli == 0) {
+            if (escolha != "" && escolha != undefined && (escolha == 0 || escolha == 2)) {
+                $('#arrefecimento-size').hide();
+                $('#aquecimento-size').show();
+                $('#aquecimento-consumo').append($('<option class="op"></option>').val(i).html(consumos[i]));
+            }
+            if (escolha != "" && escolha != undefined && (escolha == 1 || escolha == 2)) {
+                $('#aquecimento-size').hide();
+                $('#arrefecimento-size').show();
+                $('#arrefecimento-consumo').append($('<option class="op"></option>').val(i).html(consumos[i]));
+            }
+        } else {
+            $('#aquecimento-size').hide();
+            $('#arrefecimento-size').hide();
+        }
+        if (aqs != "" && aqs != undefined && aqs == 0 && aqs_cons != "" && aqs_cons != undefined && aqs_cons == 0) {
+            $('#aqs-size').show();
+            $('#aqs-consumo').append($('<option class="op"></option>').val(i).html(consumos[i]));
+        } else {
+            $('#aqs-size').hide();
+        }
     }
 }
 
 function responsiveFunctionTable() {
-    var escolha = $('#escolhe').val();
-    var aqs = $('#use-aqs').val();
-
+    var escolha = new Number($('#escolhe').val());
+    var aqs = new Number($('#use-aqs').val());
+    var escolhaConsumosCli = new Number($('#consumo-quest').val());
+    var aqs_cons = new Number($('#cons-aqs').val());
 
     if (escolha == 0 && aqs == 1) {
         //so aquecimento
@@ -442,7 +535,7 @@ function responsiveFunctionTable() {
         $('#arrefecimento-size').css('display', 'none');
         $('#aqs-size').css('display', 'none');
 
-    } else if (escolha == 0 && aqs == 0) {
+    } else if (escolha == 0 && aqs == 0 && aqs_cons == 0) {
         //aquecimento + aqs
         //col-md-6
 
@@ -471,7 +564,7 @@ function responsiveFunctionTable() {
         $('#aquecimento-size').css('display', 'none');
         $('#aqs-size').css('display', 'none');
 
-    } else if (escolha == 1 && aqs == 0) {
+    } else if (escolha == 1 && aqs == 0 && aqs_cons == 0) {
         //arrefecimento + aqs
 
         //DISPLAY OPTIONS
@@ -503,7 +596,7 @@ function responsiveFunctionTable() {
         $('#arrefecimento-size').css('display', 'block');
         $('#aqs-size').css('display', 'none');
 
-    } else if (escolha == 2 && aqs == 0) {
+    } else if (escolha == 2 && aqs == 0 && aqs_cons == 0) {
         //aquecimento + arrefecimento + aqs
 
         //DISPLAY OPTIONS
@@ -527,31 +620,34 @@ function responsiveFunctionTable() {
 
 
 function buildConsumoTable() {
-    var escolha = $('#escolhe').val();
-    var aqs = $('#use-aqs').val();
+    var escolha = new Number($('#escolhe').val());
+    var aqs = new Number($('#use-aqs').val());
+    var escolhaConsumosCli = new Number($('#consumo-quest').val());
+    var aqs_cons = new Number($('#cons-aqs').val());
+
     var fonte_tec = $('#fonte-aq').val();
     var html = '';
     var option = [];
     var size = 0;
-    
 
-    if(escolha == 0 && aqs == 1) {
+
+    if (escolha == 0 && escolhaConsumosCli == 0 && aqs == 1) {
         //so aquecimento
         //col-md-12
-        option[size++] = 'aquecimento';;
-        
-    } else if (escolha == 0 && aqs == 0) {
+        option[size++] = 'aquecimento';
+
+    } else if (escolha == 0 && escolhaConsumosCli == 0 && aqs == 0) {
         //aquecimento + aqs
         //col-md-6
         option[size++] = 'aquecimento';
         option[size++] = 'aqs';
 
-    } else if (escolha == 1 && aqs == 1) {
+    } else if (escolha == 1 && escolhaConsumosCli == 0 && aqs == 1) {
         //arrefecimento
         option[size++] = 'arrefecimento';
 
 
-    } else if (escolha == 1 && aqs == 0) {
+    } else if (escolha == 1 && escolhaConsumosCli == 0 && aqs == 0 && aqs_cons == 0) {
         //arrefecimento + aqs
         option[size++] = 'arrefecimento';
         option[size++] = 'aqs';
@@ -563,7 +659,7 @@ function buildConsumoTable() {
         option[size++] = 'arrefecimento';
 
 
-    } else if (escolha == 2 && aqs == 0) {
+    } else if (escolha == 2 && escolhaConsumosCli == 0 && aqs == 0 && aqs_cons == 0) {
         //aquecimento + arrefecimento + aqs
         option[size++] = 'aquecimento';
         option[size++] = 'arrefecimento';
@@ -571,7 +667,7 @@ function buildConsumoTable() {
 
     }
 
-    for(var i = 0; i < size; i++) {
+    for (var i = 0; i < size; i++) {
         if (option != undefined && option != '' && option.length > 0) {
             html = '<table class="table table-bordered" id="' + option[i] + 'Table"><tbody>';
 

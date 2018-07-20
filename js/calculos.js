@@ -17,7 +17,7 @@ function dadosFirstTotal() {
         first_total = 0;        
     }
 
-    $('#total-titulo').val(first_total);
+    $('#total-titulo').val(first_total.toFixed(0));
 }
 
 function areaCalc() {
@@ -62,13 +62,12 @@ function areaCalc() {
     energiaSAPerc();
     excedenteSolar();
     excedenteSolarPerc();
-    
+
     volumeAcumulacao();
     cenarioInicialConsumosAqs();
     cenarioInicialConsumosAquecimento();
-    
-    
-    cenarioInicialConsumosArrefecimento();  
+
+    cenarioInicialConsumosArrefecimento();
     cenarioInicialConsumosTotais();
     cenarioInicialCustosAquecimento();
     cenarioInicialCustosArrefecimento();
@@ -86,7 +85,6 @@ function areaCalc() {
     resumoAquecimento();
     resumoAqs();
     resumoGlobals();
-    
     showResumo();
     showGlobalResumo();
     nextStep();
@@ -398,7 +396,7 @@ function consumoInicialAquecimento() {
     var atual_fonte_aq = $('#fonte-aq').val();
     var rend_tec_aq = $('#rendimento').val();
     var idade_tec_aq = $('#idade').val();
-    var rend_tec_input = new Number($('#iRendMan').val());
+    var rend_tec_input = new Number($('#iRendMan').val() / 100);
 
     var valor_cons_inicial = 0;
     consumo_aq_meses = [];
@@ -469,7 +467,7 @@ function correcaoOrientacao() {
     if (orInput > 70) {
         correcao_orientacao_value = 0;
     } else if (orInput > desvios[4].valor) {
-        correcao_orientacao_value = new Number((1.14 - 0.0085 * orInput).toFixed(2));
+        correcao_orientacao_value = new Number((1.14 - 0.0085 * orInput).toFixed(0));
     } else {
         correcao_orientacao_value = 1;
     }
@@ -536,7 +534,7 @@ function necessidadesEnergeticas() {
     var perfil_men = $('#perfil-mensal').val();
     var perfil_sem_valor = 0;
     var idDistrito = $('#distrito').val();
-    var rend_user = $('#iRendMan').val();
+    var rend_user = $('#iRendMan').val() / 100;
     var rendimento_nec = $('#rendimento').val();
     var aqs_cons = $('#aqs-consumo').val();
     var aqs_total_input = $("input[name='aqsConsumoAnualTotal']").val();
@@ -589,7 +587,7 @@ function necessidadesEnergeticas() {
 
             necessidades_total += necessidades_array[i];
 
-            total_media_verao_necen += necessidades_array[i];
+            total_media_verao_necen += necessidades_array[i] / 5;
 
         } else {
             if (conhece_aqs == 1) {
@@ -610,7 +608,6 @@ function necessidadesEnergeticas() {
             necessidades_total += necessidades_array[i];
         }
     }
-    total_media_verao_necen = total_media_verao_necen / 5;
 }
 
 function racio() {
@@ -633,7 +630,7 @@ function energiaSolarCaptadaM2() {
 
             energia_solar_total += energia_solar_array[i];
 
-            total_media_verao_solar += energia_solar_array[i];
+            total_media_verao_solar += energia_solar_array[i] / 5;
         } else {
             energia_solar_array[i] = (((rendimento_otico * perdas[1].valor) - (coeficient_perdas * ((temperatura_utilizacao - (irradiacao_temp_amb_temp_agua[idDistrito].mesI[i].valorTempAmb + irradiacao_temp_amb_temp_agua[idDistrito].mesI[i].valorTempAgua)) / (correcao_inclinacao[irradiacao_temp_amb_temp_agua[idDistrito].go_latitude].meses[i].valor * ((correcao_orientacao_value * perdas[2].valor) * irradiacao_temp_amb_temp_agua[idDistrito].mesI[i].valorIrr) * (fatores_conversao[1] * 1000 / meses_numero_horas[i].n_horas_sol))))) * (correcao_inclinacao[irradiacao_temp_amb_temp_agua[idDistrito].go_latitude].meses[i].valor * ((correcao_orientacao_value * perdas[1].valor) * irradiacao_temp_amb_temp_agua[idDistrito].mesI[i].valorIrr))) * (1 - perdas[0].valor) * meses_numero_horas[i].n_dias;
 
@@ -641,8 +638,6 @@ function energiaSolarCaptadaM2() {
         }
        
     }
-    total_media_verao_solar = total_media_verao_solar / 5;
-
 }
 
 function energiaSolarCaptadaMJ() {
@@ -681,8 +676,8 @@ function energiaSolarUtilizadaPerc() {
     for(var i = 0; i < meses_numero_horas.length; i++) {
         energia_solar_utilizada_perc_array[i] = energia_solar_utilizada_array[i] / necessidades_array[i];
 
+        energia_solar_utilizada_perc_total = energia_solar_utilizada_total / necessidades_total;
     }
-    energia_solar_utilizada_perc_total = energia_solar_utilizada_total / necessidades_total;
 }
 
 function energiaSA() {
@@ -712,8 +707,9 @@ function energiaSAPerc() {
 
     for(var i = 0; i < meses_numero_horas.length; i++) {
         energia_solar_sa_perc_array[i] = energia_solar_sa_array[i] / necessidades_array[i];        
+        
+        energia_solar_sa_perc_total = energia_solar_sa_total / necessidades_total;
     }
-    energia_solar_sa_perc_total = energia_solar_sa_total / necessidades_total;
 }
 
 function excedenteSolar() {
@@ -737,8 +733,9 @@ function excedenteSolarPerc() {
 
     for(var i = 0; i < meses_numero_horas.length; i++) {
         excedente_solar_perc_array[i] = excedente_solar_array[i] / energia_solar_mj_array[i];        
+    
+        excedente_solar_perc_total = excedente_solar_total / energia_solar_mj_total;
     }
-    excedente_solar_perc_total = excedente_solar_total / energia_solar_mj_total;
 }
 
 function cenarioInicialConsumosAquecimento() {
@@ -863,7 +860,7 @@ function cenarioInicialConsumosAqs() {
     var idDistrito = $('#distrito').val();
     var rend = $('#rendimento').val();
     var age = $('#idade').val();
-    var rend_user = new Number($('#iRendMan').val());
+    var rend_user = new Number($('#iRendMan').val() / 100);
 
     cenario_inicial_aqs_array = [];
     cenario_inicial_aqs_total = 0;
@@ -962,8 +959,8 @@ function cenarioFinalConsumosAquecimento() {
     var new_fonte_aq = $('#new-fonte-aq').val();
     var age = $('#idade').val();
     var rendimento = new Number($("#rendimento").val());
-    var rend_user = new Number($('#iRendMan').val());
-    var rend_med = new Number($("#rend-med").val());
+    var rend_user = new Number($('#iRendMan').val() / 100);
+    var rend_med = new Number($("#rend-med").val() / 100);
 
     cenario_final_aquecimento_array = [];
     cenario_final_aquecimento_total = 0;
@@ -987,7 +984,7 @@ function cenarioFinalConsumosAqs() {
     var aqs_mes = $("input[name='aqsConsumosMeses[]']");
     var aqs_anual = $("input[name='aqsConsumoAnualTotal']").val();
     var fonte_aq = $('#fonte-aq').val();
-    var new_rend = new Number($('#rend-med').val());
+    var new_rend = new Number($('#rend-med').val() / 100);
     var age = $('#idade').val();
     var new_fonte_aq = $('#new-fonte-aq').val();
     //var rend_user = $('#iRendManMed').val();
@@ -1144,12 +1141,12 @@ function cenarioFinalReducaoTotais() {
 function resumoAquecimento() {
     var tec_atual = $('#fonte-aq').val();
     var rend_tec = $('#rendimento').val();
-    var rend_user = $('#iRendMan').val();
+    var rend_user = $('#iRendMan').val() / 100;
     var age_tec = $('#idade').val();
     var new_fonte = $('#new-fonte-aq').val();
     var pot_tec = $('#potencia-aq').val();
     var pot_med = $('#pot-med-aq').val();
-    var rend_med = $('#rend-med').val();
+    var rend_med = $('#rend-med').val() / 100;
     var use_arref = $('#use-arr').val();
     var area_clima = $('#area-dados-input').val();
 

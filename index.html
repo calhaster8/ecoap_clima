@@ -73,7 +73,7 @@
                           <input id="valor-input-consumo" name="valor-input-consumo[]" type="number" placeholder="0" class="form-control xInput"/>
                         </td>
                         <td id="remove-consumo" rowspan="2" class="in">
-                            <button id="remove-consume" type="button">Remover</button>
+                            <button id="remove-consume" type="button" class="but-dados">Remover</button>
                         </td>
                       </tr>
                       <tr id="copy-row-consume-2" class="textTR">
@@ -86,7 +86,7 @@
                       <tr class="textTR">
                         <td colspan="3" class="in"></td>
                         <td class="in">
-                            <button id="add-consume" type="button">Adicionar</button>
+                            <button id="add-consume" type="button" class="but-dados">Adicionar</button>
                         </td>
                       </tr>
                     </tbody>
@@ -122,6 +122,7 @@
                   <label for="periodos">Período(s) de encerramento</label>
                   <select id="periodos" name="periodos" class="sel">
                     <option value="">Seleccionar opção</option>
+                    <option value="">Não tem</option>
                   </select>
                 </div>
                 <div class="dado classe-energia hid consumo-link">
@@ -175,14 +176,14 @@
                 </div>
                 <!-- rend or cop dependendo da fonte-->
                 <div class="dado rend">
-                  <label for="rendimento">Rendimento (%) / COP</label>
+                  <label id="labelRendimento" for="rendimento"></label>
                   <select id="rendimento" name="rendimento" class="sel">
                     <option value="">Seleccionar opção</option>
                     <option value="0">Não conhece</option>
                     <option value="2">Inserir rendimento</option>
                   </select>
                   <label id="labelIRendman" for="iRendMan" style="display:none;">Insira o rendimento</label>
-                  <input id="iRendMan" name="iRendMan" placeholder="0" style="display:none;"/>
+                  <input id="iRendMan" type="number" min="0" max="500" step="0.1" name="iRendMan" placeholder="0" style="display:none;" />
                 </div>
                 <!-- rend or cop dependendo da fonte-->
                 <!--.dado.cop.fonte-aq-link
@@ -192,7 +193,7 @@
                     option(value="1") Não conhece
                 
                 -->
-                <div class="dado age rend-cop-link">
+                <div class="dado age">
                   <label for="idade">Idade (aprox.)</label>
                   <select id="idade" name="idade" class="sel">
                     <option value="">Seleccionar opção</option>
@@ -288,13 +289,13 @@
                           <input id="tipoconsumoval" type="number" placeholder="0" name="tipoconsumoval[]" class="form-control xInput"/>
                         </td>
                         <td id="removetipoconsumo" class="in">
-                          <button id="remove" type="button">Remover</button>
+                          <button id="remove" type="button" class="but-dados">Remover</button>
                         </td>
                       </tr>
                       <tr class="textTR">
                         <td colspan="3" class="in"></td>
                         <td class="in">
-                          <button id="add" type="button">Adicionar</button>
+                          <button id="add" type="button" class="but-dados">Adicionar</button>
                         </td>
                       </tr>
                     </tbody>
@@ -566,79 +567,79 @@
                     </tr>
                     <tr class="textTR">
                       <td class="in">Equipamento</td>
-                      <td class="in" id="equipamento-aqu-inicial"></td>
-                      <td class="in" id="equipamento-aqu-final"></td>
-                      <td class="in">-</td>
-                      <td class="in">-</td>
+                      <td class="center" id="equipamento-aqu-inicial"></td>
+                      <td class="center" id="equipamento-aqu-final"></td>
+                      <td class="center">-</td>
+                      <td class="center">-</td>
                     </tr>
                     <tr class="textTR">
                       <td class="in">Potência (kW)</td>
-                      <td class="in" id="potencia-aqu-inicial"></td>
-                      <td class="in" id="potencia-aqu-final"></td>
-                      <td class="in">-</td>
-                      <td class="in">-</td>
+                      <td class="center" id="potencia-aqu-inicial"></td>
+                      <td class="center" id="potencia-aqu-final"></td>
+                      <td class="center">-</td>
+                      <td class="center">-</td>
                     </tr>
                     <tr class="textTR">
                       <td class="in">Rendimento</td>
-                      <td class="in" id="rendimento-aqu-inicial"></td>
-                      <td class="in" id="rendimento-aqu-final"></td>
-                      <td class="in">-</td>
-                      <td class="in">-</td>
+                      <td class="center" id="rendimento-aqu-inicial"></td>
+                      <td class="center" id="rendimento-aqu-final"></td>
+                      <td class="center">-</td>
+                      <td class="center">-</td>
                     </tr>
                     <tr class="textTR">
                       <td class="in">Fonte de energia</td>
-                      <td class="in" id="fonte-energia-aqu-inicial"></td>
-                      <td class="in" id="fonte-energia-aqu-final"></td>
-                      <td class="in">-</td>
-                      <td class="in">-</td>
+                      <td class="center" id="fonte-energia-aqu-inicial"></td>
+                      <td class="center" id="fonte-energia-aqu-final"></td>
+                      <td class="center">-</td>
+                      <td class="center">-</td>
                     </tr>
                     <tr class="textTR">
                       <td class="in">Consumo anual (kWh/ano)</td>
-                      <td class="in" id="cons-anual-aqu-inicial"></td>
-                      <td class="in" id="cons-anual-aqu-final"></td>
-                      <td class="in" id="cons-anual-aqs-inicial"></td>
-                      <td class="in" id="cons-anual-aqs-final"></td>
+                      <td class="center" id="cons-anual-aqu-inicial"></td>
+                      <td class="center" id="cons-anual-aqu-final"></td>
+                      <td class="center" id="cons-anual-aqs-inicial"></td>
+                      <td class="center" id="cons-anual-aqs-final"></td>
                     </tr>
                     <tr class="textTR">
                       <td class="in">Custos anuais (€/ano)</td>
-                      <td class="in" id="custo-anual-aqu-inicial"></td>
-                      <td class="in" id="custo-anual-aqu-final"></td>
-                      <td class="in" id="custo-anual-aqs-inicial"></td>
-                      <td class="in" id="custo-anual-aqs-final"></td>
+                      <td class="center" id="custo-anual-aqu-inicial"></td>
+                      <td class="center" id="custo-anual-aqu-final"></td>
+                      <td class="center" id="custo-anual-aqs-inicial"></td>
+                      <td class="center" id="custo-anual-aqs-final"></td>
                     </tr>
                     <tr class="titulo_row">
                       <th colspan="5" class="tituloTH">Resultados</th>
                     </tr>
                     <tr class="textTR">
                       <td class="in">Redução do consumo (kWh/ano)</td>
-                      <td colspan="2" class="in" id="reducao-cons-aqu"></td>
-                      <td colspan="2" class="in" id="reducao-cons-aqs"></td>
+                      <td colspan="2" class="center" id="reducao-cons-aqu"></td>
+                      <td colspan="2" class="center" id="reducao-cons-aqs"></td>
                     </tr>
                     <tr class="textTR">
                       <td rowspan="2" class="in">Redução de custos (€/ano)</td>
-                      <td colspan="2" class="in" id="reducao-custo-aqu"></td>
-                      <td colspan="2" class="in" id="reducao-custo-aqs"></td>
+                      <td colspan="2" class="center" id="reducao-custo-aqu"></td>
+                      <td colspan="2" class="center" id="reducao-custo-aqs"></td>
                     </tr>
                     <tr class="textTR">
-                      <td colspan="2" class="in" id="reducao-custo-aqu-perc"></td>
-                      <td colspan="2" class="in" id="reducao-custo-aqs-perc"></td>
+                      <td colspan="2" class="center" id="reducao-custo-aqu-perc"></td>
+                      <td colspan="2" class="center" id="reducao-custo-aqs-perc"></td>
                     </tr>
                     <tr class="textTR">
                       <td class="in">Custo unitário de energia (€/kWh)</td>
-                      <td class="in" id="custo-unit-aqu-inicial"></td>
-                      <td class="in" id="custo-unit-aqu-final"></td>
-                      <td class="in" id="custo-unit-aqs-inicial"></td>
-                      <td class="in" id="custo-unit-aqs-final"></td>
+                      <td class="center" id="custo-unit-aqu-inicial"></td>
+                      <td class="center" id="custo-unit-aqu-final"></td>
+                      <td class="center" id="custo-unit-aqs-inicial"></td>
+                      <td class="center" id="custo-unit-aqs-final"></td>
                     </tr>
                     <tr class="textTR">
                       <td class="in">Investimento estimado (€)</td>
-                      <td colspan="2" class="in" id="investimento-aqu"></td>
-                      <td colspan="2" class="in" id="investimento-aqs"></td>
+                      <td colspan="2" class="center" id="investimento-aqu"></td>
+                      <td colspan="2" class="center" id="investimento-aqs"></td>
                     </tr>
                     <tr class="textTR">
                       <td class="in">PRI simples (anos)</td>
-                      <td colspan="2" class="in" id="pri-aqu"></td>
-                      <td colspan="2" class="in" id="pri-aqs"></td>
+                      <td colspan="2" class="center" id="pri-aqu"></td>
+                      <td colspan="2" class="center" id="pri-aqs"></td>
                     </tr>
                   </tbody>
                 </table>
@@ -651,47 +652,47 @@
                     </tr>
                     <tr class="textTR">
                       <td class="in">Consumo anual total (kWh/ano)</td>
-                      <td class="in" id="consumo-anual-total-inicial-global"></td>
-                      <td class="in" id="consumo-anual-total-final-global"></td>
+                      <td class="center" id="consumo-anual-total-inicial-global"></td>
+                      <td class="center" id="consumo-anual-total-final-global"></td>
                     </tr>
                     <tr class="textTR">
                       <td class="in">Consumo anual em climatização (kWh/ano)</td>
-                      <td class="in" id="consumo-anual-clima-inicial-global"></td>
-                      <td class="in" id="consumo-anual-clima-final-global"></td>
+                      <td class="center" id="consumo-anual-clima-inicial-global"></td>
+                      <td class="center" id="consumo-anual-clima-final-global"></td>
                     </tr>
                     <tr class="textTR">
                       <td class="in">% relativamente ao total</td>
-                      <td class="in" id="perc-total-inicial-global"></td>
-                      <td class="in" id="perc-total-final-global"></td>
+                      <td class="center" id="perc-total-inicial-global"></td>
+                      <td class="center" id="perc-total-final-global"></td>
                     </tr>
                     <tr class="textTR">
                       <td class="in">Custos anuais (€/ano)</td>
-                      <td class="in" id="custo-anual-inicial-global"></td>
-                      <td class="in" id="custo-anual-final-global"></td>
+                      <td class="center" id="custo-anual-inicial-global"></td>
+                      <td class="center" id="custo-anual-final-global"></td>
                     </tr>
                     <tr class="textTR">
                       <td class="in">Redução do consumo (kWh/ano)</td>
-                      <td colspan="2" class="in" id="reducao-consumo-global"></td>
+                      <td colspan="2" class="center" id="reducao-consumo-global"></td>
                     </tr>
                     <tr class="textTR">
                       <td rowspan="2" class="in">Redução de custos (€/ano)</td>
-                      <td colspan="2" class="in" id="reducao-custo-valor-global"></td>
+                      <td colspan="2" class="center" id="reducao-custo-valor-global"></td>
                     </tr>
                     <tr class="textTR">
-                      <td colspan="2" class="in" id="reducao-custo-perc-global"></td>
+                      <td colspan="2" class="center" id="reducao-custo-perc-global"></td>
                     </tr>
                     <tr class="textTR">
                       <td class="in">Custo unitário de energia (€/kWh)</td>
-                      <td class="in" id="custo-unit-inicial-global"></td>
-                      <td class="in" id="custo-unit-final-global"></td>
+                      <td class="center" id="custo-unit-inicial-global"></td>
+                      <td class="center" id="custo-unit-final-global"></td>
                     </tr>
                     <tr class="textTR">
                       <td class="in">Investimento estimado</td>
-                      <td colspan="2" class="in" id="investimento-global"></td>
+                      <td colspan="2" class="center" id="investimento-global"></td>
                     </tr>
                     <tr class="textTR">
                       <td class="in">PRI simples (anos)</td>
-                      <td colspan="2" class="in" id="pri-global"></td>
+                      <td colspan="2" class="center" id="pri-global"></td>
                     </tr>
                   </tbody>
                 </table>
