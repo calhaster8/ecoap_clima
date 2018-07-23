@@ -185,14 +185,6 @@
                   <label id="labelIRendman" for="iRendMan" style="display:none;">Insira o rendimento</label>
                   <input id="iRendMan" type="number" min="0" max="500" step="0.1" name="iRendMan" placeholder="0" style="display:none;" />
                 </div>
-                <!-- rend or cop dependendo da fonte-->
-                <!--.dado.cop.fonte-aq-link
-                label(for="cop") COP
-                select#cop.sel(name="cop")
-                    option(value="") Seleccionar opção
-                    option(value="1") Não conhece
-                
-                -->
                 <div class="dado age">
                   <label for="idade">Idade (aprox.)</label>
                   <select id="idade" name="idade" class="sel">
@@ -200,7 +192,7 @@
                   </select>
                 </div>
                 <div class="dado custo-energia-unit-aq">
-                  <label for="custo-en-unit-aq">Custo energético unitário</label>
+                  <label id="custo-en-unit-aq-label" for="custo-en-unit-aq">Custo energético unitário (€/kWh)</label>
                   <input id="custo-en-unit-aq" type="number" placeholder="pré-definido" class="form-control xInput"/>
                 </div>
                 <div style="display: none;" class="dado use-arr">
@@ -262,7 +254,7 @@
                   </select>
                 </div>
                 <div class="dado custo-energia-unit-ar">
-                  <label for="custo-en-unit-ar">Custo energético unitário</label>
+                  <label for="custo-en-unit-ar">Custo energético unitário (€/kWh)</label>
                   <input id="custo-en-unit-ar" type="number" placeholder="pré-definido" disabled="disabled" class="form-control xInput"/>
                 </div>
               </div>
@@ -496,16 +488,11 @@
                   <input id="pot-med-aq" type="number" placeholder="0 W" class="form-control xInput"/>
                 </div>
                 <div class="dado rend-med">
-                  <label for="rend-med">Rendimento (%)</label>
+                  <label id="rend-med-label" for="rend-med">Rendimento (%)</label>
                   <input id="rend-med" type="number" placeholder="0%" class="form-control xInput"/>
                 </div>
-                <!--.dado.cop-med.cop-med-link
-                label(for="cop-med") COP
-                input.form-control.xInput(type="number" placeholder="0%")
-                
-                -->
                 <div class="dado custo-unit-med-aq">
-                  <label for="custo-unit-med-aq">Custo energético unitário</label>
+                  <label id="custo-unit-med-aq-label" for="custo-unit-med-aq">Custo energético unitário (€/kWh)</label>
                   <input id="custo-unit-med-aq" type="number" placeholder="0€" class="form-control xInput"/>
                 </div>
                 <!-- ARREFECIMENTO-->

@@ -377,10 +377,10 @@ function fonteAqLink() {
         $("#labelRendimento").html("COP");
         $("#rendimento").val("");
         $("#labelIRendman").html("Insira o COP");
-        $("#rendimento").val("");
         $("#labelIRendman").hide();
         $("#iRendMan").hide();
         $("#iRendMan").removeAttr("disabled");
+        $('#rendimento').find("option[value='2']").html("Inserir COP");
     } else if (idLocal == 6) {
         $(".rend").hide();
         $("#labelRendimento").hide();
@@ -396,6 +396,7 @@ function fonteAqLink() {
         $("#labelIRendman").hide();
         $("#iRendMan").hide();
         $("#iRendMan").removeAttr("disabled");
+        $('#rend').find("option[value='2']").html("Inserir rendimento");
     } else {
         $(".rend").show();
         $("#labelRendimento").html("Rendimento (%) / COP");
@@ -405,32 +406,46 @@ function fonteAqLink() {
         $("#labelIRendman").hide();
         $("#iRendMan").hide();
         $("#iRendMan").removeAttr("disabled");
+        $('#rend').find("option[value='2']").html("Inserir rendimento");
     }
     if (idLocal != "" && idLocal != undefined && idLocal >= 0) {
         $('#custo-en-unit-aq').val(tecnologia_atual_aquecimento[idLocal].custo_unit);
+        var begin = $("#custo-en-unit-aq-label")[0].textContent.indexOf("(");
+        var text = $("#custo-en-unit-aq-label")[0].textContent.substring(0,begin) + " (€/" + tecnologia_atual_aquecimento[idLocal].unidade + ")";
+        $("#custo-en-unit-aq-label")[0].textContent = text;
     }
     rendCopLink();
 }
 
 function getCustoUnit() {
-    var idLocal = $('#new-fonte-aq').val();
-
-    $('#custo-unit-med-aq').val(tecnologia_futura_aquecimento[idLocal].custo_unit);
-}
-
-/*function rendCopLinkMed() {
-    //NOVO
-    var selectedRend = $('#rend-med').val();
-    if (selectedRend == 2) {
-        $('#iRendManMed').show();
-        $('#labelIRendmanMed').show();
-
-    } else {
-        $('#iRendManMed').val("");
-        $('#iRendManMed').hide();
-        $('#labelIRendmanMed').hide();
+    
+    var newFont = $("#new-fonte-aq").val();
+    if(newFont!="" && newFont!=undefined && newFont>=0){
+        if(newFont==0){
+            $("#rend-med-label")[0].textContent = "COP";
+        }else{
+            $("#rend-med-label")[0].textContent = "Rendimento (%)";
+        }
+        $("#rend-med").val(new Number((tecnologia_futura_aquecimento[newFont].rendimento * (newFont==0 ? 1 : 100 )).toFixed(2)));
+        $("#custo-unit-med-aq").val((tecnologia_futura_aquecimento[newFont].custo_unit*tecnologia_futura_aquecimento[newFont].fator_conversao).toFixed(2));
+        
+        var begin = $("#custo-unit-med-aq-label")[0].textContent.indexOf("(");
+        var text = $("#custo-unit-med-aq-label")[0].textContent.substring(0,begin) + " (€/" + tecnologia_futura_aquecimento[newFont].unidade + ")";
+        $("#custo-unit-med-aq-label")[0].textContent = text;
     }
-}*/
+//    var idLocal = $('#new-fonte-aq').val();
+//
+//    if (idLocal != "" && idLocal != undefined && idLocal >= 0) {
+//        $('#custo-unit-med-aq').val(tecnologia_futura_aquecimento[idLocal].custo_unit);
+//        
+//        var begin = $("#custo-unit-med-aq-label")[0].textContent.indexOf("(");
+//        var text = $("#custo-unit-med-aq-label")[0].textContent.substring(0,begin) + " (€/" + tecnologia_futura_aquecimento[idLocal].unidade + ")";
+//        $("#custo-unit-med-aq-label")[0].textContent = text;
+//    }
+    
+    
+    
+}
 
 
 function rendCopLink() {
