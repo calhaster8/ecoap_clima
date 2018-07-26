@@ -567,6 +567,13 @@
 		"oAP": "\/js\/calculos.js.bak",
 		"oF": 0
 		},
+	"\/js\/formula.txt": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/js\/formula.txt",
+		"oF": 0
+		},
 	"\/js\/globals-min.js": {
 		"ft": 64,
 		"ma": 0,

@@ -1,13 +1,13 @@
 var utilizacao_calc = [
     {
         nome: "Aquecimento"
-    },
-    {
+    }
+    /*{
         nome: "Arrefecimento"
     },
     {
         nome: "Aquecimento e Arrefecimento"
-    }
+    }*/
 ];
 
 var escolhas = [
@@ -1068,7 +1068,7 @@ var envidracados = [
         Fs: 0.85
     },
     {
-        nome: 'Caixilharia de madeira, ferro ou alumínio, com vidro',
+        nome: 'Caixilharia de madeira, ferro ou alumínio, com vidro duplo',
         u: 3.00,
         Fs: 0.75
     },

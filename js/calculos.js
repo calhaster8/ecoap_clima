@@ -46,8 +46,10 @@ function areaCalc() {
     invernoCalc();
     veraoCalc();
     necessidadesAquecimento();
+    //necessidadesArrefecimento()
     necessidadesAqs();
     consumoInicialAquecimento();
+    //consumoInicialArrefecimento();
     consumoInicialAqs();
     necessidadesEnergeticas();
     correcaoOrientacao();
@@ -67,13 +69,14 @@ function areaCalc() {
     cenarioInicialConsumosAqs();
     cenarioInicialConsumosAquecimento();
 
-    cenarioInicialConsumosArrefecimento();
+    //cenarioInicialConsumosArrefecimento();
     cenarioInicialConsumosTotais();
     cenarioInicialCustosAquecimento();
-    cenarioInicialCustosArrefecimento();
+    //cenarioInicialCustosArrefecimento();
     cenarioInicialCustosAqs();
     cenarioInicialCustosTotais();
     cenarioFinalConsumosAquecimento();
+    //cenarioFinalConsumosArrefecimento();
     cenarioFinalConsumosAqs();
     cenarioFinalConsumosTotais();
     cenarioFinalCustosAquecimento();
@@ -357,6 +360,56 @@ function necessidadesAquecimento() {
 
 }
 
+function necessidadesArrefecimento() {
+    var escolha = $('#escolhe').val();
+    var idDistrito = $('#distrito').val();
+    var perfil = $('#perfil').val();
+    var periodos = $('#periodos').val();
+
+    nec_arr_meses = [];
+    total_nec_arr_meses = 0;
+
+    for(var i = 0; i < meses_numero_horas.length; i++) {
+        if(i >= 0 && i < 5) {
+            // até junho
+            nec_arr_meses[i] = 0
+        } else if (i == 5 || i == 8) {
+            //junho e setembro
+            if (escolha == 0 && escolha != undefined && escolha != '') {
+                nec_arr_meses[i] = 0
+            } else {
+                if (perfil == 0 && perfil != undefined && perfil != '') {
+                    nec_arr_meses[i] = total_1_kwh_verao * irradiacao_temp_amb_temp_agua[distrito].mesI[i].valorPerc * perfil_necessidades[0].valor;
+                } else {
+                    nec_arr_meses[i] = total_1_kwh_verao * irradiacao_temp_amb_temp_agua[distrito].mesI[i].valorPerc;
+                }
+            }
+        } else if (i == 6 || i == 7) {
+            // MESES JULHO E AGOSTO
+            if (escolha == 0) {
+                nec_arr_meses[i] = 0;
+            } else {
+                if (perfil == 0 && perfil != undefined && perfil != '' && periodos == 2 || periodos == 4) {
+                    nec_arr_meses[i] = total_1_kwh_verao * irradiacao_temp_amb_temp_agua[distrito].mesI[i].valorPerc * perfil_necessidades[0].valor * periodos_encerramento[2].valor;
+                } else if (periodos == 2 || periodos == 4) {
+                    nec_arr_meses[i] = total_1_kwh_verao * irradiacao_temp_amb_temp_agua[distrito].mesI[i].valorPerc * periodos_encerramento[2].valor;
+                } else if (perfil == 0) {
+                    nec_arr_meses[i] = total_1_kwh_verao * irradiacao_temp_amb_temp_agua[distrito].mesI[i].valorPerc * perfil_necessidades[0].valor
+                } else {
+                    nec_arr_meses[i] = total_1_kwh_verao * irradiacao_temp_amb_temp_agua[distrito].mesI[i].valorPerc
+                }
+            }
+        } else {
+            //resto dos meses até dezembro
+            nec_arr_meses[i] = 0
+        }
+
+        total_nec_arr_meses += nec_arr_meses[i];
+    }
+
+    
+}
+
 function necessidadesAqs() {
     var rend = $('#rendimento').val();
     var rend_age = $('#idade').val();
@@ -396,7 +449,7 @@ function consumoInicialAquecimento() {
     var atual_fonte_aq = $('#fonte-aq').val();
     var rend_tec_aq = $('#rendimento').val();
     var idade_tec_aq = $('#idade').val();
-    var rend_tec_input = new Number($('#iRendMan').val() / 100);
+    var rend_tec_input = new Number($('#iRendMan').val());
 
     var valor_cons_inicial = 0;
     consumo_aq_meses = [];
@@ -438,6 +491,36 @@ function consumoInicialAquecimento() {
         total_consumo_meses += consumo_aq_meses[i];
     }
 
+}
+
+function consumoInicialArrefecimento() {
+    var idFonte = $('#fonte-ar').val();
+    var eerSel = $('#eer').val();
+    var eerAge = $('#age-eer').val();
+    var eerRend = $('#iRendManArr').val();
+
+    var tmp = 0
+    consumo_arr_meses = [];
+    total_consumo_arr_meses = 0;
+
+    for(var i = 0; i < meses_numero_horas.length; i++) {
+        if (eerSel == 0 && eerSel != undefined && eerSel != '') {
+            if (eerAge == 2) {
+                tmp = tecnologia_atual_arrefecimento[idFonte].rendimento[2].valor;
+            } else if (eerAge == 2) {
+                tmp = tecnologia_atual_arrefecimento[idFonte].rendimento[1].valor;
+            } else {
+                tmp = tecnologia_atual_arrefecimento[idFonte].rendimento[0].valor;
+            }
+        } else {
+            tmp = eerRend;
+        }
+
+        consumo_arr_meses[i] = nec_arr_meses[i] / tmp;
+
+        total_consumo_arr_meses += consumo_arr_meses[i];
+    }
+    
 }
 
 function consumoInicialAqs() {
@@ -503,6 +586,8 @@ function arred(valorArrendondar, comoArredondar) {
         valor = Math.round(valorArrendondar / 100) * 100;
     } else if (comoArredondar == (-3)) {
         valor = Math.round(valorArrendondar / 1000) * 1000;
+    } else if (comoArredondar == (-4)) {
+        valor = Math.round(valorArrendondar / 10000) * 10000;
     }
 
     return valor;
@@ -534,7 +619,7 @@ function necessidadesEnergeticas() {
     var perfil_men = $('#perfil-mensal').val();
     var perfil_sem_valor = 0;
     var idDistrito = $('#distrito').val();
-    var rend_user = $('#iRendMan').val() / 100;
+    var rend_user = $('#iRendMan').val();
     var rendimento_nec = $('#rendimento').val();
     var aqs_cons = $('#aqs-consumo').val();
     var aqs_total_input = $("input[name='aqsConsumoAnualTotal']").val();
@@ -828,18 +913,19 @@ function cenarioInicialConsumosArrefecimento() {
 
     for (var i = 0; i < meses_numero_horas.lenght; i++) {
         if (i < 5 && i >= 9) {
-            if (conhece_cons == 0 && consumo_option_arr == 0) {
-                cenario_inicial_arr_array[i] = soma_total_arr;
-
-            } else if (conhece_cons == 0 && consumo_option_arr == 0) {
+            
+            if (conhece_cons == 0 && conhece_cons != undefined && conhece_cons != '' && consumo_option_arr == 1) {
+                cenario_inicial_arr_array[i] = arr_mes[i].value;
+            } if (conhece_cons == 0 && conhece_cons != undefined && conhece_cons != '' && consumo_option_arr == 0 && consumo_option_arr != undefined && consumo_option_arr != '') {
                 cenario_inicial_arr_array[i] = 0;
             } else {
-                cenario_inicial_arr_array[i] = consumo_arr_meses[i]; //VARIAVEL NAO CRIADA AINDA CALCULOS G14
+                cenario_inicial_arr_array[i] = consumo_arr_meses[i];
             }
+
         } else {
-            if (conhece_cons == 0 && consumo_option_arr == 0) {
+            if (conhece_cons == 0 && conhece_cons != undefined && conhece_cons != '' && consumo_option_arr == 1) {
                 cenario_inicial_arr_array[i] = arr_mes[i].value;
-            } else if (conhece_cons == 0 && consumo_option_arr == 0) {
+            } else if (conhece_cons == 0 && conhece_cons != undefined && conhece_cons != '' && consumo_option_arr == 0 && consumo_option_arr != undefined && consumo_option_arr != '') {
                 cenario_inicial_arr_array[i] = arr_anual * irradiacao_temp_amb_temp_agua[idDistrito].mesI[i].valorPerc;
             } else {
                 cenario_inicial_arr_array[i] = consumo_arr_meses[i];
@@ -860,7 +946,7 @@ function cenarioInicialConsumosAqs() {
     var idDistrito = $('#distrito').val();
     var rend = $('#rendimento').val();
     var age = $('#idade').val();
-    var rend_user = new Number($('#iRendMan').val() / 100);
+    var rend_user = new Number($('#iRendMan').val());
 
     cenario_inicial_aqs_array = [];
     cenario_inicial_aqs_total = 0;
@@ -959,8 +1045,8 @@ function cenarioFinalConsumosAquecimento() {
     var new_fonte_aq = $('#new-fonte-aq').val();
     var age = $('#idade').val();
     var rendimento = new Number($("#rendimento").val());
-    var rend_user = new Number($('#iRendMan').val() / 100);
-    var rend_med = new Number($("#rend-med").val() / 100);
+    var rend_user = new Number($('#iRendMan').val());
+    var rend_med = new Number($("#rend-med").val());
 
     cenario_final_aquecimento_array = [];
     cenario_final_aquecimento_total = 0;
@@ -978,16 +1064,19 @@ function cenarioFinalConsumosAquecimento() {
     }
 }
 
+function cenarioFinalConsumosArrefecimento() {
+
+}
+
 function cenarioFinalConsumosAqs() {
     var simular_aqs = $('#simulacao-aqs').val();
     var option_aqs = $('#aqs-consumo').val();
     var aqs_mes = $("input[name='aqsConsumosMeses[]']");
     var aqs_anual = $("input[name='aqsConsumoAnualTotal']").val();
     var fonte_aq = $('#fonte-aq').val();
-    var new_rend = new Number($('#rend-med').val() / 100);
+    var new_rend = new Number($('#rend-med').val());
     var age = $('#idade').val();
     var new_fonte_aq = $('#new-fonte-aq').val();
-    //var rend_user = $('#iRendManMed').val();
 
     cenario_final_aqs_array = [];
     cenario_final_aqs_total = 0;
@@ -1141,12 +1230,12 @@ function cenarioFinalReducaoTotais() {
 function resumoAquecimento() {
     var tec_atual = $('#fonte-aq').val();
     var rend_tec = $('#rendimento').val();
-    var rend_user = $('#iRendMan').val() / 100;
+    var rend_user = $('#iRendMan').val();
     var age_tec = $('#idade').val();
     var new_fonte = $('#new-fonte-aq').val();
     var pot_tec = $('#potencia-aq').val();
     var pot_med = $('#pot-med-aq').val();
-    var rend_med = $('#rend-med').val() / 100;
+    var rend_med = $('#rend-med').val();
     var use_arref = $('#use-arr').val();
     var area_clima = $('#area-dados-input').val();
 

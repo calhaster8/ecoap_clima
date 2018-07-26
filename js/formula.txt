@@ -1,0 +1,75 @@
+=SE(Medidas!$D$7=Info!$C$9;
+    Cenário_Inicial!D4;
+SE(E(Dados!$D$15=Info!$C$6 && Consumos!$D$3=Info!$C$44);
+    Consumos!D6 * 
+    (SE(Tecnologia!$C$14=Info!$C$8;
+        SE(Tecnologia!$C$15=Info!$F$37;
+            PROCV(Tecnologia!$C$12;Info!$B$38:$F$41;5);
+        SE(Tecnologia!$C$15=Info!$E$37;
+            PROCV(Tecnologia!$C$12;Info!$B$38:$F$41;4);
+        PROCV(Tecnologia!$C$12;Info!$B$38:$F$41;3)));
+    Tecnologia!$C$4))
+                
+    / 
+    (SE(Medidas!$D$16=Info!$C$8;
+        PROCV(Medidas!$D$7;Info!$B$59:$D$63;3);
+    Medidas!$D$4));
+                
+SE(E(Dados!$D$15=Info!$C$6 && Consumos!$D$3=Info!$C$43);
+    0;
+
+Cálculos!D14 
+/ 
+(SE(Medidas!$D$4=Info!$C$8;
+    PROCV(Medidas!$D$7;Info!$B$59:$D$63;3);
+Medidas!$D$9)))))
+
+/////// CODED ///////
+
+// temps //
+
+if (eer == 0) {
+    if(idade_eer == 2) {
+        tmp1 = tecnologia_atual_arrefecimento[fonte-ar].rendimento[2].valor;
+    } else if (idade_eer == 1) {
+        tmp1 = tecnologia_atual_arrefecimento[fonte-ar].rendimento[1].valor;
+    } else if (idade_eer == 0 && idade_eer != undefined && idade_eer != '') {
+        tmp1 = tecnologia_atual_arrefecimento[fonte-ar].rendimento[0].valor;
+    }
+} else {
+    tmp1 = #iRendMan.value
+}
+
+
+if ()
+
+/////////
+
+if (new-fonte-aq == nao intervir) {
+    cenario_inicial_arr_array[i];
+} else if (consumo-quest == 0 && consumo-quest != undefined && consumo-quest != '' && arrefecimento-consumo == 1) {
+    arr_mes[i].value * tmp1 / tmp2
+}
+
+
+
+
+
+
+
+
+
+
+SE(E(Dados!$D$15=Info!$C$6 && Consumos!$D$3=Info!$C$44);
+    Consumos!D11;
+SE(E(Dados!$D$15=Info!$C$6 && Consumos!$D$3=Info!$C$43);
+    Consumos!$D$5* PROCV(Dados!$D$4;Info!$B$161:$N$180;7);
+Cálculos!G19))
+
+if (consumo-quest == 0 && consumo_option_arr == 1) {
+    arr_mes[i].value;
+} else if (consumo-quest == 0 && consumo_option_arr == 0) {
+    arr_anual * irradiacao_temp_amb_temp_agua[idDistrito].mesI[i].valorPerc;
+} else {
+    consumo_arr_meses[i];
+}

@@ -227,6 +227,8 @@
                     <option value="1">Não</option>
                   </select>
                 </div>
+
+                <!-- ARREFECIMENTO -->
                 <div class="dado fonte-ar">
                   <label for="fonte-ar">Atual fonte de arrefecimento</label>
                   <select id="fonte-ar" name="fonte-ar" class="sel">
@@ -242,20 +244,20 @@
                   <select id="eer" name="eer" class="sel">
                     <option value="">Seleccionar opção</option>
                     <option value="0">Não conhece</option>
+                    <option value="2">Inserir rendimento</option>
                   </select>
+                  <label id="labelIRendmanArr" for="iRendManArr" style="display:none;">Insira o EER</label>
+                  <input id="iRendManArr" type="number" min="0" max="500" step="0.1" name="iRendManArr" placeholder="0" style="display:none;" />
                 </div>
-                <div class="dado age-eer eer-link">
+                <div class="dado age-eer">
                   <label for="age-eer">Idade (aprox.)</label>
                   <select id="age-eer" name="age-eer" class="sel">
                     <option value="">Seleccionar opção</option>
-                    <option value="0">< 10 anos</option>
-                    <option value="1">> 20 anos</option>
-                    <option value="2">10 a 20 anos</option>
                   </select>
                 </div>
                 <div class="dado custo-energia-unit-ar">
-                  <label for="custo-en-unit-ar">Custo energético unitário (€/kWh)</label>
-                  <input id="custo-en-unit-ar" type="number" placeholder="pré-definido" disabled="disabled" class="form-control xInput"/>
+                  <label id="custo-en-unit-ar-label" for="custo-en-unit-ar">Custo energético unitário (€/kWh)</label>
+                  <input id="custo-en-unit-ar" type="number" placeholder="pré-definido" class="form-control xInput" step="0.01" min="0"/>
                 </div>
               </div>
             </div>

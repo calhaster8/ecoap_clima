@@ -16,8 +16,11 @@ $(document).ready(function() {
     buildFonteNewArrefecimento();
     buildDesvios();
     buildIdade();
+    buildIdadeArr();
     rendCopLink();
+    eerLink();
     fonteAqLink();
+    fonteArrLink();
   
 
     $('#escolhe').change(fonteToTecnologia);
@@ -28,6 +31,7 @@ $(document).ready(function() {
     $('#classe-en').change(classeLinks);
     $('#ano').change(anoLinks);
     $('#fonte-aq').change(fonteAqLink);
+    $('#fonte-ar').change(fonteArrLink)
     $('#rendimento').change(rendCopLink);
     $('#use-aqs').change(useAqsLink);
     $('#escolhe').change(responsiveFunctionTable);
@@ -85,6 +89,13 @@ function buildIdade() {
         $('#idade').append($('<option class="op"></option>').val(i).html(idades[i].nome));
     }
 }
+
+function buildIdadeArr() {
+    for (var i = 0; i < idades.length; i++) {
+        $('#age-eer').append($('<option class="op"></option>').val(i).html(idades[i].nome));
+    }
+}
+
 
 //width select (grande texto)
 function selWidth() {
@@ -417,6 +428,18 @@ function fonteAqLink() {
     rendCopLink();
 }
 
+function fonteArrLink() {
+    var idLocal = $('#fonte-ar').val();
+
+    if (idLocal != "" && idLocal != undefined && idLocal >= 0) {
+        $('#custo-en-unit-ar').val(tecnologia_atual_arrefecimento[idLocal].custo_unit);
+        var begin = $("#custo-en-unit-ar-label")[0].textContent.indexOf("(");
+        var text = $("#custo-en-unit-ar-label")[0].textContent.substring(0, begin) + " (€/" + tecnologia_atual_arrefecimento[idLocal].unidade + ")";
+        $("#custo-en-unit-ar-label")[0].textContent = text;
+    }
+    eerLink();
+}
+
 function getCustoUnit() {
     
     var newFont = $("#new-fonte-aq").val();
@@ -433,18 +456,6 @@ function getCustoUnit() {
         var text = $("#custo-unit-med-aq-label")[0].textContent.substring(0,begin) + " (€/" + tecnologia_futura_aquecimento[newFont].unidade + ")";
         $("#custo-unit-med-aq-label")[0].textContent = text;
     }
-//    var idLocal = $('#new-fonte-aq').val();
-//
-//    if (idLocal != "" && idLocal != undefined && idLocal >= 0) {
-//        $('#custo-unit-med-aq').val(tecnologia_futura_aquecimento[idLocal].custo_unit);
-//        
-//        var begin = $("#custo-unit-med-aq-label")[0].textContent.indexOf("(");
-//        var text = $("#custo-unit-med-aq-label")[0].textContent.substring(0,begin) + " (€/" + tecnologia_futura_aquecimento[idLocal].unidade + ")";
-//        $("#custo-unit-med-aq-label")[0].textContent = text;
-//    }
-    
-    
-    
 }
 
 
@@ -478,6 +489,27 @@ function rendCopLink() {
         $('#idade').val("");
     }
 
+}
+
+function eerLink() {
+    var selectedRend = $('#eer').val();
+
+    if (selectedRend == 2 && selectedRend != "" && selectedRend != undefined) {
+        $('#iRendManArr').show();
+        $('#labelIRendmanArr').show();
+        $('.age-eer').hide();
+        $('#age-eer').val("");
+    } else if (selectedRend == 0 && selectedRend != "" && selectedRend != undefined) {
+        $('#iRendManArr').hide();
+        $('#labelIRendmanArr').hide();
+        $('.age-eer').show();
+        $('#age-eer').show();
+    } else {
+        $('#iRendManArr').hide();
+        $('#labelIRendmanArr').hide();
+        $('.age-eer').hide();
+        $('#age-eer').hide();
+    }
 }
 
 function buildTipoConsumoTable() {
@@ -732,14 +764,6 @@ function presAqsLink() {
         $('.cons-aqs').removeClass('pres-aqs-link');
     } else {
         $('.cons-aqs').addClass('pres-aqs-link');
-    }
-}
-
-function eerLink() {
-    if ($('#eer').val() == 0) {
-        $('.age-eer').removeClass('eer-link');
-    } else {
-        $('.age-eer').addClass('eer-link');
     }
 }
 
