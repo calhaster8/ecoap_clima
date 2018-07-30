@@ -23,9 +23,7 @@
   </head>
   <body>
     <header class="header">
-      <!--span Eco.AP Calculator-->
       <!--.logo--><span class="header-title">Calculadora - Climatização</span>
-      <!--<img src="img/logo.png" alt="logo" class="logo-img"/>-->
     </header>
     <main class="main container">
       <div class="row">
@@ -545,12 +543,12 @@
                       <th colspan="2" class="tituloTH">AQS (apoio)</th>
                     </tr>
                     <tr class="titulo_row"> 
-                      <th class="tituloTH">Inicial</th>
-                      <th class="tituloTH">Final</th>
+                      <th class="tituloTH">Cenário Inicial</th>
+                      <th class="tituloTH">Cenário Final</th>
                       <!--<th class="tituloTH">Inicial</th>-->
                       <!--<th class="tituloTH">Final</th>-->
-                      <th class="tituloTH">Inicial</th>
-                      <th class="tituloTH">Final</th>
+                      <th class="tituloTH">Cenário Inicial</th>
+                      <th class="tituloTH">Cenário Final</th>
                     </tr>
                     <tr class="textTR">
                       <td class="in">Equipamento</td>
@@ -560,7 +558,7 @@
                       <td class="center">-</td>
                     </tr>
                     <tr class="textTR">
-                      <td class="in">Potência (kW)</td>
+                      <td class="in">Potência nominal</td>
                       <td class="center" id="potencia-aqu-inicial"></td>
                       <td class="center" id="potencia-aqu-final"></td>
                       <td class="center">-</td>
@@ -581,14 +579,14 @@
                       <td class="center">-</td>
                     </tr>
                     <tr class="textTR">
-                      <td class="in">Consumo anual (kWh/ano)</td>
+                      <td class="in">Consumo de energia anual (kWh/ano)</td>
                       <td class="center" id="cons-anual-aqu-inicial"></td>
                       <td class="center" id="cons-anual-aqu-final"></td>
                       <td class="center" id="cons-anual-aqs-inicial"></td>
                       <td class="center" id="cons-anual-aqs-final"></td>
                     </tr>
                     <tr class="textTR">
-                      <td class="in">Custos anuais (€/ano)</td>
+                      <td class="in">Custos energéticos anuais (€/ano)</td>
                       <td class="center" id="custo-anual-aqu-inicial"></td>
                       <td class="center" id="custo-anual-aqu-final"></td>
                       <td class="center" id="custo-anual-aqs-inicial"></td>
@@ -598,12 +596,12 @@
                       <th colspan="5" class="tituloTH">Resultados</th>
                     </tr>
                     <tr class="textTR">
-                      <td class="in">Redução do consumo (kWh/ano)</td>
+                      <td class="in">Redução anual do consumo de energia (kWh/ano)</td>
                       <td colspan="2" class="center" id="reducao-cons-aqu"></td>
                       <td colspan="2" class="center" id="reducao-cons-aqs"></td>
                     </tr>
                     <tr class="textTR">
-                      <td rowspan="2" class="in">Redução de custos (€/ano)</td>
+                      <td rowspan="2" class="in">Redução anual dos custos energéticos (€/ano)</td>
                       <td colspan="2" class="center" id="reducao-custo-aqu"></td>
                       <td colspan="2" class="center" id="reducao-custo-aqs"></td>
                     </tr>
@@ -619,12 +617,12 @@
                       <td class="center" id="custo-unit-aqs-final"></td>
                     </tr>
                     <tr class="textTR">
-                      <td class="in">Investimento estimado (€)</td>
+                      <td class="in">Investimento</td>
                       <td colspan="2" class="center" id="investimento-aqu"></td>
                       <td colspan="2" class="center" id="investimento-aqs"></td>
                     </tr>
                     <tr class="textTR">
-                      <td class="in">PRI simples (anos)</td>
+                      <td class="in">Período de retorno</td>
                       <td colspan="2" class="center" id="pri-aqu"></td>
                       <td colspan="2" class="center" id="pri-aqs"></td>
                     </tr>
@@ -638,31 +636,31 @@
                       <th colspan="3" class="tituloTH">Resultados globais</th>
                     </tr>
                     <tr class="textTR">
-                      <td class="in">Consumo anual total (kWh/ano)</td>
+                      <td class="in">Consumo total anual de energia (kWh/ano)</td>
                       <td class="center" id="consumo-anual-total-inicial-global"></td>
                       <td class="center" id="consumo-anual-total-final-global"></td>
                     </tr>
                     <tr class="textTR">
-                      <td class="in">Consumo anual em climatização (kWh/ano)</td>
+                      <td class="in">Consumo anual para climatização (kWh/ano)</td>
                       <td class="center" id="consumo-anual-clima-inicial-global"></td>
                       <td class="center" id="consumo-anual-clima-final-global"></td>
                     </tr>
                     <tr class="textTR">
-                      <td class="in">% relativamente ao total</td>
+                      <td class="in">Rácio do consumo de energia para climatização relativamente ao consumo total de energia do edifício</td>
                       <td class="center" id="perc-total-inicial-global"></td>
                       <td class="center" id="perc-total-final-global"></td>
                     </tr>
                     <tr class="textTR">
-                      <td class="in">Custos anuais (€/ano)</td>
+                      <td class="in">Custos energéticos anuais (€/ano)</td>
                       <td class="center" id="custo-anual-inicial-global"></td>
                       <td class="center" id="custo-anual-final-global"></td>
                     </tr>
                     <tr class="textTR">
-                      <td class="in">Redução do consumo (kWh/ano)</td>
+                      <td class="in">Redução anual do consumo de energia (kWh/ano)</td>
                       <td colspan="2" class="center" id="reducao-consumo-global"></td>
                     </tr>
                     <tr class="textTR">
-                      <td rowspan="2" class="in">Redução de custos (€/ano)</td>
+                      <td rowspan="2" class="in">Redução anual dos custos energéticos (€/ano)</td>
                       <td colspan="2" class="center" id="reducao-custo-valor-global"></td>
                     </tr>
                     <tr class="textTR">
@@ -674,27 +672,18 @@
                       <td class="center" id="custo-unit-final-global"></td>
                     </tr>
                     <tr class="textTR">
-                      <td class="in">Investimento estimado</td>
+                      <td class="in">Investimento</td>
                       <td colspan="2" class="center" id="investimento-global"></td>
                     </tr>
                     <tr class="textTR">
-                      <td class="in">PRI simples (anos)</td>
+                      <td class="in">Período de retorno</td>
                       <td colspan="2" class="center" id="pri-global"></td>
                     </tr>
                   </tbody>
                 </table>
 
-                <!--<table>
-                  <tbody>
-
-                  </tbody>
-                </table>-->
               </div>
             </div>
-            <!--.perfil-aqs-but
-            button.but.but-perfil(type="button") Definir perfil de AQS
-            
-            -->
           </div>
         </div>
       </div>
@@ -719,44 +708,6 @@
         </div>
       </div>
     </main>
-    <!--footer
-    .container-fluid
-        .row
-            .col-md-12
-                .partners
-                    a.partner-link(href="http://www.sg.min-economia.pt/")
-                        img.partners-img.rep-port(src="img/footer/rep-port.png", alt="Républica Portuguesa")
-                    
-                    a.partner-link(href="http://www.portugal.gov.pt/pt/ministerios/meco.aspx")
-                        img.partners-img.port-energia(src="img/footer/portugal-energia-direct.png", alt="Portugal Energia")
-                    
-                    a.partner-link(href="http://www.dgeg.pt/")
-                        img.partners-img.dgeg(src="img/footer/dgeg.png", alt="Direcção Geral de Energia e Geologia")
-                    
-                    a.partner-link(href="http://ecoap.pnaee.pt/")
-                        img.partners-img.ee(src="img/footer/Ee.png", alt="EE")
-                    
-                    a.partner-link.prom(href="https://www.adene.pt/")
-                        img.partners-img.adene(src="img/footer/base-adene.png", alt="Adene")
-                    
-                    //a(href="#")
-                    span.conf
-                        //.conf-text Confinaciado por:
-                        img.partners-img.posteur(src="img/footer/posteur.png", alt="Posteur")
-                    
-                    //a(href="#")
-                    img.partners-img.port-2020(src="img/footer/2020.png", alt="2020")
-                    
-                    a.partner-link(href="https://europa.eu/european-union/index_pt")
-                        img.partners-img.ue(src="img/footer/UE.png", alt="UE")
-    
-    
-                .policy
-                    span.policy-link(href="#") © 2015 Eco.AP
-    
-                    a.policy-link(href="http://ecoap.pnaee.pt/ficha-tecnica/") Ficha técnica
-    
-                    a.policy-link(href="https://www.adene.pt/privacidade/") Política de Privacidade
-    -->
+   
   </body>
 </html>

@@ -27,7 +27,7 @@ var fonteEnergeticaI = [
             },
             {
                 unid_custo_nome: "€/kg",
-                valor: 0.05
+                valor: 0.043
             }
         ]
     },
@@ -123,7 +123,7 @@ var tecnologia_atual_aquecimento = [
     {
         nome: "Caldeira (biomassa)",
         id: 0,
-        custo_unit: 0.05, //euros
+        custo_unit: 0.043, //euros
         rendimento: [
             {
                 nome: "< 10 anos",
@@ -363,7 +363,7 @@ var tecnologia_futura_aquecimento = [
     {
         nome: "Caldeira (biomassa)",
         id: 0,
-        custo_unit: 0.05, //euros
+        custo_unit: 0.043, //euros
         rendimento: 0.9, //90%
         potencia: 0.1, //kW/m2
         investimento: 200, //€
