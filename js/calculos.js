@@ -613,8 +613,8 @@ function volumeAcumulacao() {
 
 function necessidadesEnergeticas() {
     var conhece_aqs = $('#cons-aqs').val();
-    var medidas_tipo = $("select[name='tipo-consumo[]']");
-    var medidas_valores = $("input[name='tipoconsumoval[]']");
+    //var medidas_tipo = $("select[name='tipo-consumo[]']");
+    //var medidas_valores = $("input[name='tipoconsumoval[]']");
     var perfil_sem = $('#perfil-semanal').val();
     var perfil_men = $('#perfil-mensal').val();
     var perfil_sem_valor = 0;
@@ -625,7 +625,7 @@ function necessidadesEnergeticas() {
     var aqs_total_input = $("input[name='aqsConsumoAnualTotal']").val();
     var atual_fonte_tec = $('#fonte-aq').val();
     var age_rend = $('#idade').val();
-    var aqs_meses_input = $("input[name='aqsConsumosMeses[]']");
+    //var aqs_meses_input = $("input[name='aqsConsumosMeses[]']");
 
     total_media_verao_necen = 0;
     necessidades_array = [];
@@ -653,46 +653,53 @@ function necessidadesEnergeticas() {
         perfil_sem_valor = 1;
     }
 
-    for (var i = 0; i < meses_numero_horas.length; i++) {
-        if (i >= 4 && i < 9) {
-            if (conhece_aqs == 1) {
-                var total_medidas = 0;
+    for(var k = 0; k < rowId2; k++) {
+        var medidas_tipo = $("select[name='tipo-consumo[" + k + "]']");
+        var medidas_valores = $("input[name='tipoconsumoval[" + k + "]']");
+        var aqs_meses_input = $("input[name='aqsConsumosMeses[" + k + "]']");
 
-                for (var j = 0; j < medidas_valores.length; j++) {
-                    total_medidas += medidas_valores[j].value * (consumo_diario_agua[medidas_tipo[j].value].valor != '' && consumo_diario_agua[medidas_tipo[j].value].valor != undefined && consumo_diario_agua[medidas_tipo[j].value].valor > 0 ? consumo_diario_agua[medidas_tipo[j].value].valor : 0);
+        for (var i = 0; i < meses_numero_horas.length; i++) {
+            if (i >= 4 && i < 9) {
+                if (conhece_aqs == 1) {
+                    var total_medidas = 0;
+
+                    for (var j = 0; j < medidas_valores.length; j++) {
+                        total_medidas += medidas_valores[j].value * (consumo_diario_agua[medidas_tipo[j].value].valor != '' && consumo_diario_agua[medidas_tipo[j].value].valor != undefined && consumo_diario_agua[medidas_tipo[j].value].valor > 0 ? consumo_diario_agua[medidas_tipo[j].value].valor : 0);
+                    }
+                    necessidades_array[i] = total_medidas * perfil_mensal[perfil_men].tabela[i].valor * perfil_sem_valor * meses_numero_horas[i].n_dias * fatores_conversao[0] * (temperatura_utilizacao - irradiacao_temp_amb_temp_agua[idDistrito].mesI[i].valorTempAgua);
+                } else if (conhece_aqs == 0) {
+                    if (aqs_cons == 0) {
+                        necessidades_array[i] = aqs_total_input * meses_numero_horas[i].aqs_mensal * fatores_conversao[1] * tecnologia_atual_aquecimento[atual_fonte_tec].fator_conversao * (rendimento == 1 ? tecnologia_atual_aquecimento[atual_fonte_tec].rendimento[age].valor : rend_user);
+                    } else if (aqs_cons == 1) {
+                        necessidades_array[i] = aqs_meses_input[i].value * fatores_conversao[1] * tecnologia_atual_aquecimento[atual_fonte_tec].fator_conversao * (rendimento == 1 ? tecnologia_atual_aquecimento[atual_fonte_tec].rendimento[age].valor : rend_user);
+                    }
                 }
-                necessidades_array[i] = total_medidas * perfil_mensal[perfil_men].tabela[i].valor * perfil_sem_valor * meses_numero_horas[i].n_dias * fatores_conversao[0] * (temperatura_utilizacao - irradiacao_temp_amb_temp_agua[idDistrito].mesI[i].valorTempAgua);
-            } else if (conhece_aqs == 0) {
-                if (aqs_cons == 0) {
-                    necessidades_array[i] = aqs_total_input * meses_numero_horas[i].aqs_mensal * fatores_conversao[1] * tecnologia_atual_aquecimento[atual_fonte_tec].fator_conversao * (rendimento == 1 ? tecnologia_atual_aquecimento[atual_fonte_tec].rendimento[age].valor : rend_user);
-                } else if (aqs_cons == 1) {
-                    necessidades_array[i] = aqs_meses_input[i].value * fatores_conversao[1] * tecnologia_atual_aquecimento[atual_fonte_tec].fator_conversao * (rendimento == 1 ? tecnologia_atual_aquecimento[atual_fonte_tec].rendimento[age].valor : rend_user);
+
+                necessidades_total += necessidades_array[i];
+
+                total_media_verao_necen += necessidades_array[i] / 5;
+
+            } else {
+                if (conhece_aqs == 1) {
+                    var total_medidas = 0;
+
+                    for (var j = 0; j < medidas_valores.length; j++) {
+                        total_medidas += medidas_valores[j].value * (consumo_diario_agua[medidas_tipo[j].value].valor != '' && consumo_diario_agua[medidas_tipo[j].value].valor != undefined && consumo_diario_agua[medidas_tipo[j].value].valor > 0 ? consumo_diario_agua[medidas_tipo[j].value].valor : 0);
+                    }
+                    necessidades_array[i] = total_medidas * perfil_mensal[perfil_men].tabela[i].valor * perfil_sem_valor * meses_numero_horas[i].n_dias * fatores_conversao[0] * (temperatura_utilizacao - irradiacao_temp_amb_temp_agua[idDistrito].mesI[i].valorTempAgua);
+                } else if (conhece_aqs == 0) {
+                    if (aqs_cons == 0) {
+                        necessidades_array[i] = aqs_total_input * meses_numero_horas[i].aqs_mensal * fatores_conversao[1] * tecnologia_atual_aquecimento[atual_fonte_tec].fator_conversao * (rendimento == 1 ? tecnologia_atual_aquecimento[atual_fonte_tec].rendimento[age].valor : rend_user);
+                    } else if (aqs_cons == 1) {
+                        necessidades_array[i] = aqs_meses_input[i].value * fatores_conversao[1] * tecnologia_atual_aquecimento[atual_fonte_tec].fator_conversao * (rendimento == 1 ? tecnologia_atual_aquecimento[atual_fonte_tec].rendimento[age].valor : rend_user);
+                    }
                 }
+
+                necessidades_total += necessidades_array[i];
             }
-
-            necessidades_total += necessidades_array[i];
-
-            total_media_verao_necen += necessidades_array[i] / 5;
-
-        } else {
-            if (conhece_aqs == 1) {
-                var total_medidas = 0;
-
-                for (var j = 0; j < medidas_valores.length; j++) {
-                    total_medidas += medidas_valores[j].value * (consumo_diario_agua[medidas_tipo[j].value].valor != '' && consumo_diario_agua[medidas_tipo[j].value].valor != undefined && consumo_diario_agua[medidas_tipo[j].value].valor > 0 ? consumo_diario_agua[medidas_tipo[j].value].valor : 0);
-                }
-                necessidades_array[i] = total_medidas * perfil_mensal[perfil_men].tabela[i].valor * perfil_sem_valor * meses_numero_horas[i].n_dias * fatores_conversao[0] * (temperatura_utilizacao - irradiacao_temp_amb_temp_agua[idDistrito].mesI[i].valorTempAgua);
-            } else if (conhece_aqs == 0) {
-                if (aqs_cons == 0) {
-                    necessidades_array[i] = aqs_total_input * meses_numero_horas[i].aqs_mensal * fatores_conversao[1] * tecnologia_atual_aquecimento[atual_fonte_tec].fator_conversao * (rendimento == 1 ? tecnologia_atual_aquecimento[atual_fonte_tec].rendimento[age].valor : rend_user);
-                } else if (aqs_cons == 1) {
-                    necessidades_array[i] = aqs_meses_input[i].value * fatores_conversao[1] * tecnologia_atual_aquecimento[atual_fonte_tec].fator_conversao * (rendimento == 1 ? tecnologia_atual_aquecimento[atual_fonte_tec].rendimento[age].valor : rend_user);
-                }
-            }
-
-            necessidades_total += necessidades_array[i];
         }
-    }
+    } 
+
 }
 
 function racio() {
@@ -827,23 +834,25 @@ function cenarioInicialConsumosAquecimento() {
     var conhece_aqs = $('#cons-aqs').val();
     var conhece_cons = $('#consumo-quest').val();
     var consumo_option = $('#aquecimento-consumo').val();
-    var meses_input = $("input[name='aquecimentoConsumosMeses[]']");
-    var anual_input = $("input[name='aquecimentoConsumoAnualTotal']").val();
+    //var meses_input = $("input[name='aquecimentoConsumosMeses[" + i + "]']");
+    var anual_input = $("#total_consumo_somatorio_aquecimento").val();
     var fonte = $('#fonte-aq').val();
     var idDistrito = $('#distrito').val();
-    var aqs_mes = $("input[name='aqsConsumosMeses[]']");
+    //var aqs_mes = $("input[name='aqsConsumosMeses[]']");
 
     cenario_inicial_aquecimento_array = [];
     cenario_inicial_aquecimento_total = 0;
 
     for (var i = 0; i < meses_numero_horas.length; i++) {
+        var meses_input = new Number($("input[name='aquecimentoConsumosMeses[" + i + "]']").val());
+        var aqs_mes = new Number($("input[name='aqsConsumosMeses[" + i + "]']").val());
 
         if ((i >= 0 && i < 5) || i == 9 || i == 10 || i == 11) {
             //E(OU(Tecnologia!$C$10(conhece_consumo)=Info!$C$7(nao);Tecnologia!$C$10="");Dados!$D$15(conhece_consumos_cli)=Info!$C$6(sim);Consumos!$C$3(aq_consumo_disponiveis)=Info!$C$44(mensal))
             if ((conhece_aqs == 1 || conhece_aqs == '') && conhece_cons == 0 && consumo_option == 1) {
                 //Consumos!C6 * PROCV(Tecnologia!$C$2; Info!$B$28: $H$34; 7);
 
-                cenario_inicial_aquecimento_array[i] = meses_input[i].value * tecnologia_atual_aquecimento[fonte].fator_conversao;
+                cenario_inicial_aquecimento_array[i] = meses_input * tecnologia_atual_aquecimento[fonte].fator_conversao;
 
                 //E(OU(Tecnologia!$C$10(conhece_consumo)=Info!$C$7(nao);Tecnologia!$C$10="");Dados!$D$15(conhece_consumos_cli)=Info!$C$6(sim);Consumos!$C$3(aq_consumo_disponiveis)=Info!$C$43(anual))
             } else if ((conhece_aqs == 1 || conhece_aqs == '') && conhece_cons == 0 && consumo_option == 0) {
@@ -862,14 +871,14 @@ function cenarioInicialConsumosAquecimento() {
                 cenario_inicial_aquecimento_array[i] = anual_input * tecnologia_atual_aquecimento[fonte].fator_conversao * irradiacao_temp_amb_temp_agua[idDistrito].mesI[i].valorPerc - aqs_mes[i].value;
 
                 //E(Tecnologia!$C$10=Info!$C$6;Dados!$D$15=Info!$C$6;Consumos!$C$3=Info!$C$44(mensal);(Consumos!C6(consumomes[i])*PROCV(Tecnologia!$C$2;Info!$B$28:$H$34;7)(tec_actual.factConversao))-aqs_mes[i]<0)
-            } else if (conhece_aqs == 0 && conhece_cons == 0 && consumo_option == 1 && (meses_input[i].value * tecnologia_atual_aquecimento[fonte].fator_conversao) - aqs_mes[i].value < 0) {
+            } else if (conhece_aqs == 0 && conhece_cons == 0 && consumo_option == 1 && (meses_input * tecnologia_atual_aquecimento[fonte].fator_conversao) - aqs_mes[i].value < 0) {
                 cenario_inicial_aquecimento_array[i] = 0;
 
                 //E(Tecnologia!$C$10=Info!$C$6;Dados!$D$15=Info!$C$6;Consumos!$C$3=Info!$C$44)
             } else if (conhece_aqs == 0 && conhece_cons == 0 && consumo_option == 1) {
                 //(Consumos!C6 * PROCV(Tecnologia!$C$2; Info!$B$28: $H$34; 7)) -E4
 
-                cenario_inicial_aquecimento_array[i] = meses_input[i].value * tecnologia_atual_aquecimento[fonte].fator_conversao;
+                cenario_inicial_aquecimento_array[i] = meses_input * tecnologia_atual_aquecimento[fonte].fator_conversao;
 
             } else {
                 //Cálculos!F14
@@ -882,12 +891,12 @@ function cenarioInicialConsumosAquecimento() {
             if (conhece_cons == 0 && consumo_option == 1) {
                 //Consumos!C11 * PROCV(Tecnologia!$C$2; Info!$B$28: $H$34; 7);
 
-                cenario_inicial_aquecimento_array[i] = meses_input[i].value * tecnologia_atual_aquecimento[fonte].fator_conversao;
+                cenario_inicial_aquecimento_array[i] = meses_input * tecnologia_atual_aquecimento[fonte].fator_conversao;
 
                 //SE(E(Dados!$D$15 = Info!$C$6; Consumos!$C$3 = Info!$C$43); 
             } else if (conhece_cons == 0 && consumo_option == 0) {
                 cenario_inicial_aquecimento_array[i] = 0;
-            } else  {
+            } else {
                 //Cálculos!F19))
                 cenario_inicial_aquecimento_array[i] = consumo_aq_meses[i];
             }

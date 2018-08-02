@@ -1,3 +1,7 @@
+var rowId = 1;
+
+var rowId2 = 1;
+
 var first_total = 0;
 
 var paredes_area = 0;

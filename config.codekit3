@@ -628,6 +628,26 @@
 		"oAP": "\/js\/info.js.bak",
 		"oF": 0
 		},
+	"\/js\/jquery.min.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/js\/jquery.min-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
+	"\/js\/jquery.validate.min.js": {
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "\/js\/jquery.validate.min-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
 	"\/js\/main-min.js": {
 		"ft": 64,
 		"ma": 0,
@@ -653,6 +673,13 @@
 		"ft": 8192,
 		"oA": 0,
 		"oAP": "\/js\/main.js.bak",
+		"oF": 0
+		},
+	"\/TODO.txt": {
+		"cB": 0,
+		"ft": 8192,
+		"oA": 0,
+		"oAP": "\/TODO.txt",
 		"oF": 0
 		}
 	},

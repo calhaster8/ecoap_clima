@@ -1322,7 +1322,7 @@ var perfil_mensal = [
             }
         ]
     },
-    {
+    /*{
         nome: "Definir 'perfil'",
         latitude: -5,
         consumo: 0.6, //60%
@@ -1376,7 +1376,7 @@ var perfil_mensal = [
                 valor: 0
             }
         ]
-    }
+    }*/
 ];
 
 var perfil_semanal = [
@@ -1395,11 +1395,11 @@ var perfil_semanal = [
         valor: 0, //0%
         consumo: 0.8 //80%
     },
-    {
+    /*{
         nome: "Definir 'perfil'",
         valor: 0, //0%
         consumo: 0.8 //80%
-    }
+    }*/
 ];
 
 var temperatura_utilizacao = 50; //°C
