@@ -1,3 +1,7 @@
+var rowId = 1;
+
+var rowId2 = 1;
+
 var first_total = 0;
 
 var paredes_area = 0;
@@ -39,11 +43,17 @@ var total_4_kwh_verao = 0;
 var nec_aq_meses = [];
 var total_nec_meses = 0;
 
+var nec_arr_meses = [];
+var total_nec_arr_meses = 0;
+
 var nec_aqs_meses = [];
 var total_nec_aqs_meses = 0;
 
 var consumo_aq_meses = [];
 var total_consumo_meses = 0;
+
+var consumo_arr_meses = [];
+var total_consumo_arr_meses = 0;
 
 var consumo_aqs_meses = [];
 var total_consumo_aqs_meses = 0;
