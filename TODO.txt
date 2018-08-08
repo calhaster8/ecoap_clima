@@ -1,3 +1,5 @@
 - Validate 1a tabela (step 1)
 - Somatorio Total Anual Mensal (step 4)
 - Bug Calculos (quando se conhece consumos) devido à não existência de uma classe energética
+
+- say what what
