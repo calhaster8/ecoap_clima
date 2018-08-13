@@ -1,13 +1,13 @@
 var utilizacao_calc = [
     {
         nome: "Aquecimento"
-    },
-    {
-        nome: "Arrefecimento"
-    },
-    {
-        nome: "Aquecimento e Arrefecimento"
     }
+//    {
+//        nome: "Arrefecimento"
+//    },
+//    {
+//        nome: "Aquecimento e Arrefecimento"
+//    }
 ];
 
 var escolhas = [
@@ -23,7 +23,7 @@ var fonteEnergeticaI = [
         unidade: [
             {
                 unid_nome: "kg",
-                valor: 4
+                valor: 4.67
             },
             {
                 unid_custo_nome: "€/kg",
@@ -49,7 +49,7 @@ var fonteEnergeticaI = [
         unidade: [
             {
                 unid_nome: "m3",
-                valor: 12.96
+                valor: 10.53
             },
             {
                 unid_custo_nome: "€/m3",
@@ -62,7 +62,7 @@ var fonteEnergeticaI = [
         unidade: [
             {
                 unid_nome: "kg",
-                valor: 10.53
+                valor: 12.96
             },
             {
                 unid_custo_nome: "€/kg",
@@ -75,7 +75,7 @@ var fonteEnergeticaI = [
         unidade: [
             {
                 unid_nome: "l",
-                valor: 9.93
+                valor: 10.07
             },
             {
                 unid_custo_nome: "€/l",
@@ -116,7 +116,12 @@ var periodos_encerramento = [
     {
         periodo: "2 semanas em Dezembro, meses de Julho e Agosto",
         valor: 0 // 0%
-    }
+    },
+    {
+        periodo: "Não tem",
+        valor: 0 // 0%
+    },
+    
 ];
 
 var tecnologia_atual_aquecimento = [
@@ -139,7 +144,7 @@ var tecnologia_atual_aquecimento = [
             }
         ],
         unidade: "kg",
-        fator_conversao: 4,
+        fator_conversao: 4.67,
         fonte_energia: "Biomassa"
     },
     {
@@ -205,7 +210,7 @@ var tecnologia_atual_aquecimento = [
             }
         ],
         unidade: "litro",
-        fator_conversao: 9.93,
+        fator_conversao: 10.07,
         fonte_energia: "Gasóleo"
     },
     {
@@ -276,88 +281,88 @@ var tecnologia_atual_aquecimento = [
     }
 ];
 
-var tecnologia_atual_arrefecimento = [
-    {
-        nome: "Chiller (ciclo de absorção)",
-        custo_unit: 0.20, //euros
-        rendimento: [
-            {
-                nome: "< 10 anos",
-                valor: 3 //300%
-            },
-            {
-                nome: "> 20 anos",
-                valor: 2.5 //250%
-            },
-            {
-                nome: "10 a 20 anos",
-                valor: 2.75 //275%
-            }
-        ],
-        unidade: "kWh",
-        fonte_energia: "Energia Elétrica"
-    },
-    {
-        nome: "Chiller (codensação a ar)",
-        custo_unit: 0.20, //euros
-        rendimento: [
-            {
-                nome: "< 10 anos",
-                valor: 2.75 //275%
-            },
-            {
-                nome: "> 20 anos",
-                valor: 2 //200%
-            },
-            {
-                nome: "10 a 20 anos",
-                valor: 2.50 //250%
-            }
-        ],
-        unidade: "kWh",
-        fonte_energia: "Energia Elétrica"
-    },
-    {
-        nome: "Chiller (codensação a água)",
-        custo_unit: 0.20, //euros
-        rendimento: [
-            {
-                nome: "< 10 anos",
-                valor: 3 //300%
-            },
-            {
-                nome: "> 20 anos",
-                valor: 2.5 //250%
-            },
-            {
-                nome: "10 a 20 anos",
-                valor: 2.75 //275%
-            }
-        ],
-        unidade: "kWh",
-        fonte_energia: "Energia Elétrica"
-    },
-    {
-        nome: "Expansão direta (arrefecimento)",
-        custo_unit: 0.20, //euros
-        rendimento: [
-            {
-                nome: "< 10 anos",
-                valor: 2.75 //275%
-            },
-            {
-                nome: "> 20 anos",
-                valor: 2 //200%
-            },
-            {
-                nome: "10 a 20 anos",
-                valor: 2.50 //250%
-            }
-        ],
-        unidade: "kWh",
-        fonte_energia: "Energia Elétrica"
-    }
-];
+//var tecnologia_atual_arrefecimento = [
+//    {
+//        nome: "Chiller (ciclo de absorção)",
+//        custo_unit: 0.20, //euros
+//        rendimento: [
+//            {
+//                nome: "< 10 anos",
+//                valor: 3 //300%
+//            },
+//            {
+//                nome: "> 20 anos",
+//                valor: 2.5 //250%
+//            },
+//            {
+//                nome: "10 a 20 anos",
+//                valor: 2.75 //275%
+//            }
+//        ],
+//        unidade: "kWh",
+//        fonte_energia: "Energia Elétrica"
+//    },
+//    {
+//        nome: "Chiller (codensação a ar)",
+//        custo_unit: 0.20, //euros
+//        rendimento: [
+//            {
+//                nome: "< 10 anos",
+//                valor: 2.75 //275%
+//            },
+//            {
+//                nome: "> 20 anos",
+//                valor: 2 //200%
+//            },
+//            {
+//                nome: "10 a 20 anos",
+//                valor: 2.50 //250%
+//            }
+//        ],
+//        unidade: "kWh",
+//        fonte_energia: "Energia Elétrica"
+//    },
+//    {
+//        nome: "Chiller (codensação a água)",
+//        custo_unit: 0.20, //euros
+//        rendimento: [
+//            {
+//                nome: "< 10 anos",
+//                valor: 3 //300%
+//            },
+//            {
+//                nome: "> 20 anos",
+//                valor: 2.5 //250%
+//            },
+//            {
+//                nome: "10 a 20 anos",
+//                valor: 2.75 //275%
+//            }
+//        ],
+//        unidade: "kWh",
+//        fonte_energia: "Energia Elétrica"
+//    },
+//    {
+//        nome: "Expansão direta (arrefecimento)",
+//        custo_unit: 0.20, //euros
+//        rendimento: [
+//            {
+//                nome: "< 10 anos",
+//                valor: 2.75 //275%
+//            },
+//            {
+//                nome: "> 20 anos",
+//                valor: 2 //200%
+//            },
+//            {
+//                nome: "10 a 20 anos",
+//                valor: 2.50 //250%
+//            }
+//        ],
+//        unidade: "kWh",
+//        fonte_energia: "Energia Elétrica"
+//    }
+//];
 
 var tecnologia_futura_aquecimento = [
     {
@@ -421,47 +426,47 @@ var tecnologia_futura_aquecimento = [
     }
 ];
 
-var tecnologia_futura_arrefecimento = [
-    {
-        nome: "Chiller (ciclo de absorção)",
-        custo_unit: 0.20, //euros
-        rendimento: 3,
-        potencia: 0.03,
-        investimento: 1000,
-        unidade: "kWh",
-        fonte_energia: "Energia Elétrica"
-    },
-    {
-        nome: "Chiller (condensação a ar",
-        custo_unit: 0.20, //euros
-        rendimento: 3.75,
-        potencia: 0.03,
-        investimento: 1000,
-        unidade: "kWh",
-        fonte_energia: "Energia Elétrica"
-    },
-    {
-        nome: "Chiller (consensação a água)",
-        custo_unit: 0.20, //euros
-        rendimento: 4,
-        potencia: 0.03,
-        investimento: 1000,
-        unidade: "kWh",
-        fonte_energia: "Energia Elétrica"
-    },
-    {
-        nome: "Expansão direta (arrefecimento)",
-        custo_unit: 0.20, //euros
-        rendimento: 3.25,
-        potencia: 0.03,
-        investimento: 1000,
-        unidade: "kWh",
-        fonte_energia: "Energia Elétrica"
-    },
-    {
-        nome: "Não intervir"
-    }
-];
+//var tecnologia_futura_arrefecimento = [
+//    {
+//        nome: "Chiller (ciclo de absorção)",
+//        custo_unit: 0.20, //euros
+//        rendimento: 3,
+//        potencia: 0.03,
+//        investimento: 1000,
+//        unidade: "kWh",
+//        fonte_energia: "Energia Elétrica"
+//    },
+//    {
+//        nome: "Chiller (condensação a ar",
+//        custo_unit: 0.20, //euros
+//        rendimento: 3.75,
+//        potencia: 0.03,
+//        investimento: 1000,
+//        unidade: "kWh",
+//        fonte_energia: "Energia Elétrica"
+//    },
+//    {
+//        nome: "Chiller (consensação a água)",
+//        custo_unit: 0.20, //euros
+//        rendimento: 4,
+//        potencia: 0.03,
+//        investimento: 1000,
+//        unidade: "kWh",
+//        fonte_energia: "Energia Elétrica"
+//    },
+//    {
+//        nome: "Expansão direta (arrefecimento)",
+//        custo_unit: 0.20, //euros
+//        rendimento: 3.25,
+//        potencia: 0.03,
+//        investimento: 1000,
+//        unidade: "kWh",
+//        fonte_energia: "Energia Elétrica"
+//    },
+//    {
+//        nome: "Não intervir"
+//    }
+//];
 
 var distrito_info = [
     {
@@ -1321,62 +1326,62 @@ var perfil_mensal = [
                 valor: 0.6 //60%
             }
         ]
-    },
-    {
-        nome: "Definir 'perfil'",
-        latitude: -5,
-        consumo: 0.6, //60%
-        tabela: [
-            {
-                mes: 'Jan',
-                valor: 0
-            },
-            {
-                mes: 'Fev',
-                valor: 0
-            },
-            {
-                mes: 'Mar',
-                valor: 0
-            },
-            {
-                mes: 'Abr',
-                valor: 0
-            },
-            {
-                mes: 'Mai',
-                valor: 0
-            },
-            {
-                mes: 'Jun',
-                valor: 0
-            },
-            {
-                mes: 'Jul',
-                valor: 0
-            },
-            {
-                mes: 'Ago',
-                valor: 0
-            },
-            {
-                mes: 'Set',
-                valor: 0
-            },
-            {
-                mes: 'Out',
-                valor: 0
-            },
-            {
-                mes: 'Nov',
-                valor: 0
-            },
-            {
-                mes: 'Dez',
-                valor: 0
-            }
-        ]
     }
+//    {
+//        nome: "Definir 'perfil'",
+//        latitude: -5,
+//        consumo: 0.6, //60%
+//        tabela: [
+//            {
+//                mes: 'Jan',
+//                valor: 0
+//            },
+//            {
+//                mes: 'Fev',
+//                valor: 0
+//            },
+//            {
+//                mes: 'Mar',
+//                valor: 0
+//            },
+//            {
+//                mes: 'Abr',
+//                valor: 0
+//            },
+//            {
+//                mes: 'Mai',
+//                valor: 0
+//            },
+//            {
+//                mes: 'Jun',
+//                valor: 0
+//            },
+//            {
+//                mes: 'Jul',
+//                valor: 0
+//            },
+//            {
+//                mes: 'Ago',
+//                valor: 0
+//            },
+//            {
+//                mes: 'Set',
+//                valor: 0
+//            },
+//            {
+//                mes: 'Out',
+//                valor: 0
+//            },
+//            {
+//                mes: 'Nov',
+//                valor: 0
+//            },
+//            {
+//                mes: 'Dez',
+//                valor: 0
+//            }
+//        ]
+//    }
 ];
 
 var perfil_semanal = [
@@ -1394,12 +1399,12 @@ var perfil_semanal = [
         nome: "Consumo similar em todos os dias da semana",
         valor: 0, //0%
         consumo: 0.8 //80%
-    },
-    {
-        nome: "Definir 'perfil'",
-        valor: 0, //0%
-        consumo: 0.8 //80%
     }
+//    {
+//        nome: "Definir 'perfil'",
+//        valor: 0, //0%
+//        consumo: 0.8 //80%
+//    }
 ];
 
 var temperatura_utilizacao = 50; //°C
@@ -1413,21 +1418,21 @@ var desvios = [
         nome: "Desvio de Sul +/- 20°",
         valor: 20
     },
-    {
-        nome: "Este",
-        valor: "!"
-    },
-    {
-        nome: "Oeste",
-        valor: "!"
-    },
+//    {
+//        nome: "Este",
+//        valor: "!"
+//    },
+//    {
+//        nome: "Oeste",
+//        valor: "!"
+//    },
     {
         nome: "Sul",
         valor: 0
     },
     {
         nome: "Outra orientação (desvio de Sul)",
-        valor: "preencher"
+        valor: "Indicar desvio, em graus (º)"
     }
 ];
 

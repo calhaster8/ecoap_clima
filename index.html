@@ -1,711 +1,712 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <link rel="shortcut icon" href="include/img/logo-head-small.png" type="image/png"/>
-    <!--BOOTSTRAP CDN-->
-    <link rel="stylesheet" href="include/css/bootstrap.min.css"/>
-    <!--CUSTOM CSS-->
-    <link rel="stylesheet" href="include/css/style.css"/>
-    <!--BOOTSTRAP + JQUERY CDN-->
-    <script src="include/js/jquery.min.js"></script>
-    <script src="include/js/bootstrap.min.js"></script>
-    <!--CUSTOM JS-->
-    <script src="include/js/main.js"></script>
-    <script src="include/js/info.js"></script>
-    <script src="include/js/calculos.js"></script>
-    <script src="include/js/globals.js"></script>
-    <title>Calculadora - Climatização</title>
-  </head>
-  <body>
-    <header class="header">
-      <!--.logo--><span class="header-title">Calculadora - Climatização</span>
-    </header>
-    <main class="main container">
-      <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="main-content">
-            <!--Dados-->
-            <div id="dados" style="display:block;" data-id="1" class="step">
-              <div class="dados-titulo"><span class="first">Dados</span></div>
-              <div class="dados-child">
-                <div class="dado escolha">
-                  <label for="escolha">Utilizar a calculadora para:</label>
-                  <select id="escolhe" name="escolha" class="sel">
-                    <option value="">Seleccionar opção</option>
-                  </select>
-                </div>
-                <div class="dado dist">
-                  <label for="distrito">Distrito:</label>
-                  <select id="distrito" name="distrito" class="sel">
-                    <option value="">Seleccionar opção</option>
-                  </select>
-                </div>
-                <div class="dado area">
-                    <label for="area-dados-input">Área a climatizar (m2)</label>
-                  <input id="area-dados-input" type="number" placeholder="0 m2" class="form-control xInput"/>
-                </div>
-                <div class="tabela-consumos">
-                  <table id="consumos-energeticos" class="table table-bordered">
-                    <tbody>
-                      <tr class="titulo_row">
-                        <th colspan="2" class="tituloTH">Consumos energéticos anuais</th>
-                        <td class="in">
-                          <input id="total-titulo" type="number" class="form-control xInput" disabled="disabled"/>
-                        </td>
-                        <th class="tituloTH">&nbsp</th>
-                      </tr>
-                      <!-- caixa 1-->
-                      <tr id="copy-row-consume" class="textTR">
-                        <td rowspan="2" class="select-cell">
-                          <select id="consumos-caixa" name="consumos-caixa[]" class="consumos-caixa">
-                            <option value="">Seleccionar opção</option>
-                          </select>
-                        </td>
-                        <td id="unidade-consumo" class="in">unidade</td>
-                        <td class="input-table">
-                          <input id="valor-input-consumo" name="valor-input-consumo[]" type="number" placeholder="0" class="form-control xInput"/>
-                        </td>
-                        <td id="remove-consumo" rowspan="2" class="in">
-                            <button id="remove-consume" type="button" class="but-dados">Remover</button>
-                        </td>
-                      </tr>
-                      <tr id="copy-row-consume-2" class="textTR">
-                        <td id="unidade-custo-consumo" class="in">€/unidade</td>
-                        <td class="in">
-                            <input id="valor-pred-consumo" name="valor-pred-consumo[]" type="number" placeholder="0" class="form-control xInput"/>
-                        </td>
-                      </tr>
-                      <!-- caixa 2-->
-                      <tr class="textTR">
-                        <td colspan="3" class="in"></td>
-                        <td class="in">
-                            <button id="add-consume" type="button" class="but-dados">Adicionar</button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="dado consumo-question">
-                  <label for="consumo-quest">Conhece os consumos anuais de energia para climatização?</label>
-                  <select id="consumo-quest" name="consumo-quest" class="sel">
-                    <option value="">Seleccionar opção</option>
-                    <option value="0">Sim</option>
-                    <option value="1">Não</option>
-                  </select>
-                </div>
-                <div class="dado cobertura-question hid consumo-link">
-                  <label for="cobertura">A área a climatizar tem cobertura em contato com o exterior?</label>
-                  <select id="cobertura" name="cobertura" class="sel">
-                    <option value="">Seleccionar opção</option>
-                    <option value="0">Sim</option>
-                    <option value="1">Não</option>
-                  </select>
-                </div>
-                <div class="dado cobertura-answer cobertura-link">
-                  <label for="cobertura-input">Área de cobertura em contato com o exterior (m2)</label>
-                  <input id="area-cobertura-input" type="text" placeholder="0 m2" class="form-control xInput"/><small class="nota">Área não pode ser superior à área total a climatizar</small>
-                </div>
-                <div class="dado perfil-semanal hid consumo-link">
-                  <label for="perfil">Perfil semanal das necessidades de climatização</label>
-                  <select id="perfil" name="perfil" class="sel">
-                    <option value="">Seleccionar opção</option>
-                  </select>
-                </div>
-                <div class="dado periodos hid consumo-link">
-                  <label for="periodos">Período(s) de encerramento</label>
-                  <select id="periodos" name="periodos" class="sel">
-                    <option value="">Seleccionar opção</option>
-                    <option value="">Não tem</option>
-                  </select>
-                </div>
-                <div class="dado classe-energia hid consumo-link">
-                  <label for="classe-en">Classe energética do edifício</label>
-                  <select id="classe-en" name="classe-en" class="sel">
-                    <option value="">Seleccionar opção</option>
-                  </select>
-                </div>
-                <div class="dado ano-construct classe-link">
-                  <label for="ano">Ano de construção (aprox.)</label>
-                  <select id="ano" name="ano" class="sel">
-                    <option value="">Seleccionar opção</option>
-                  </select>
-                </div>
-                <div class="dado tipo-envidracado hid-ano ano-construct-link">
-                  <label for="tipo-envid">Tipo de envidraçados</label>
-                  <select id="tipo-envid" name="tipo-envid" class="sel">
-                    <option value="">Seleccionar opção</option>
-                  </select>
-                </div>
-                <div class="dado isolamento-paredes hid-ano ano-construct-link">
-                  <label for="isol-paredes">Existe isolamento térmico nas paredes?</label>
-                  <select id="isol-paredes" name="isol-paredes" class="sel">
-                    <option value="">Seleccionar opção</option>
-                    <option value="0">Sim</option>
-                    <option value="1">Não</option>
-                  </select>
-                </div>
-                <div class="dado isolamento-cobertura hid-ano ano-construct-link">
-                  <label for="isol-cobertura">Existe isolamento térmico na cobertura?</label>
-                  <select id="isol-cobertura" name="isol-cobertura" class="sel">
-                    <option value="">Seleccionar opção</option>
-                    <option value="0">Sim</option>
-                    <option value="1">Não</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div id="tecnologia" data-id="2" class="step">
-              <div class="dados-titulo"><span>Tecnologia</span></div>
-              <div class="dados-child">
-                <div class="dado fonte-aquecimento">
-                  <label for="fonte-aq">Atual fonte de aquecimento</label>
-                  <select id="fonte-aq" name="fonte-aq" class="sel">
-                    <option value="">Seleccionar opção</option>
-                  </select>
-                </div>
-                <div class="dado pot-aq">
-                  <label for="potencia-aq">Potência (kW)</label>
-                  <input id="potencia-aq" type="number" placeholder="0 kW" class="form-control xInput"/>
-                </div>
-                <!-- rend or cop dependendo da fonte-->
-                <div class="dado rend">
-                  <label id="labelRendimento" for="rendimento"></label>
-                  <select id="rendimento" name="rendimento" class="sel">
-                    <option value="">Seleccionar opção</option>
-                    <option value="0">Não conhece</option>
-                    <option value="2">Inserir rendimento</option>
-                  </select>
-                  <label id="labelIRendman" for="iRendMan" style="display:none;">Insira o rendimento</label>
-                  <input id="iRendMan" type="number" min="0" max="500" step="0.1" name="iRendMan" placeholder="0" style="display:none;" />
-                </div>
-                <div class="dado age">
-                  <label for="idade">Idade (aprox.)</label>
-                  <select id="idade" name="idade" class="sel">
-                    <option value="">Seleccionar opção</option>
-                  </select>
-                </div>
-                <div class="dado custo-energia-unit-aq">
-                  <label id="custo-en-unit-aq-label" for="custo-en-unit-aq">Custo energético unitário (€/kWh)</label>
-                  <input id="custo-en-unit-aq" type="number" placeholder="pré-definido" class="form-control xInput"/>
-                </div>
-                <div style="display: none;" class="dado use-arr">
-                  <label for="use-arr">Utilizada também para arrefecimento?</label>
-                  <select id="use-arr" name="use-arr" class="sel">
-                    <option value="">Seleccionar opção</option>
-                    <option value="0">Sim</option>
-                    <option value="1">Não</option>
-                  </select>
-                </div>
-                <div class="dado use-aqs">
-                  <label for="use-aqs">É utilizada também para AQS?</label>
-                  <select id="use-aqs" name="use-aqs" class="sel">
-                    <option value="">Seleccionar opção</option>
-                    <option value="0">Sim</option>
-                    <option value="1">Não</option>
-                  </select>
-                </div>
-                <div class="dado pres-aqs use-aqs-link">
-                  <label for="pres-aqs">Tem interesse em incluir as AQS na presente análise?</label>
-                  <select id="pres-aqs" name="pres-aqs" class="sel">
-                    <option value="">Seleccionar opção</option>
-                    <option value="0">Sim</option>
-                    <option value="1">Não</option>
-                  </select>
-                </div>
-                <div class="dado cons-aqs pres-aqs-link">
-                  <label for="cons-aqs">Conhece os consumos para AQS?</label>
-                  <select id="cons-aqs" name="cons-aqs" class="sel">
-                    <option value="">Seleccionar opção</option>
-                    <option value="0">Sim</option>
-                    <option value="1">Não</option>
-                  </select>
-                </div>
-                <div class="dado fonte-ar">
-                  <label for="fonte-ar">Atual fonte de arrefecimento</label>
-                  <select id="fonte-ar" name="fonte-ar" class="sel">
-                    <option value="">Seleccionar opção</option>
-                  </select>
-                </div>
-                <div class="dado pot-ar">
-                  <label for="potencia-ar">Potência (kW)</label>
-                  <input type="number" placeholder="0 W" class="form-control xInput"/>
-                </div>
-                <div class="dado eer">
-                  <label for="eer">EER</label>
-                  <select id="eer" name="eer" class="sel">
-                    <option value="">Seleccionar opção</option>
-                    <option value="0">Não conhece</option>
-                  </select>
-                </div>
-                <div class="dado age-eer eer-link">
-                  <label for="age-eer">Idade (aprox.)</label>
-                  <select id="age-eer" name="age-eer" class="sel">
-                    <option value="">Seleccionar opção</option>
-                    <option value="0">< 10 anos</option>
-                    <option value="1">> 20 anos</option>
-                    <option value="2">10 a 20 anos</option>
-                  </select>
-                </div>
-                <div class="dado custo-energia-unit-ar">
-                  <label for="custo-en-unit-ar">Custo energético unitário (€/kWh)</label>
-                  <input id="custo-en-unit-ar" type="number" placeholder="pré-definido" disabled="disabled" class="form-control xInput"/>
-                </div>
-              </div>
-            </div>
-            <div id="perfilAQS" data-id="3" class="step">
-              <div class="dados-titulo"><span>Perfil AQS</span></div>
-              <div class="dados-child">
-                <div class="tabela-aguas">
-                  <table id="water-usage" class="table table-bordered">
-                    <tbody>
-                      <tr class="titulo_row">
-                        <th colspan="3" class="tituloTH">Utilização diária de águas quentes sanitárias (média representativa do período de maior consumo)</th>
-                        <th class="tituloTH">&nbsp</th>
-                      </tr>
-                      <tr id="copy-row" class="textTR">
-                        <td class="select-cell">
-                          <select id="tipo-consumo" name="tipo-consumo[]">
-                            <option value="">Seleccionar opção</option>
-                          </select>
-                        </td>
-                        <!--#tipo-consumo-descricao-->
-                        <td id="desctipoconsumo" class="in"></td>
-                        <td class="in">
-                          <input id="tipoconsumoval" type="number" placeholder="0" name="tipoconsumoval[]" class="form-control xInput"/>
-                        </td>
-                        <td id="removetipoconsumo" class="in">
-                          <button id="remove" type="button" class="but-dados">Remover</button>
-                        </td>
-                      </tr>
-                      <tr class="textTR">
-                        <td colspan="3" class="in"></td>
-                        <td class="in">
-                          <button id="add" type="button" class="but-dados">Adicionar</button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="dado perfil-mensal">
-                  <label for="perfil-mensal">Perfil de utilização mensal</label>
-                  <select id="perfil-mensal" name="perfil-mensal" class="sel">
-                    <option value="">Seleccionar opção</option>
-                  </select>
-                </div>
-                <div class="tabelas table-mensal hide-perfil-mensal">
-                  <table class="table table-bordered">
-                    <tbody>
-                      <tr class="titulo_row">
-                        <th class="tituloTH">Jan</th>
-                        <th class="tituloTH">Fev</th>
-                        <th class="tituloTH">Mar</th>
-                        <th class="tituloTH">Abr</th>
-                        <th class="tituloTH">Mai</th>
-                        <th class="tituloTH">Jun</th>
-                        <th class="tituloTH">Jul</th>
-                        <th class="tituloTH">Ago</th>
-                        <th class="tituloTH">Set</th>
-                        <th class="tituloTH">Out</th>
-                        <th class="tituloTH">Nov</th>
-                        <th class="tituloTH">Dez</th>
-                      </tr>
-                      <tr class="textTR">
-                        <td class="in">
-                          <input id="mensal-input-1" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                        <td class="in">
-                          <input id="mensal-input-2" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                        <td class="in">
-                          <input id="mensal-input-3" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                        <td class="in">
-                          <input id="mensal-input-4" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                        <td class="in">
-                          <input id="mensal-input-5" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                        <td class="in">
-                          <input id="mensal-input-6" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                        <td class="in">
-                          <input id="mensal-input-7" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                        <td class="in">
-                          <input id="mensal-input-8" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                        <td class="in">
-                          <input id="mensal-input-9" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                        <td class="in">
-                          <input id="mensal-input-10" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                        <td class="in">
-                          <input id="mensal-input-11" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                        <td class="in">
-                          <input id="mensal-input-12" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="dado perfil-semanal">
-                  <label for="perfil-semanal">Perfil de utilização semanal</label>
-                  <select id="perfil-semanal" name="perfil-semanal" class="sel">
-                    <option value="">Seleccionar opção</option>
-                  </select>
-                </div>
-                <div class="tabelas table-semanal hide-perfil-semanal">
-                  <table class="table table-bordered">
-                    <tbody>
-                      <tr class="titulo_row">
-                        <th class="tituloTH">2ª</th>
-                        <th class="tituloTH">3ª</th>
-                        <th class="tituloTH">4ª</th>
-                        <th class="tituloTH">5ª</th>
-                        <th class="tituloTH">6ª</th>
-                        <th class="tituloTH">Sáb</th>
-                        <th class="tituloTH">Dom</th>
-                      </tr>
-                      <tr class="textTR">
-                        <td class="in">
-                          <input id="semanal-input-1" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                        <td class="in">
-                          <input id="semanal-input-2" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                        <td class="in">
-                          <input id="semanal-input-3" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                        <td class="in">
-                          <input id="semanal-input-4" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                        <td class="in">
-                          <input id="semanal-input-5" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                        <td class="in">
-                          <input id="semanal-input-6" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                        <td class="in">
-                          <input id="semanal-input-7" type="text" placeholder="0%" class="form-control xInput"/>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            <div id="consumos" data-id="4" class="step">
-              <div class="dados-titulo"><span>Consumo</span></div>
-              <div class="dados-child">
-                <div id="tableConsumoBox" class="tabelas">
-                  <div id="tabela-row" class="row">
-                    <div id="aquecimento-size" class="col-md-4">
-                      <!--AQUECIMENTO-->
-                      <table class="table table-bordered">
-                        <tbody>
-                          <tr class="titulo_row">
-                            <th class="tituloTH">&nbsp</th>
-                            <th class="tituloTH">Aquecimento</th>
-                          </tr>
-                          <tr class="textTR">
-                            <td class="in">Consumos de energia disponíveis</td>
-                            <td class="select-cell">
-                              <select id="aquecimento-consumo" name="aquecimento-consumo" class="sel">
-                                <option value="">Seleccionar opção</option>
-                              </select>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <div id="tabela-consumo-aquecimento" class="tabelas"></div>
-                    </div>
-                    <div id="arrefecimento-size" class="col-md-4">
-                      <!--ARREFECIMENTO-->
-                      <table id="remove-table-arrefecimento" class="table table-bordered">
-                        <tbody>
-                          <tr class="titulo_row">
-                            <th class="tituloTH">&nbsp</th>
-                            <th class="tituloTH class">Arrefecimento</th>
-                          </tr>
-                          <tr class="textTR">
-                            <td class="in">Consumos de energia disponíveis</td>
-                            <td class="select-cell">
-                              <select id="arrefecimento-consumo" name="arrefecimento-consumo" class="sel">
-                                <option value="">Seleccionar opção</option>
-                              </select>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <div id="tabela-consumo-arrefecimento" class="tabelas"></div>
-                    </div>
-                    <div id="aqs-size" class="col-md-4">
-                      <!--AQS-->
-                      <table id="remove-table-aqs" class="table table-bordered">
-                        <tbody>
-                          <tr class="titulo_row">
-                            <th class="tituloTH">&nbsp</th>
-                            <th class="tituloTH class">AQS</th>
-                          </tr>
-                          <tr class="textTR">
-                            <td class="in">Consumos de energia disponíveis</td>
-                            <td class="select-cell">
-                              <select id="aqs-consumo" name="aqs-consumo" class="sel">
-                                <option value="">Seleccionar opção</option>
-                              </select>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <div id="tabela-consumo-aqs" class="tabelas"></div>
-                    </div>
-                  </div>
-                </div>
-                <div id="tableConsumoBox" class="tabelas"></div>
-              </div>
-            </div>
-            <div id="medidas" data-id="5" class="step">
-              <div class="dados-titulo"><span>Medidas</span></div>
-              <div class="dados-child">
-                <!-- AQUECIMENTO-->
-                <div class="dado new-fonte-aq">
-                  <label for="new-fonte-aq">Nova fonte de aquecimento</label>
-                  <select id="new-fonte-aq" name="new-fonte-aq" class="sel">
-                    <option value="">Seleccionar opção</option>
-                  </select>
-                </div>
-                <div class="dado pot-med-aq">
-                  <label for="pot-med-aq">Potência (kW)</label>
-                  <input id="pot-med-aq" type="number" placeholder="0 W" class="form-control xInput"/>
-                </div>
-                <div class="dado rend-med">
-                  <label id="rend-med-label" for="rend-med">Rendimento (%)</label>
-                  <input id="rend-med" type="number" placeholder="0%" class="form-control xInput"/>
-                </div>
-                <div class="dado custo-unit-med-aq">
-                  <label id="custo-unit-med-aq-label" for="custo-unit-med-aq">Custo energético unitário (€/kWh)</label>
-                  <input id="custo-unit-med-aq" type="number" placeholder="0€" class="form-control xInput"/>
-                </div>
-                <!-- ARREFECIMENTO-->
-                <div class="dado new-fonte-ar">
-                  <label for="new-fonte-ar">Nova fonte de arrefecimento</label>
-                  <select id="new-fonte-ar" name="new-fonte-ar" class="sel">
-                    <option value="">Seleccionar opção</option>
-                  </select>
-                </div>
-                <div class="dado pot-med-ar">
-                  <label for="pot-med-ar">Potência (kW)</label>
-                  <input type="number" placeholder="0 W" class="form-control xInput"/>
-                </div>
-                <div class="dado eer-med-ar">
-                  <label for="eer-med-ar">EER</label>
-                  <input type="number" placeholder="Valor automático" disabled="disabled" class="form-control xInput"/>
-                </div>
-                <div class="dado custo-unit-med-ar">
-                  <label for="custo-unit-med-ar">Custo energético unitário</label>
-                  <input id="custo-unit-med-ar" type="number" placeholder="0€" class="form-control xInput"/>
-                </div>
-                <div class="dado simulacao">
-                  <label for="simulacao-aqs">Pretende simular solar térmico para AQS?</label>
-                  <select id="simulacao-aqs" name="simulacao-aqs" class="sel">
-                    <option value="">Seleccionar opção</option>
-                    <option value="0">Sim</option>
-                    <option value="1">Não</option>
-                  </select>
-                </div>
-                <!--sim-->
-                <div class="dado orientacao simulacao-link">
-                  <label for="orientacao-paineis">Qual a orientação solar do local de instalação do sistema solar (indicativa)?</label>
-                  <select id="orientacao-paineis" name="orientacao-paineis" class="sel">
-                    <option value="">Seleccionar opção</option>
-                  </select>
-                  <input id="orientacao-input" type="number" placeholder="0" disabled="disabled" class="form-control xInput"/>
-                </div>
-              </div>
-            </div>
-            
-            <div id="resumo" data-id="6" class="step">
-              <div class="dados-titulo"><span>Resumo</span></div>
-              <div class="dados-child">
-                <table class="table table-bordered" id="tabela-resumo-aqu">
-                  <tbody>
-                    <tr class="titulo_row">
-                      <th rowspan="2" class="tituloTH">Resultados</th>
-                      <th colspan="2" class="tituloTH">Aquecimento</th>
-                      <!--<th colspan="2" class="tituloTH">Arrefecimento</th>-->
-                      <th colspan="2" class="tituloTH">AQS (apoio)</th>
-                    </tr>
-                    <tr class="titulo_row"> 
-                      <th class="tituloTH">Cenário Inicial</th>
-                      <th class="tituloTH">Cenário Final</th>
-                      <!--<th class="tituloTH">Inicial</th>-->
-                      <!--<th class="tituloTH">Final</th>-->
-                      <th class="tituloTH">Cenário Inicial</th>
-                      <th class="tituloTH">Cenário Final</th>
-                    </tr>
-                    <tr class="textTR">
-                      <td class="in">Equipamento</td>
-                      <td class="center" id="equipamento-aqu-inicial"></td>
-                      <td class="center" id="equipamento-aqu-final"></td>
-                      <td class="center">-</td>
-                      <td class="center">-</td>
-                    </tr>
-                    <tr class="textTR">
-                      <td class="in">Potência nominal</td>
-                      <td class="center" id="potencia-aqu-inicial"></td>
-                      <td class="center" id="potencia-aqu-final"></td>
-                      <td class="center">-</td>
-                      <td class="center">-</td>
-                    </tr>
-                    <tr class="textTR">
-                      <td class="in">Rendimento</td>
-                      <td class="center" id="rendimento-aqu-inicial"></td>
-                      <td class="center" id="rendimento-aqu-final"></td>
-                      <td class="center">-</td>
-                      <td class="center">-</td>
-                    </tr>
-                    <tr class="textTR">
-                      <td class="in">Fonte de energia</td>
-                      <td class="center" id="fonte-energia-aqu-inicial"></td>
-                      <td class="center" id="fonte-energia-aqu-final"></td>
-                      <td class="center">-</td>
-                      <td class="center">-</td>
-                    </tr>
-                    <tr class="textTR">
-                      <td class="in">Consumo de energia anual (kWh/ano)</td>
-                      <td class="center" id="cons-anual-aqu-inicial"></td>
-                      <td class="center" id="cons-anual-aqu-final"></td>
-                      <td class="center" id="cons-anual-aqs-inicial"></td>
-                      <td class="center" id="cons-anual-aqs-final"></td>
-                    </tr>
-                    <tr class="textTR">
-                      <td class="in">Custos energéticos anuais (€/ano)</td>
-                      <td class="center" id="custo-anual-aqu-inicial"></td>
-                      <td class="center" id="custo-anual-aqu-final"></td>
-                      <td class="center" id="custo-anual-aqs-inicial"></td>
-                      <td class="center" id="custo-anual-aqs-final"></td>
-                    </tr>
-                    <tr class="titulo_row">
-                      <th colspan="5" class="tituloTH">Resultados</th>
-                    </tr>
-                    <tr class="textTR">
-                      <td class="in">Redução anual do consumo de energia (kWh/ano)</td>
-                      <td colspan="2" class="center" id="reducao-cons-aqu"></td>
-                      <td colspan="2" class="center" id="reducao-cons-aqs"></td>
-                    </tr>
-                    <tr class="textTR">
-                      <td rowspan="2" class="in">Redução anual dos custos energéticos (€/ano)</td>
-                      <td colspan="2" class="center" id="reducao-custo-aqu"></td>
-                      <td colspan="2" class="center" id="reducao-custo-aqs"></td>
-                    </tr>
-                    <tr class="textTR">
-                      <td colspan="2" class="center" id="reducao-custo-aqu-perc"></td>
-                      <td colspan="2" class="center" id="reducao-custo-aqs-perc"></td>
-                    </tr>
-                    <tr class="textTR">
-                      <td class="in">Custo unitário de energia (€/kWh)</td>
-                      <td class="center" id="custo-unit-aqu-inicial"></td>
-                      <td class="center" id="custo-unit-aqu-final"></td>
-                      <td class="center" id="custo-unit-aqs-inicial"></td>
-                      <td class="center" id="custo-unit-aqs-final"></td>
-                    </tr>
-                    <tr class="textTR">
-                      <td class="in">Investimento</td>
-                      <td colspan="2" class="center" id="investimento-aqu"></td>
-                      <td colspan="2" class="center" id="investimento-aqs"></td>
-                    </tr>
-                    <tr class="textTR">
-                      <td class="in">Período de retorno</td>
-                      <td colspan="2" class="center" id="pri-aqu"></td>
-                      <td colspan="2" class="center" id="pri-aqs"></td>
-                    </tr>
-                  </tbody>
-                </table>
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <link rel="shortcut icon" href="include/img/logo-head-small.png" type="image/png"/>
+        <!--BOOTSTRAP CDN-->
+        <link rel="stylesheet" href="include/css/bootstrap.min.css"/>
+        <!--CUSTOM CSS-->
+        <link rel="stylesheet" href="include/css/style.css"/>
+        <!--BOOTSTRAP + JQUERY CDN-->
+        <script src="include/js/jquery.min.js"></script>
+        <script src="include/js/jquery.validate.min.js"></script>
+        <script src="include/js/bootstrap.min.js"></script>
+        <!--CUSTOM JS-->
+        <script src="include/js/main.js"></script>
+        <script src="include/js/info.js"></script>
+        <script src="include/js/calculos.js"></script>
+        <script src="include/js/globals.js"></script>
+        <title>ECO.AP - Calculadora Climatização - Aquecimento</title>
+    </head>
+    <body>
+        <header class="header">
+            <!--.logo--><span class="header-title">Calculadora Climatização - Aquecimento</span>
+        </header>
+        <main class="main container">
+            <form id="clima-form">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="main-content">
+                            <!--Dados-->
+                            <div id="dados" style="display:block;" data-id="1" class="step">
+                                <div class="dados-titulo"><span class="first">Dados</span></div>
+                                <div class="dados-child">
+                                    <div class="dado escolha" style="display: none;">
+                                        <label for="escolha">Utilizar a calculadora para:</label>
+                                        <select id="escolhe" name="escolha" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                        </select>
+                                    </div>
+                                    <div class="dado dist">
+                                        <label for="distrito">Distrito:</label>
+                                        <select id="distrito" name="distrito" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                        </select>
+                                    </div>
+                                    <div class="dado area">
+                                        <label for="area-dados-input">Área a climatizar (m2)</label>
+                                        <input id="area-dados-input" name="area-dados-input" type="number" placeholder="0 m2" class="form-control xInput"/>
+                                    </div>
+                                    <div class="tabela-consumos">
+                                        <table id="consumos-energeticos" class="table table-bordered">
+                                            <tbody>
+                                                <tr class="titulo_row">
+                                                    <th colspan="2" class="tituloTH">Consumos energéticos anuais</th>
+                                                    <td class="in">
+                                                        <input id="total-titulo" type="text" class="form-control xInput" disabled="disabled"/>
+                                                    </td>
+                                                    <th class="tituloTH">&nbsp</th>
+                                                </tr>
+                                                <!-- caixa 1-->
+                                                <tr id="copy-row-consume" class="textTR">
+                                                    <td rowspan="2" class="select-cell">
+                                                        <select id="consumos-caixa1" name="consumos-caixa1" class="consumos-caixa">
+                                                            <option value="">Seleccionar opção</option>
+                                                        </select>
+                                                    </td>
+                                                    <td id="unidade-consumo1" class="in">unidade</td>
+                                                    <td class="input-table">
+                                                        <input id="valor-input-consumo1" name="valor-input-consumo1" type="number" placeholder="0" class="form-control xInput"/>
+                                                    </td>
+                                                    <td id="remove-consumo" rowspan="2" class="in">
+                                                        <button id="remove-consume1" type="button" class="but-dados">Remover</button>
+                                                    </td>
+                                                </tr>
+                                                <tr id="copy-row-consume-2" class="textTR">
+                                                    <td id="unidade-custo-consumo1" class="in">€/unidade</td>
+                                                    <td class="in">
+                                                        <input id="valor-pred-consumo1" name="valor-pred-consumo1" type="number" placeholder="0" class="form-control xInput"/>
+                                                    </td>
+                                                </tr>
+                                                <!-- caixa 2-->
+                                                <tr class="textTR">
+                                                    <td colspan="3" class="in"></td>
+                                                    <td class="in">
+                                                        <button id="add-consume" type="button" class="but-dados">Adicionar</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="dado consumo-question">
+                                        <label for="consumo-quest">Conhece os consumos anuais de energia para climatização?</label>
+                                        <select id="consumo-quest" name="consumo-quest" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                            <option value="0">Sim</option>
+                                            <option value="1">Não</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="dados-titulo conhece-consumos"  style="display: none;"><span>Consumo de Aquecimento</span></div>
+                                    <div class="dados-child conhece-consumos" style="display: none;">
+                                        <div id="tableConsumoBox" class="tabelas">
+                                            <div id="tabela-row" class="row">
+                                                <div id="aquecimento-size">
+                                                    <!-- AQUECIMENTO-->
+                                                    <table class="table table-bordered">
+                                                        <tbody>
+                                                            <tr class="titulo_row">
+                                                                <th class="tituloTH">&nbsp</th>
+                                                                <th class="tituloTH">Aquecimento</th>
+                                                            </tr>
+                                                            <tr class="textTR">
+                                                                <td class="in">Consumos de energia disponíveis</td>
+                                                                <td class="select-cell">
+                                                                    <select id="aquecimento-consumo" name="aquecimento-consumo" class="sel">
+                                                                        <option value="">Seleccionar opção</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div id="tabela-consumo-aquecimento" class="tabelas"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="tableConsumoBox" class="tabelas"></div>
+                                    </div>
+
+                                    <div class="dado cobertura-question hid consumo-link">
+                                        <label for="cobertura">A área a climatizar tem cobertura em contato com o exterior?</label>
+                                        <select id="cobertura" name="cobertura" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                            <option value="0">Sim</option>
+                                            <option value="1">Não</option>
+                                        </select>
+                                    </div>
+                                    <div class="dado cobertura-answer cobertura-link">
+                                        <label for="cobertura-input">Área de cobertura em contato com o exterior (m2)</label>
+                                      <input id="area-cobertura-input" name="area-cobertura-input" type="number" placeholder="0 m2" class="form-control xInput"/>
+<!--  <small class="nota">Área não pode ser superior à área total a climatizar</small>-->
+                                    </div>
+                                    <div class="dado perfil-semanal hid consumo-link">
+                                        <label for="perfil">Perfil semanal das necessidades de climatização</label>
+                                        <select id="perfil" name="perfil" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                        </select>
+                                    </div>
+                                    <div class="dado periodos hid consumo-link">
+                                        <label for="periodos">Período(s) de encerramento</label>
+                                        <select id="periodos" name="periodos" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                        </select>
+                                    </div>
+                                    <div class="dado classe-energia hid consumo-link">
+                                        <label for="classe-en">Classe energética do edifício</label>
+                                        <select id="classe-en" name="classe-en" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                        </select>
+                                    </div>
+                                    <div class="dado ano-construct classe-link">
+                                        <label for="ano">Ano de construção (aprox.)</label>
+                                        <select id="ano" name="ano" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                        </select>
+                                    </div>
+                                    <div class="dado tipo-envidracado hid-ano ano-construct-link">
+                                        <label for="tipo-envid">Tipo de envidraçados</label>
+                                        <select id="tipo-envid" name="tipo-envid" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                        </select>
+                                    </div>
+                                    <div class="dado isolamento-paredes hid-ano ano-construct-link">
+                                        <label for="isol-paredes">Existe isolamento térmico nas paredes?</label>
+                                        <select id="isol-paredes" name="isol-paredes" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                            <option value="0">Sim</option>
+                                            <option value="1">Não</option>
+                                        </select>
+                                    </div>
+                                    <div class="dado isolamento-cobertura hid-ano ano-construct-link">
+                                        <label for="isol-cobertura">Existe isolamento térmico na cobertura?</label>
+                                        <select id="isol-cobertura" name="isol-cobertura" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                            <option value="0">Sim</option>
+                                            <option value="1">Não</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tecnologia" data-id="2" class="step">
+                                <div class="dados-titulo"><span>Tecnologia</span></div>
+                                <div class="dados-child">
+                                    <div class="dado fonte-aquecimento">
+                                        <label for="fonte-aq">Atual fonte de aquecimento</label>
+                                        <select id="fonte-aq" name="fonte-aq" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                        </select>
+                                    </div>
+                                    <div class="dado pot-aq">
+                                        <label for="potencia-aq">Potência (kW)</label>
+                                        <input id="potencia-aq" name="potencia-aq" type="number" min="1" step="0.01" placeholder="0 kW" class="form-control xInput"/>
+                                    </div>
+                                    <!-- rend or cop dependendo da fonte-->
+                                    <div class="dado rend">
+                                        <label id="labelRendimento" for="rendimento"></label>
+                                        <select id="rendimento" name="rendimento" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                            <option value="0">Não conhece</option>
+                                            <option value="2">Inserir rendimento</option>
+                                        </select>
+                                        <label id="labelIRendman" for="iRendMan" style="display:none;">Insira o rendimento</label>
+                                        <input id="iRendMan" type="number" min="0" max="500" step="0.01" name="iRendMan" placeholder="0" style="display:none;" />
+                                    </div>
+                                    <div class="dado age">
+                                        <label for="idade">Idade (aprox.)</label>
+                                        <select id="idade" name="idade" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                        </select>
+                                    </div>
+                                    <div class="dado custo-energia-unit-aq">
+                                        <label id="custo-en-unit-aq-label" for="custo-en-unit-aq">Custo energético unitário (€/kWh)</label>
+                                        <input id="custo-en-unit-aq" name="custo-en-unit-aq" type="number"  min="0.0001" step="0.0001" placeholder="pré-definido" class="form-control xInput"/>
+                                    </div>
+                                    <!--                                <div style="display: none;" class="dado use-arr">
+                                                                        <label for="use-arr">Utilizada também para arrefecimento?</label>
+                                                                        <select id="use-arr" name="use-arr" class="sel">
+                                                                            <option value="">Seleccionar opção</option>
+                                                                            <option value="0">Sim</option>
+                                                                            <option value="1">Não</option>
+                                                                        </select>
+                                                                    </div>-->
+                                    <div class="dado use-aqs">
+                                        <label for="use-aqs">É utilizada também para AQS?</label>
+                                        <select id="use-aqs" name="use-aqs" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                            <option value="0">Sim</option>
+                                            <option value="1">Não</option>
+                                        </select>
+                                    </div>
+                                    <div class="dado pres-aqs use-aqs-link">
+                                        <label for="pres-aqs">Tem interesse em incluir as AQS na presente análise?</label>
+                                        <select id="pres-aqs" name="pres-aqs" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                            <option value="0">Sim</option>
+                                            <option value="1">Não</option>
+                                        </select>
+                                    </div>
+                                    <div class="dado cons-aqs pres-aqs-link">
+                                        <label for="cons-aqs">Conhece os consumos para AQS?</label>
+                                        <select id="cons-aqs" name="cons-aqs" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                            <option value="0">Sim</option>
+                                            <option value="1">Não</option>
+                                        </select>
+                                    </div>
+                                    <div class="dados-titulo nconhece-consumos-aqs"  style="display: none;"><span>Definir perfil de utilização</span></div>
+                                    <div class="dados-child nconhece-consumos-aqs" style="display:none;">
+                                        <div class="tabela-aguas">
+                                            <table id="water-usage" class="table table-bordered">
+                                                <tbody>
+                                                    <tr class="titulo_row">
+                                                        <th colspan="3" class="tituloTH">Utilização diária de águas quentes sanitárias (média representativa do período de maior consumo)</th>
+                                                        <th class="tituloTH">&nbsp</th>
+                                                    </tr>
+                                                    <tr id="copy-row-aqs" class="textTR">
+                                                        <td class="select-cell">
+                                                            <select id="tipo-consumo1" name="tipo-consumo1">
+                                                                <option value="">Seleccionar opção</option>
+                                                            </select>
+                                                        </td>
+                                                        <!--#tipo-consumo-descricao-->
+                                                        <td id="desctipoconsumo" class="in"></td>
+                                                        <td class="in">
+                                                            <input id="tipoconsumoval1" type="number" placeholder="0" name="tipoconsumoval1" class="form-control xInput"/>
+                                                        </td>
+                                                        <td id="removetipoconsumo" class="in">
+                                                            <button id="remove1" type="button" class="but-dados">Remover</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="textTR">
+                                                        <td colspan="3" class="in"></td>
+                                                        <td class="in">
+                                                            <button id="add" type="button" class="but-dados">Adicionar</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>                                
+                                    </div>
+                                    <div class="dados-titulo conhece-consumos-aqs"  style="display: none;"><span>Consumos AQS</span></div>
+                                    <div class="dados-child conhece-consumos-aqs" style="display: none;">
+                                        <div id="tableConsumoBox" class="tabelas">
+                                            <div id="tabela-row-aqs" class="row">
+                                                <div id="aqs-size">
+                                                    <table class="table table-bordered">
+                                                        <tbody>
+                                                            <tr class="titulo_row">
+                                                                <th class="tituloTH">&nbsp</th>
+                                                                <th class="tituloTH">AQS</th>
+                                                            </tr>
+                                                            <tr class="textTR">
+                                                                <td class="in">Consumos de energia disponíveis</td>
+                                                                <td class="select-cell">
+                                                                    <select id="aqs-consumo" name="aqs-consumo" class="sel">
+                                                                        <option value="">Seleccionar opção</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div id="tabela-consumo-aqs" class="tabelas"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="tableConsumoBox-aqs" class="tabelas"></div>
+                                    </div>
+                                    <!--                <div class="dado fonte-ar">
+                                                      <label for="fonte-ar">Atual fonte de arrefecimento</label>
+                                                      <select id="fonte-ar" name="fonte-ar" class="sel">
+                                                        <option value="">Seleccionar opção</option>
+                                                      </select>
+                                                    </div>
+                                                    <div class="dado pot-ar">
+                                                      <label for="potencia-ar">Potência (kW)</label>
+                                                      <input type="number" placeholder="0 W" class="form-control xInput"/>
+                                                    </div>
+                                                    <div class="dado eer">
+                                                      <label for="eer">EER</label>
+                                                      <select id="eer" name="eer" class="sel">
+                                                        <option value="">Seleccionar opção</option>
+                                                        <option value="0">Não conhece</option>
+                                                      </select>
+                                                    </div>
+                                                    <div class="dado age-eer eer-link">
+                                                      <label for="age-eer">Idade (aprox.)</label>
+                                                      <select id="age-eer" name="age-eer" class="sel">
+                                                        <option value="">Seleccionar opção</option>
+                                                        <option value="0">< 10 anos</option>
+                                                        <option value="1">> 20 anos</option>
+                                                        <option value="2">10 a 20 anos</option>
+                                                      </select>
+                                                    </div>
+                                                    <div class="dado custo-energia-unit-ar">
+                                                      <label for="custo-en-unit-ar">Custo energético unitário (€/kWh)</label>
+                                                      <input id="custo-en-unit-ar" type="number" placeholder="pré-definido" disabled="disabled" class="form-control xInput"/>
+                                                    </div>-->
+                                </div>
+                            </div>
+                            <!--                        <div id="perfilAQS" data-id="3" class="step">
+                                                        <div class="dados-titulo"><span>Perfil AQS</span></div>
+                                                        <div class="dados-child">
+                                                            <div class="tabela-aguas">
+                                                                <table id="water-usage" class="table table-bordered">
+                                                                    <tbody>
+                                                                        <tr class="titulo_row">
+                                                                            <th colspan="3" class="tituloTH">Utilização diária de águas quentes sanitárias (média representativa do período de maior consumo)</th>
+                                                                            <th class="tituloTH">&nbsp</th>
+                                                                        </tr>
+                                                                        <tr id="copy-row" class="textTR">
+                                                                            <td class="select-cell">
+                                                                                <select id="tipo-consumo" name="tipo-consumo[]">
+                                                                                    <option value="">Seleccionar opção</option>
+                                                                                </select>
+                                                                            </td>
+                                                                            #tipo-consumo-descricao
+                                                                            <td id="desctipoconsumo" class="in"></td>
+                                                                            <td class="in">
+                                                                                <input id="tipoconsumoval" type="number" placeholder="0" name="tipoconsumoval[]" class="form-control xInput"/>
+                                                                            </td>
+                                                                            <td id="removetipoconsumo" class="in">
+                                                                                <button id="remove" type="button" class="but-dados">Remover</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr class="textTR">
+                                                                            <td colspan="3" class="in"></td>
+                                                                            <td class="in">
+                                                                                <button id="add" type="button" class="but-dados">Adicionar</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>                                
+                                                        </div>
+                                                    </div>-->
+                            <!--                        <div id="consumos" data-id="4" class="step">
+                                                        <div class="dados-titulo"><span>Consumo</span></div>
+                                                        <div class="dados-child">
+                                                            <div id="tableConsumoBox" class="tabelas">
+                                                                <div id="tabela-row" class="row">
+                                                                    <div id="aquecimento-size" class="col-md-4">
+                                                                        AQUECIMENTO
+                                                                        <table class="table table-bordered">
+                                                                            <tbody>
+                                                                                <tr class="titulo_row">
+                                                                                    <th class="tituloTH">&nbsp</th>
+                                                                                    <th class="tituloTH">Aquecimento</th>
+                                                                                </tr>
+                                                                                <tr class="textTR">
+                                                                                    <td class="in">Consumos de energia disponíveis</td>
+                                                                                    <td class="select-cell">
+                                                                                        <select id="aquecimento-consumo" name="aquecimento-consumo" class="sel">
+                                                                                            <option value="">Seleccionar opção</option>
+                                                                                        </select>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <div id="tabela-consumo-aquecimento" class="tabelas"></div>
+                                                                    </div>
+                                                                                        <div id="arrefecimento-size" class="col-md-4">
+                                                                                          ARREFECIMENTO
+                                                                                          <table id="remove-table-arrefecimento" class="table table-bordered">
+                                                                                            <tbody>
+                                                                                              <tr class="titulo_row">
+                                                                                                <th class="tituloTH">&nbsp</th>
+                                                                                                <th class="tituloTH class">Arrefecimento</th>
+                                                                                              </tr>
+                                                                                              <tr class="textTR">
+                                                                                                <td class="in">Consumos de energia disponíveis</td>
+                                                                                                <td class="select-cell">
+                                                                                                  <select id="arrefecimento-consumo" name="arrefecimento-consumo" class="sel">
+                                                                                                    <option value="">Seleccionar opção</option>
+                                                                                                  </select>
+                                                                                                </td>
+                                                                                              </tr>
+                                                                                            </tbody>
+                                                                                          </table>
+                                                                                          <div id="tabela-consumo-arrefecimento" class="tabelas"></div>
+                                                                                        </div>
+                                                                    <div id="aqs-size" class="col-md-4">
+                                                                        AQS
+                                                                        <table id="remove-table-aqs" class="table table-bordered">
+                                                                            <tbody>
+                                                                                <tr class="titulo_row">
+                                                                                    <th class="tituloTH">&nbsp</th>
+                                                                                    <th class="tituloTH class">AQS</th>
+                                                                                </tr>
+                                                                                <tr class="textTR">
+                                                                                    <td class="in">Consumos de energia disponíveis</td>
+                                                                                    <td class="select-cell">
+                                                                                        <select id="aqs-consumo" name="aqs-consumo" class="sel">
+                                                                                            <option value="">Seleccionar opção</option>
+                                                                                        </select>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <div id="tabela-consumo-aqs" class="tabelas"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div id="tableConsumoBox" class="tabelas"></div>
+                                                        </div>
+                                                    </div>-->
+                            <div id="medidas" data-id="3" class="step">
+                                <div class="dados-titulo"><span>Medidas</span></div>
+                                <div class="dados-child">
+                                    <!-- AQUECIMENTO-->
+                                    <div class="dado new-fonte-aq">
+                                        <label for="new-fonte-aq">Nova fonte de aquecimento</label>
+                                        <select id="new-fonte-aq" name="new-fonte-aq" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                        </select>
+                                    </div>
+                                    <div class="dado pot-med-aq">
+                                        <label for="pot-med-aq">Potência (kW)</label>
+                                        <input id="pot-med-aq" name="pot-med-aq" type="number" placeholder="0 W" class="form-control xInput"/>
+                                    </div>
+                                    <div class="dado rend-med">
+                                        <label id="rend-med-label" for="rend-med">Rendimento (%)</label>
+                                        <input id="rend-med" name="rend-med" type="number" placeholder="0%" class="form-control xInput"/>
+                                    </div>
+                                    <div class="dado custo-unit-med-aq">
+                                        <label id="custo-unit-med-aq-label" for="custo-unit-med-aq">Custo energético unitário (€/kWh)</label>
+                                        <input id="custo-unit-med-aq" name="custo-unit-med-aq" type="number" placeholder="0€" class="form-control xInput"/>
+                                    </div>
+                                    <!-- ARREFECIMENTO-->
+                                    <!--                <div class="dado new-fonte-ar">
+                                                      <label for="new-fonte-ar">Nova fonte de arrefecimento</label>
+                                                      <select id="new-fonte-ar" name="new-fonte-ar" class="sel">
+                                                        <option value="">Seleccionar opção</option>
+                                                      </select>
+                                                    </div>
+                                                    <div class="dado pot-med-ar">
+                                                      <label for="pot-med-ar">Potência (kW)</label>
+                                                      <input type="number" placeholder="0 W" class="form-control xInput"/>
+                                                    </div>
+                                                    <div class="dado eer-med-ar">
+                                                      <label for="eer-med-ar">EER</label>
+                                                      <input type="number" placeholder="Valor automático" disabled="disabled" class="form-control xInput"/>
+                                                    </div>
+                                                    <div class="dado custo-unit-med-ar">
+                                                      <label for="custo-unit-med-ar">Custo energético unitário</label>
+                                                      <input id="custo-unit-med-ar" type="number" placeholder="0€" class="form-control xInput"/>
+                                                    </div>-->
+                                    <div class="dado simulacao">
+                                        <label for="simulacao-aqs">Pretende simular solar térmico para AQS?</label>
+                                        <select id="simulacao-aqs" name="simulacao-aqs" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                            <option value="0">Sim</option>
+                                            <option value="1">Não</option>
+                                        </select>
+                                    </div>
+                                    <!--sim-->
+                                    <div id="tbl-simular-solar" class="tabelas" style="display:none;">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr class="textTR">
+                                                    <td rowspan="2" class="in">Qual a orientação solar do local de instalação do sistema solar (indicativa)?</td>
+                                                    <td class="select-cell">
+                                                        <select id="orientacao-paineis" name="orientacao-paineis">
+                                                            <option value="">Seleccionar opção</option>
+                
+                                                        </select>
+                                                       
+                                                    </td>
+                                                </tr>
+                                                <tr class="textTR">
+                                                    <td class="input-table">
+                                                        <input id="orientacao-input" name="orientacao-input" required type="number"  min="0" max="70" step="1" placeholder="Valor será introduzindo automaticamente" disabled="disabled"
+                                                            class="form-control xInput" />
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+<!--                                    <div class="dado orientacao simulacao-link">
+                                        <label for="orientacao-paineis">Qual a orientação solar do local de instalação do sistema solar (indicativa)?</label>
+                                        <select id="orientacao-paineis" name="orientacao-paineis" class="sel">
+                                            <option value="">Seleccionar opção</option>
+                                        </select>
+                                        <input id="orientacao-input" type="number" placeholder="0" disabled="disabled" class="form-control xInput"/>
+                                    </div>-->
+                                </div>
+                            </div>
+
+                            <div id="resumo" data-id="4" class="step">
+                                <div class="dados-titulo"><span>Resumo</span></div>
+                                <div class="dados-child">
+                                    <table class="table table-bordered" id="tabela-resumo-aqu">
+                                        <tbody>
+                                            <tr class="titulo_row">
+                                                <th rowspan="2" class="tituloTH">Resultados</th>
+                                                <th colspan="2" class="tituloTH">Aquecimento</th>
+                                                <!--<th colspan="2" class="tituloTH">Arrefecimento</th>-->
+                                                <th colspan="2" class="tituloTH">AQS (apoio)</th>
+                                            </tr>
+                                            <tr class="titulo_row"> 
+                                                <th class="tituloTH">Cenário Inicial</th>
+                                                <th class="tituloTH">Cenário Final</th>
+                                                <!--<th class="tituloTH">Inicial</th>-->
+                                                <!--<th class="tituloTH">Final</th>-->
+                                                <th class="tituloTH">Cenário Inicial</th>
+                                                <th class="tituloTH">Cenário Final</th>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td class="in">Equipamento</td>
+                                                <td class="center" id="equipamento-aqu-inicial"></td>
+                                                <td class="center" id="equipamento-aqu-final"></td>
+                                                <td class="center">-</td>
+                                                <td class="center">-</td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td class="in">Potência nominal</td>
+                                                <td class="center" id="potencia-aqu-inicial"></td>
+                                                <td class="center" id="potencia-aqu-final"></td>
+                                                <td class="center">-</td>
+                                                <td class="center">-</td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td class="in">Rendimento</td>
+                                                <td class="center" id="rendimento-aqu-inicial"></td>
+                                                <td class="center" id="rendimento-aqu-final"></td>
+                                                <td class="center">-</td>
+                                                <td class="center">-</td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td class="in">Fonte de energia</td>
+                                                <td class="center" id="fonte-energia-aqu-inicial"></td>
+                                                <td class="center" id="fonte-energia-aqu-final"></td>
+                                                <td class="center">-</td>
+                                                <td class="center">-</td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td class="in">Consumo de energia anual (kWh/ano)</td>
+                                                <td class="center" id="cons-anual-aqu-inicial"></td>
+                                                <td class="center" id="cons-anual-aqu-final"></td>
+                                                <td class="center" id="cons-anual-aqs-inicial"></td>
+                                                <td class="center" id="cons-anual-aqs-final"></td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td class="in">Custos energéticos anuais (€/ano)</td>
+                                                <td class="center" id="custo-anual-aqu-inicial"></td>
+                                                <td class="center" id="custo-anual-aqu-final"></td>
+                                                <td class="center" id="custo-anual-aqs-inicial"></td>
+                                                <td class="center" id="custo-anual-aqs-final"></td>
+                                            </tr>
+                                            <tr class="titulo_row">
+                                                <th colspan="5" class="tituloTH">Resultados</th>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td class="in">Redução anual do consumo de energia (kWh/ano)</td>
+                                                <td colspan="2" class="center" id="reducao-cons-aqu"></td>
+                                                <td colspan="2" class="center" id="reducao-cons-aqs"></td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td rowspan="2" class="in">Redução anual dos custos energéticos (€/ano)</td>
+                                                <td colspan="2" class="center" id="reducao-custo-aqu"></td>
+                                                <td colspan="2" class="center" id="reducao-custo-aqs"></td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td colspan="2" class="center" id="reducao-custo-aqu-perc"></td>
+                                                <td colspan="2" class="center" id="reducao-custo-aqs-perc"></td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td class="in">Custo unitário de energia (€/kWh)</td>
+                                                <td class="center" id="custo-unit-aqu-inicial"></td>
+                                                <td class="center" id="custo-unit-aqu-final"></td>
+                                                <td class="center" id="custo-unit-aqs-inicial"></td>
+                                                <td class="center" id="custo-unit-aqs-final"></td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td class="in">Investimento</td>
+                                                <td colspan="2" class="center" id="investimento-aqu"></td>
+                                                <td colspan="2" class="center" id="investimento-aqs"></td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td class="in">Período de retorno</td>
+                                                <td colspan="2" class="center" id="pri-aqu"></td>
+                                                <td colspan="2" class="center" id="pri-aqs"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
 
 
-                <table class="table table-bordered">
-                  <tbody>
-                    <tr class="titulo_row">
-                      <th colspan="3" class="tituloTH">Resultados globais</th>
-                    </tr>
-                    <tr class="textTR">
-                      <td class="in">Consumo total anual de energia (kWh/ano)</td>
-                      <td class="center" id="consumo-anual-total-inicial-global"></td>
-                      <td class="center" id="consumo-anual-total-final-global"></td>
-                    </tr>
-                    <tr class="textTR">
-                      <td class="in">Consumo anual para climatização (kWh/ano)</td>
-                      <td class="center" id="consumo-anual-clima-inicial-global"></td>
-                      <td class="center" id="consumo-anual-clima-final-global"></td>
-                    </tr>
-                    <tr class="textTR">
-                      <td class="in">Rácio do consumo de energia para climatização relativamente ao consumo total de energia do edifício</td>
-                      <td class="center" id="perc-total-inicial-global"></td>
-                      <td class="center" id="perc-total-final-global"></td>
-                    </tr>
-                    <tr class="textTR">
-                      <td class="in">Custos energéticos anuais (€/ano)</td>
-                      <td class="center" id="custo-anual-inicial-global"></td>
-                      <td class="center" id="custo-anual-final-global"></td>
-                    </tr>
-                    <tr class="textTR">
-                      <td class="in">Redução anual do consumo de energia (kWh/ano)</td>
-                      <td colspan="2" class="center" id="reducao-consumo-global"></td>
-                    </tr>
-                    <tr class="textTR">
-                      <td rowspan="2" class="in">Redução anual dos custos energéticos (€/ano)</td>
-                      <td colspan="2" class="center" id="reducao-custo-valor-global"></td>
-                    </tr>
-                    <tr class="textTR">
-                      <td colspan="2" class="center" id="reducao-custo-perc-global"></td>
-                    </tr>
-                    <tr class="textTR">
-                      <td class="in">Custo unitário de energia (€/kWh)</td>
-                      <td class="center" id="custo-unit-inicial-global"></td>
-                      <td class="center" id="custo-unit-final-global"></td>
-                    </tr>
-                    <tr class="textTR">
-                      <td class="in">Investimento</td>
-                      <td colspan="2" class="center" id="investimento-global"></td>
-                    </tr>
-                    <tr class="textTR">
-                      <td class="in">Período de retorno</td>
-                      <td colspan="2" class="center" id="pri-global"></td>
-                    </tr>
-                  </tbody>
-                </table>
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr class="titulo_row">
+                                                <th colspan="3" class="tituloTH">Resultados globais</th>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td class="in">Consumo total anual de energia (kWh/ano)</td>
+                                                <td class="center" id="consumo-anual-total-inicial-global"></td>
+                                                <td class="center" id="consumo-anual-total-final-global"></td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td class="in">Consumo anual para climatização (kWh/ano)</td>
+                                                <td class="center" id="consumo-anual-clima-inicial-global"></td>
+                                                <td class="center" id="consumo-anual-clima-final-global"></td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td class="in">Rácio do consumo de energia para climatização relativamente ao consumo total de energia do edifício</td>
+                                                <td class="center" id="perc-total-inicial-global"></td>
+                                                <td class="center" id="perc-total-final-global"></td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td class="in">Custos energéticos anuais (€/ano)</td>
+                                                <td class="center" id="custo-anual-inicial-global"></td>
+                                                <td class="center" id="custo-anual-final-global"></td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td class="in">Redução anual do consumo de energia (kWh/ano)</td>
+                                                <td colspan="2" class="center" id="reducao-consumo-global"></td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td rowspan="2" class="in">Redução anual dos custos energéticos (€/ano)</td>
+                                                <td colspan="2" class="center" id="reducao-custo-valor-global"></td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td colspan="2" class="center" id="reducao-custo-perc-global"></td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td class="in">Custo unitário de energia (€/kWh)</td>
+                                                <td class="center" id="custo-unit-inicial-global"></td>
+                                                <td class="center" id="custo-unit-final-global"></td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td class="in">Investimento</td>
+                                                <td colspan="2" class="center" id="investimento-global"></td>
+                                            </tr>
+                                            <tr class="textTR">
+                                                <td class="in">Período de retorno</td>
+                                                <td colspan="2" class="center" id="pri-global"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="but-2">
-            <button type="button" onclick="prevStep()" class="but anterior" id="anterior-inicio">Anterior</button>
-            <button type="button" onclick="nextStep()" class="but seguinte">Próximo</button>
-          </div>
-          <div class="perfil-consumo-step step-but">
-            <button type="button" onclick="consumoBackTo()" class="but anterior">Anterior</button>
-            <button id="perfil-step" type="button" onclick="consumoGoTo()" class="but seguinte">Próximo</button>
-          </div>
-          <div class="perfil-consumo-back step-but">
-            <button type="button" onclick="consumoBackTo()" class="but anterior anterior-complex">Anterior</button>
-            <button id="perfil-back" type="button" onclick="nextStep()" class="but seguinte seguinte-normal">Próximo</button>
-          </div>
-          <div class="end-step step-but">
-            <button type="button" onclick="prevStep()" class="but anterior anterior-normal">Anterior</button>
-            <button id="analise-but" type="button" onclick="areaCalc()" class="but end-but">Analisar</button>
-          </div>
-        </div>
-      </div>
-    </main>
-   
-  </body>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="but-2">
+                            <button type="button" onclick="prevStep()" class="but anterior" id="anterior-inicio">Anterior</button>
+                            <button type="button" class="but seguinte">Próximo</button>
+                        </div>
+                        
+                        <div class="end-step step-but">
+                            <button type="button" onclick="prevStep()" class="but anterior anterior-normal">Anterior</button>
+                            <button id="analise-but" type="button" class="but end-but">Analisar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </main>
+
+    </body>
 </html>

@@ -231,3 +231,8 @@ var custo_unit_global_final = 0;
 var investimento_estimado_global = 0;
 
 var pri_simples_global = 0;
+
+
+//consumos linhas 
+var inputId = 1;
+var aqsRowId = 1;

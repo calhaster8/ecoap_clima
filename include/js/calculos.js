@@ -1,23 +1,25 @@
 function dadosFirstTotal() {
-    var userValues = $("input[name='valor-input-consumo[]']");
-    var idsConsumos = $("select[name='consumos-caixa[]']");
-    var errors = false;
-    if (idsConsumos.length>0 && userValues.length>0 && idsConsumos.length==userValues.length) {
+    //var userValues = $("input[name='valor-input-consumo[]']");
+    //var idsConsumos = $("select[name='consumos-caixa[]']");
+    
+    if (inputId>=1 && $("#valor-input-consumo1").val()!="" && $("#consumos-caixa1").val()!="") {
         first_total = 0;
         
-        for(i=0;i<idsConsumos.length;i++){
-            if(userValues[i].value!="" && userValues[i].value!= undefined && userValues[i].value>0 && 
-                   idsConsumos[i].value!="" && idsConsumos[i].value!= undefined && idsConsumos[i].value>=0){
-                first_total += userValues[i].value * fonteEnergeticaI[idsConsumos[i].value].unidade[0].valor;
-            }
-            
+        for(i=1;i<=inputId;i++){
+            if($("#valor-input-consumo" + i).val()!="" && $("#valor-input-consumo" + i).val()!= undefined && $("#valor-input-consumo" + i).val()>0 && 
+                   $("#consumos-caixa"+i).val()!="" && $("#consumos-caixa"+i).val()!= undefined && $("#consumos-caixa"+i).val()>=0){
+                first_total += $("#valor-input-consumo" + i).val() * fonteEnergeticaI[$("#consumos-caixa"+i).val()].unidade[0].valor;
+            }            
         }
         
     } else {
         first_total = 0;        
     }
-
-    $('#total-titulo').val(first_total.toFixed(0));
+    if(first_total>0){
+        $('#total-titulo').val(first_total.toFixed(0) + " kWh" );
+    }else{
+        $('#total-titulo').val("");
+    }
 }
 
 function areaCalc() {
