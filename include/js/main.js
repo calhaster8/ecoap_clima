@@ -16,6 +16,8 @@ $(document).ready(function () {
     buildConsumosAqs();
     buildTipoConsumo();
     buildTipoConsumoAqsTable();
+    buildPerfilMensal();
+    buildPerfilSemanal();
 
     //step 3 - medidas
     buildFonteNewAquecimento();
@@ -251,9 +253,9 @@ $(document).ready(function () {
                 max: function () {
                     //se rendimento % max = 100
                     if ($("#fonte-aq").val() != "" && $("#fonte-aq").val() >= 0 && $("#fonte-aq").val() < 4) {
-                        return 7;
-                    } else {
                         return 110;
+                    } else {
+                        return 7;
                     }
                 },
             },
@@ -293,13 +295,31 @@ $(document).ready(function () {
                     }
                 }
             },
+            'perfil-mensal':{
+                required: function () {
+                    if ($("#cons-aqs").val() == 1 && $("#cons-aqs").val() != "") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            },
+            'perfil-semanal': {
+                required: function () {
+                    if ($("#cons-aqs").val() == 1 && $("#cons-aqs").val() != "") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            },
             //passo 3
             'new-fonte-aq': {
                 required: true
             },
             'pot-med-aq': {
                 required: function () {
-                    if ($("#new-fonte-aq").val() != "" && $("#new-fonte-aq").val() == 5 ) {
+                    if ($("#new-fonte-aq").val() != "" && $("#new-fonte-aq").val() == 5) {
                         return false;
                     } else {
                         return true;
@@ -311,7 +331,7 @@ $(document).ready(function () {
             },
             'rend-med': {
                 required: function () {
-                    if ($("#new-fonte-aq").val() != "" && $("#new-fonte-aq").val() == 5 ) {
+                    if ($("#new-fonte-aq").val() != "" && $("#new-fonte-aq").val() == 5) {
                         return false;
                     } else {
                         return true;
@@ -322,15 +342,15 @@ $(document).ready(function () {
                 min: 0.01,
                 max: function () {
                     if ($("#new-fonte-aq").val() != "" && $("#new-fonte-aq").val() >= 0 && $("#new-fonte-aq").val() < 3) {
-                        return 7;
-                    } else {
                         return 110;
+                    } else {
+                        return 7;
                     }
                 }
             },
             'custo-unit-med-aq': {
                 required: function () {
-                    if ($("#new-fonte-aq").val() != "" && $("#new-fonte-aq").val() == 5 ) {
+                    if ($("#new-fonte-aq").val() != "" && $("#new-fonte-aq").val() == 5) {
                         return false;
                     } else {
                         return true;
@@ -342,7 +362,7 @@ $(document).ready(function () {
             },
             'simulacao-aqs': {
                 required: function () {
-                    if ($("#new-fonte-aq").val() != "" && $("#new-fonte-aq").val() == 5 ) {
+                    if ($("#new-fonte-aq").val() != "" && $("#new-fonte-aq").val() == 5) {
                         return false;
                     } else {
                         return true;
@@ -442,7 +462,7 @@ $(document).ready(function () {
             'potencia-aq': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
                 number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10.01</label>',
-                min: '<label style="font-size: 14px; color: red;">O  minimo de área aceite é 1.</label>',
+                min: '<label style="font-size: 14px; color: red;">O  valor minimo aceite é 1.</label>',
                 step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01.</label>'
             },
             'rendimento': {
@@ -451,7 +471,7 @@ $(document).ready(function () {
             'iRendMan': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
                 number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10.01</label>',
-                min: '<label style="font-size: 14px; color: red;">O  minimo de área aceite é 0.01.</label>',
+                min: '<label style="font-size: 14px; color: red;">O  valor minimo aceite é 0.01.</label>',
                 step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01.</label>',
                 max: function () {
                     //se rendimento % max = 100
@@ -468,7 +488,7 @@ $(document).ready(function () {
             'custo-en-unit-aq': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
                 number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10.01</label>',
-                min: '<label style="font-size: 14px; color: red;">O  minimo de área aceite é 0.0001.</label>',
+                min: '<label style="font-size: 14px; color: red;">O  valor minimo aceite é 0.0001.</label>',
                 step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.0001.</label>',
             },
             'use-aqs': {
@@ -480,25 +500,31 @@ $(document).ready(function () {
             'cons-aqs': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
             },
+            'perfil-mensal':{
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
+            },
+            'perfil-semanal': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
+            },
             'new-fonte-aq': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
             },
             'pot-med-aq': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
                 number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10.01</label>',
-                min: '<label style="font-size: 14px; color: red;">O  minimo de área aceite é 1.</label>',
+                min: '<label style="font-size: 14px; color: red;">O valor minimo aceite é 1.</label>',
                 step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01.</label>',
             },
             'rend-med': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
                 number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10.01</label>',
-                min: '<label style="font-size: 14px; color: red;">O  minimo de área aceite é 0.01.</label>',
+                min: '<label style="font-size: 14px; color: red;">O  valor minimo aceite é 0.01.</label>',
                 step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01.</label>',
             },
             'custo-unit-med-aq': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
                 number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10.01</label>',
-                min: '<label style="font-size: 14px; color: red;">O  minimo de área aceite é 0.0001.</label>',
+                min: '<label style="font-size: 14px; color: red;">O  valor minimo aceite é 0.0001.</label>',
                 step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.0001.</label>',
             },
             'simulacao-aqs': {
@@ -517,9 +543,9 @@ $(document).ready(function () {
                         return '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>';
                     }
                 },
-                max: '<label style="font-size: 14px; color: red;">O  máximo de área aceite é 1000.</label',
+                max: '<label style="font-size: 14px; color: red;">O valor máximo aceite é 70.</label',
                 number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10.01</label>',
-                min: '<label style="font-size: 14px; color: red;">O  minimo de área aceite é 0.01.</label>',
+                min: '<label style="font-size: 14px; color: red;">O  valor minimo aceite é 0.01.</label>',
                 step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01.</label>',
             },
             'tipo-consumo1': {
@@ -527,7 +553,7 @@ $(document).ready(function () {
             },
             'tipoconsumoval1': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que seleccionou um tipo de consumo.</label>',
-                min: '<label style="font-size: 14px; color: red;">O mínimo é 1.</label>',
+                min: '<label style="font-size: 14px; color: red;">O  valor minimo aceite é 1.</label>',
                 step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 1.</label>',
                 digits: '<label style="font-size: 14px; color: red;">Insira números sem casas decimais. Ex: 10</label>',
                 number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10</label>'
@@ -543,14 +569,14 @@ $(document).ready(function () {
     });
     $(".end-but").click(function () {
         if ($("#clima-form").valid()) {
-            
+            areaCalc();
         }
     });
 
 
     $("#reanalise-but").click(function () {
         if ($("#clima-form").valid()) {
-            
+
         }
     });
 
@@ -665,7 +691,7 @@ function addRowWaterUsage() {
         copy.find("#tipoconsumoval1").attr('id', 'tipoconsumoval' + aqsRowId);
 
         copy.find("#remove1").attr('id', 'remove' + aqsRowId);
-        
+
         copy.insertBefore("#water-usage tbody>tr:last");
         copy.removeAttr("id");
 
@@ -691,7 +717,7 @@ function addRowWaterUsage() {
                 number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10</label>'
             }
         });
-        
+
         $("#remove" + aqsRowId).click(removeRowWaterUsage);
         $("#remove" + (aqsRowId - 1)).attr("disabled", "disabled");
 
@@ -1066,24 +1092,24 @@ function getCustoUnit() {
 
     var newFont = $("#new-fonte-aq").val();
     if (newFont != "" && newFont != undefined && newFont >= 0) {
-        if (newFont == 3 || newFont==4) {
+        if (newFont == 3 || newFont == 4) {
             $("#rend-med-label")[0].textContent = "COP";
-        } else{
+        } else {
             $("#rend-med-label")[0].textContent = "Rendimento (%)";
         }
-        
-        if(newFont>=0 && newFont<5){
-            $("#rend-med").val(new Number((tecnologia_futura_aquecimento[newFont].rendimento * ((newFont == 3 || newFont==4 )? 1 : 100)).toFixed(2)));
+
+        if (newFont >= 0 && newFont < 5) {
+            $("#rend-med").val(new Number((tecnologia_futura_aquecimento[newFont].rendimento * ((newFont == 3 || newFont == 4) ? 1 : 100)).toFixed(2)));
             $("#custo-unit-med-aq").val((tecnologia_futura_aquecimento[newFont].custo_unit * tecnologia_futura_aquecimento[newFont].fator_conversao).toFixed(2));
 
             var begin = $("#custo-unit-med-aq-label")[0].textContent.indexOf("(");
             var text = $("#custo-unit-med-aq-label")[0].textContent.substring(0, begin) + " (€/" + tecnologia_futura_aquecimento[newFont].unidade + ")";
             $("#custo-unit-med-aq-label")[0].textContent = text;
-        } else{
-             $("#rend-med").val("");
-             $("#custo-unit-med-aq").val("");
-             $("#custo-unit-med-aq-label")[0].textContent= "Custo energético unitário (€/kWh)";
-        }  
+        } else {
+            $("#rend-med").val("");
+            $("#custo-unit-med-aq").val("");
+            $("#custo-unit-med-aq-label")[0].textContent = "Custo energético unitário (€/kWh)";
+        }
     }
 }
 
@@ -1313,7 +1339,7 @@ function buildConsumosAqs() {
         html += '<tr class="textTR"><td class="in">TOTAL ANUAL</td><td class="in"><input id="aqsConsumoAnualTotal" name="aqsConsumoAnualTotal" type="number" placeholder="0" class="form-control xInput"/></td></tr>';
     } else if (consumo_build != "" && consumo_build != undefined && consumo_build == 1) {
         //mensal
-         html += '<tr class="textTR"><td class="in">MESES</td><td class="in">Unidade</td></tr>';
+        html += '<tr class="textTR"><td class="in">MESES</td><td class="in">Unidade</td></tr>';
         for (j = 0; j < meses_numero_horas.length; j++) {
             html += '<tr class="textTR"><td class="in">' + meses_numero_horas[j].mes + '</td><td class="in"><input id="aqsConsumosMeses' + j + '" name="aqsConsumosMeses' + j + '" type="number" placeholder="0" class="form-control xInput"/></td></tr>';
         }
@@ -1390,7 +1416,7 @@ function buildConsumosAqs() {
 
 
 function buildConsumoTable() {
-    
+
     var html = '';
     var option = [];
     var size = 0;
@@ -1403,7 +1429,7 @@ function buildConsumoTable() {
         html += '<tr class="textTR"><td class="in">TOTAL ANUAL</td><td class="in"><input id="aquecimentoConsumoAnualTotal" name="aquecimentoConsumoAnualTotal" type="number" placeholder="0" class="form-control xInput"/></td></tr>';
     } else if (consumo_build != "" && consumo_build != undefined && consumo_build == 1) {
         //mensal
-         html += '<tr class="textTR"><td class="in">MESES</td><td class="in">Unidade</td></tr>';
+        html += '<tr class="textTR"><td class="in">MESES</td><td class="in">Unidade</td></tr>';
         for (j = 0; j < meses_numero_horas.length; j++) {
             html += '<tr class="textTR"><td class="in">' + meses_numero_horas[j].mes + '</td><td class="in"><input id="aquecimentoConsumosMeses' + j + '" name="aquecimentoConsumosMeses' + j + '" type="number" placeholder="0" class="form-control xInput"/></td></tr>';
         }
@@ -1417,7 +1443,7 @@ function buildConsumoTable() {
 
     if (consumo_build != "" && consumo_build != undefined && consumo_build == 1) {
         for (j = 0; j < meses_numero_horas.length; j++) {
-             $("#aquecimentoConsumosMeses" + j).change(function () {
+            $("#aquecimentoConsumosMeses" + j).change(function () {
                 totalAnualConsumos = 0;
                 for (k = 0; k < meses_numero_horas.length; k++) {
                     totalAnualConsumos += new Number($("#aquecimentoConsumosMeses" + k).val());
@@ -1590,12 +1616,20 @@ function nextStep() {
     if ($('.anterior:hidden').length > 1) {
         $('.anterior').show();
     }
-    
+
+    if (nextId == 3) {
+        $(".but-2").hide();
+        $(".end-step").show();
+        $(".reload-but").hide();
+        $(".end-but").show();
+    }
     //resultados
-    if(nextId==4){
-        //mostrar o print
-        //mostrar o voltar ao inicio
-        //mostrar anterior
+    if (nextId == 4) {
+        $(".end-step").show();
+        $(".step-but").show();
+        $(".reload-but").show();
+        $(".end-but").hide();
+        $(".print_pdf").show();
     }
 }
 
@@ -1603,25 +1637,26 @@ function nextStep() {
 function prevStep() {
     var id = $('.step:visible').data('id');
     var prevId = $('.step:visible').data('id') - 1;
-   
-    
-    if (id == 2) {        
-        //esconder voltar ao inicio
-        //esconder analisar 
-        //esconder anterior
-        //mostar proximo
+    $('[data-id="' + id + '"]').hide();
+    $('[data-id="' + prevId + '"]').show();
+
+    if (prevId == 1) {
+        $(".anterior").hide();
     }
 
-    if (id == 3) {
-        //esconder voltar ao inicio
-        //esconder analisar 
-        //mostar proximo
-        //mostar anterior
+    if (prevId == 2) {
+        $(".end-step").hide();
+        $(".step-but").hide();
+        $(".end-but").hide();
+        $(".anterior").show();
+        $(".but-2").show();
     }
-    
-    if (id == 4) {
-        //esconder voltar ao inicio
-        //mostrar anterior e analisar
+
+    if (prevId == 3) {
+        $(".end-step").show();
+        $(".reload-but").hide();
+        $(".end-but").show();
+        $(".print_pdf").hide();
     }
-    
+
 }

@@ -569,8 +569,7 @@ body {
   .main .main-content .perfil-hidden {
     display: none; }
   .main .main-content #resumo table {
-    background-color: #f2f2f2;
-    width: 50%; }
+    background-color: #f2f2f2; }
     @media screen and (max-width: 515px) {
       .main .main-content #resumo table {
         width: 100%; } }

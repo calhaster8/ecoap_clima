@@ -287,7 +287,20 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                        </div>                                
+                                        </div>
+                                        <div class="dado perfil-mensal">
+                                            <label for="perfil-mensal">Perfil de utilização mensal</label>
+                                            <select id="perfil-mensal" name="perfil-mensal" class="sel">
+                                                <option value="">Seleccionar opção</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="dado perfil-semanal">
+                                            <label for="perfil-semanal">Perfil de utilização semanal</label>
+                                            <select id="perfil-semanal" name="perfil-semanal" class="sel">
+                                                <option value="">Seleccionar opção</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="dados-titulo conhece-consumos-aqs"  style="display: none;"><span>Consumos AQS</span></div>
                                     <div class="dados-child conhece-consumos-aqs" style="display: none;">
@@ -700,8 +713,17 @@
                         </div>
                         
                         <div class="end-step step-but">
-                            <button type="button" onclick="prevStep()" class="but anterior anterior-normal">Anterior</button>
+                            <button type="button" onclick="prevStep()" class="but anterior">Anterior</button>
                             <button id="analise-but" type="button" class="but end-but">Analisar</button>
+                        </div>
+                        <div class="end-step step-but">
+                            <button id="reload-but" type="button" class="but reload-but" style="display:none;">Voltar ao início</button>
+                        </div>
+                        
+                        <div class="print_pdf step-but">
+                            <span class="print_text">Deseja imprimir?
+                                <button type="button" onclick="printJS('resumo', 'html')" class="print_link">Clique aqui</button>
+                            </span>
                         </div>
                     </div>
                 </div>
