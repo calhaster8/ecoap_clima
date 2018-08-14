@@ -1073,7 +1073,7 @@ var envidracados = [
         Fs: 0.85
     },
     {
-        nome: 'Caixilharia de madeira, ferro ou alumínio, com vidro',
+        nome: 'Caixilharia de madeira, ferro ou alumínio, com vidro duplo',
         u: 3.00,
         Fs: 0.75
     },
@@ -3553,7 +3553,7 @@ var irradiacao_temp_amb_temp_agua = [
             {
                 nomeI: "Março",
                 valorIrr: 12.6,
-                valorTempAmb: 12.3,
+                valorTempAmb: 11.3,
                 valorTempAgua: 12.8,
                 valorPrinc: 208,
                 valorPerc: 0.15

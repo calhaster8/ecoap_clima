@@ -236,3 +236,6 @@ var pri_simples_global = 0;
 //consumos linhas 
 var inputId = 1;
 var aqsRowId = 1;
+
+//custos unitários medidas
+var custo_unit_med_aq  = 0;

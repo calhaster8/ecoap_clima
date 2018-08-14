@@ -177,7 +177,7 @@ $(document).ready(function () {
                 },
                 max: function () {
                     if ($("#area-dados-input").val() != "" && $("#area-dados-input").val() > 0) {
-                        return $("#area-dados-input").val();
+                        return new Number($("#area-dados-input").val());
                     } else {
                         return 0;
                     }
@@ -432,13 +432,7 @@ $(document).ready(function () {
             },
             'area-cobertura-input': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
-                max: function () {
-                    if ($("#area-dados-input").val() != "" && $("#area-dados-input").val() > 0 && $("#area-dados-input").val() < $("#area-cobertura-input").val()) {
-                        return '<label style="font-size: 14px; color: red;">Área não pode ser superior à área total a climatizar.</label>';
-                    } else {
-                        return '<label style="font-size: 14px; color: red;">Por favor preencha correctamente a àrea a climatizar.</label>';
-                    }
-                },
+                max: '<label style="font-size: 14px; color: red;">Área não pode ser superior à área total a climatizar.</label>',
                 min: '<label style="font-size: 14px; color: red;">O  minimo de área aceite é 1.</label>',
                 number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10.01</label>',
                 step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01.</label>'
@@ -1100,7 +1094,9 @@ function getCustoUnit() {
 
         if (newFont >= 0 && newFont < 5) {
             $("#rend-med").val(new Number((tecnologia_futura_aquecimento[newFont].rendimento * ((newFont == 3 || newFont == 4) ? 1 : 100)).toFixed(2)));
-            $("#custo-unit-med-aq").val((tecnologia_futura_aquecimento[newFont].custo_unit * tecnologia_futura_aquecimento[newFont].fator_conversao).toFixed(2));
+            custo_unit_med_aq = tecnologia_futura_aquecimento[newFont].custo_unit * tecnologia_futura_aquecimento[newFont].fator_conversao;
+            $("#custo-unit-med-aq").val((custo_unit_med_aq).toFixed(2));
+            
 
             var begin = $("#custo-unit-med-aq-label")[0].textContent.indexOf("(");
             var text = $("#custo-unit-med-aq-label")[0].textContent.substring(0, begin) + " (€/" + tecnologia_futura_aquecimento[newFont].unidade + ")";
