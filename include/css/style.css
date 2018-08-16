@@ -569,7 +569,8 @@ body {
   .main .main-content .perfil-hidden {
     display: none; }
   .main .main-content #resumo table {
-    background-color: #f2f2f2; }
+    background-color: #f2f2f2;
+    width: 50%; }
     @media screen and (max-width: 515px) {
       .main .main-content #resumo table {
         width: 100%; } }
@@ -677,62 +678,9 @@ body {
 .step-but {
   display: none; }
 
-/*footer
-    height: 200px
-    background-color: #fff
-    border-top: 1px solid rgba(#0099cc, .7)
-    margin-top: 150px
-
-    display: flex
-    justify-content: center
-    align-items: center
-
-    .partners
-        padding: 20px 0
-        text-align: center
-
-        .partners-img
-            width: 20%
-            margin: 10px
-
-        .rep-port
-            width: 9%
-
-        .port-energia
-            width: 9%
-
-        .dgeg
-            width: 12%
-
-        .lnec
-            width: 10%
-
-        .ee
-            width: 4%
-
-        .adene
-            width: 9%
-
-        .posteur
-            width: 9%
-
-        .port-2020
-            width: 9%
-
-        .ue
-            width: 11%
-
-        .conf-text
-            display: inline-block
-
-        .partner-link
-            margin: 0 10px
-
-    .policy
-        padding: 10px
-        text-align: center
-
-        .policy-link
-            margin-right: 20px
-            text-decoration: none
-            color: #0083c4*/
+.print_link {
+  border: none;
+  background-color: transparent;
+  color: #0099cc;
+  text-decoration: underline;
+  font-size: 1em; }
