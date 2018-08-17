@@ -22,6 +22,56 @@ function dadosFirstTotal() {
     }
 }
 
+function run(){
+    var consumos = $("#consumo-quest").val();
+    
+    if(consumos!="" && consumos==1){
+        uCalc();
+        invernoCalc();
+        veraoCalc();
+        necessidadesAquecimento();
+        consumoInicialAquecimento();
+    }
+    
+    necessidadesEnergeticas();
+    correcaoOrientacao();
+    energiaSolarCaptadaM2();
+    racio();
+    nColetores();
+    areaNecessidade();
+    energiaSolarCaptadaMJ();
+    energiaSolarUtilizada();
+    energiaSolarUtilizadaPerc();
+    energiaSA();
+    energiaSAPerc();
+    excedenteSolar();
+    excedenteSolarPerc();
+
+    volumeAcumulacao();
+    cenarioInicialConsumosAqs();
+    cenarioInicialConsumosAquecimento();
+    cenarioInicialConsumosTotais();
+    cenarioInicialCustosAquecimento();
+    cenarioInicialCustosAqs();
+    cenarioInicialCustosTotais();
+    cenarioFinalConsumosAquecimento();
+    cenarioFinalConsumosAqs();
+    cenarioFinalConsumosTotais();
+    cenarioFinalCustosAquecimento();
+    cenarioFinalCustosAqs();
+    cenarioFinalCustosTotais();
+    cenarioFinalReducaoAquecimento();
+    cenarioFinalReducaoAqs();
+    cenarioFinalReducaoTotais();
+    resumoAquecimento();
+    resumoAqs();
+    resumoGlobals();
+    showResumo();
+    showGlobalResumo();
+    nextStep();
+    
+}
+
 function areaCalc() {
     var idDistrito = $('#distrito').val();
     var area_input = $('#area-dados-input').val();
@@ -41,55 +91,7 @@ function areaCalc() {
     } else {
         cobertura_area = new Number(area_climatizar_exterior_input);
     }
-
-    //cobertura_area = (area_climatizar_exterior == 1) ? 0 : new Number(area_climatizar_exterior_input);
-
-    uCalc();
-    invernoCalc();
-    veraoCalc();
-    necessidadesAquecimento();
-    //necessidadesAqs();
-    consumoInicialAquecimento();
-    //consumoInicialAqs();
-    necessidadesEnergeticas();
-    correcaoOrientacao();
-    energiaSolarCaptadaM2();
-    racio();
-    nColetores();
-    areaNecessidade();
-    energiaSolarCaptadaMJ();
-    energiaSolarUtilizada();
-    energiaSolarUtilizadaPerc();
-    energiaSA();
-    energiaSAPerc();
-    excedenteSolar();
-    excedenteSolarPerc();
-
-    volumeAcumulacao();
-    cenarioInicialConsumosAqs();
-    cenarioInicialConsumosAquecimento();
-
-    //cenarioInicialConsumosArrefecimento();
-    cenarioInicialConsumosTotais();
-    cenarioInicialCustosAquecimento();
-    //cenarioInicialCustosArrefecimento();
-    cenarioInicialCustosAqs();
-    cenarioInicialCustosTotais();
-    cenarioFinalConsumosAquecimento();
-    cenarioFinalConsumosAqs();
-    cenarioFinalConsumosTotais();
-    cenarioFinalCustosAquecimento();
-    cenarioFinalCustosAqs();
-    cenarioFinalCustosTotais();
-    cenarioFinalReducaoAquecimento();
-    cenarioFinalReducaoAqs();
-    cenarioFinalReducaoTotais();
-    resumoAquecimento();
-    resumoAqs();
-    resumoGlobals();
-    showResumo();
-    showGlobalResumo();
-    nextStep();
+   
 }
 
 function uCalc() {
@@ -830,13 +832,14 @@ function cenarioInicialConsumosTotais() {
 }
 
 function cenarioInicialCustosAquecimento() {
-    var custo_unit = $('#custo-en-unit-aq').val();
+    var custo_unit = custo_en_unit_aq;   
+    var fonte = $('#fonte-aq').val();
 
     cenario_inicial_custos_aq_array = [];
     cenario_inicial_custos_aq_total = 0;
 
     for (var i = 0; i < meses_numero_horas.length; i++) {
-        cenario_inicial_custos_aq_array[i] = cenario_inicial_aquecimento_array[i] * custo_unit;
+        cenario_inicial_custos_aq_array[i] = cenario_inicial_aquecimento_array[i] * custo_unit / tecnologia_atual_aquecimento[fonte].fator_conversao;
 
         cenario_inicial_custos_aq_total += cenario_inicial_custos_aq_array[i];
     }
@@ -856,13 +859,14 @@ function cenarioInicialCustosAquecimento() {
 //}
 
 function cenarioInicialCustosAqs() {
-    var custo_unit = $('#custo-en-unit-aq').val();
+    var custo_unit = custo_en_unit_aq;   
+    var fonte = $('#fonte-aq').val();
 
     cenario_inicial_custos_aqs_array = [];
     cenario_inicial_custos_aqs_total = 0;
 
     for (var i = 0; i < meses_numero_horas.length; i++) {
-        cenario_inicial_custos_aqs_array[i] = cenario_inicial_aqs_array[i] * custo_unit;
+        cenario_inicial_custos_aqs_array[i] = cenario_inicial_aqs_array[i] * custo_unit / tecnologia_atual_aquecimento[fonte].fator_conversao;
 
         cenario_inicial_custos_aqs_total += cenario_inicial_custos_aqs_array[i];
     }
@@ -916,6 +920,7 @@ function cenarioFinalConsumosAqs() {
     var new_rend = new Number($('#rend-med').val() / 100);
     var age = $('#idade').val();
     var new_fonte_aq = $('#new-fonte-aq').val();
+    var querIncluirAQS = $("#pres-aqs").val();
     //var rend_user = $('#iRendManMed').val();
 
     cenario_final_aqs_array = [];
@@ -933,15 +938,17 @@ function cenarioFinalConsumosAqs() {
 
             cenario_final_aqs_array[i] = aqs_anual * meses_numero_horas[i].aqs_mensal * tecnologia_atual_aquecimento[fonte_aq].fator_conversao * tmp / (new_rend == 0 ? tecnologia_futura_aquecimento[new_fonte_aq].rendimento : new_rend);
 
-        } else if (simular_aqs == 0 && simular_aqs!="") {
+        } else if ((simular_aqs == 0 && simular_aqs!="") || (simular_aqs == 1 && querIncluirAQS!="" && querIncluirAQS==0)) {
             cenario_final_aqs_array[i] = energia_solar_sa_array[i] * fatores_conversao[1];
-
-        } else {
-            var tmp = ($("#rendimento").val() != '' && $("#rendimento").val() != undefined && $("#rendimento").val() == 0) ? tecnologia_atual_aquecimento[fonte_aq].rendimento[age].valor : $("#iRendMan").val();
-
-            cenario_final_aqs_array[i] = aqs_mes[i].value * tmp / new_rend;
-
+        }else{
+            cenario_final_aqs_array[i] = 0;
         }
+//        else {
+//            var tmp = ($("#rendimento").val() != '' && $("#rendimento").val() != undefined && $("#rendimento").val() == 0) ? tecnologia_atual_aquecimento[fonte_aq].rendimento[age].valor : $("#iRendMan").val();
+//
+//            cenario_final_aqs_array[i] = aqs_mes[i].value * tmp / new_rend;
+//
+//        }
 
         cenario_final_aqs_total += cenario_final_aqs_array[i];
     }

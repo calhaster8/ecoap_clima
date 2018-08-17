@@ -112,7 +112,7 @@ $(document).ready(function () {
                 required: true,
                 number: true,
                 min: 1,
-                step: 0.01
+                step: 0.1
             },
             'consumo-quest': {
                 required: true
@@ -271,8 +271,8 @@ $(document).ready(function () {
             'custo-en-unit-aq': {
                 required: true,
                 number: true,
-                min: 0.0001,
-                step: 0.0001
+                min: 0.01,
+                step: 0.01
             },
             'use-aqs': {
                 required: true
@@ -318,15 +318,8 @@ $(document).ready(function () {
                 required: true
             },
             'pot-med-aq': {
-                required: function () {
-                    if ($("#new-fonte-aq").val() != "" && $("#new-fonte-aq").val() == 5) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                },
                 number: true,
-                step: 0.01,
+                step: 0.1,
                 min: 1
             },
             'rend-med': {
@@ -338,8 +331,8 @@ $(document).ready(function () {
                     }
                 },
                 number: true,
-                step: 0.01,
-                min: 0.01,
+                step: 0.1,
+                min: 1,
                 max: function () {
                     if ($("#new-fonte-aq").val() != "" && $("#new-fonte-aq").val() >= 0 && $("#new-fonte-aq").val() < 3) {
                         return 110;
@@ -357,8 +350,8 @@ $(document).ready(function () {
                     }
                 },
                 number: true,
-                step: 0.0001,
-                min: 0.0001
+                step: 0.01,
+                min: 0.01
             },
             'simulacao-aqs': {
                 required: function () {
@@ -388,7 +381,7 @@ $(document).ready(function () {
                 },
                 min: 0,
                 max: 70,
-                step: 0.1
+                step: 1
             },
             'tipo-consumo1': {
                 required: true
@@ -408,9 +401,9 @@ $(document).ready(function () {
             },
             'area-dados-input': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
-                number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10.01</label>',
-                min: '<label style="font-size: 14px; color: red;">O  minimo de área aceite é 1.</label>',
-                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01.</label>'
+                number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
+                min: '<label style="font-size: 14px; color: red;">A área disponível tem que ser superior a 1 m2</label>',
+                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.1</label>'
             },
             'consumo-quest': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
@@ -454,25 +447,23 @@ $(document).ready(function () {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
             },
             'potencia-aq': {
-                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
-                number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10.01</label>',
-                min: '<label style="font-size: 14px; color: red;">O  valor minimo aceite é 1.</label>',
-                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01.</label>'
+                number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
+                min: '<label style="font-size: 14px; color: red;">A potência da fonte de aquecimento tem que ser superior a 1 kW</label>',
+                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.1</label>'
             },
             'rendimento': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
             },
             'iRendMan': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
-                number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10.01</label>',
-                min: '<label style="font-size: 14px; color: red;">O  valor minimo aceite é 0.01.</label>',
-                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01.</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
+                min: '<label style="font-size: 14px; color: red;">O valor mínimo é 1</label>',
+                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.1</label>',
                 max: function () {
-                    //se rendimento % max = 100
                     if ($("#fonte-aq").val() != "" && $("#fonte-aq").val() >= 0 && $("#fonte-aq").val() < 4) {
-                        return '<label style="font-size: 14px; color: red;">O valor máximo para o rendimento desta fonte de aquecimento é de 110%.</label>';
+                        return '<label style="font-size: 14px; color: red;">O rendimento máximo é 110%</label>';
                     } else {
-                        return '<label style="font-size: 14px; color: red;">O valor máximo para o rendimento desta fonte de aquecimento é de 7.</label>';
+                        return '<label style="font-size: 14px; color: red;">O COP máximo é 7</label>';
                     }
                 }
             },
@@ -481,9 +472,9 @@ $(document).ready(function () {
             },
             'custo-en-unit-aq': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
-                number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10.01</label>',
-                min: '<label style="font-size: 14px; color: red;">O  valor minimo aceite é 0.0001.</label>',
-                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.0001.</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
+                min: '<label style="font-size: 14px; color: red;">O custo mínimo é de 0.01€</label>',
+                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01</label>',
             },
             'use-aqs': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
@@ -504,22 +495,21 @@ $(document).ready(function () {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
             },
             'pot-med-aq': {
-                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
-                number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10.01</label>',
-                min: '<label style="font-size: 14px; color: red;">O valor minimo aceite é 1.</label>',
-                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01.</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
+                min: '<label style="font-size: 14px; color: red;">O valor mínimo é 1</label>',
+                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.1</label>',
             },
             'rend-med': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
-                number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10.01</label>',
-                min: '<label style="font-size: 14px; color: red;">O  valor minimo aceite é 0.01.</label>',
-                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01.</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
+                min: '<label style="font-size: 14px; color: red;">O valor mínimo é 1</label>',
+                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.1</label>',
             },
             'custo-unit-med-aq': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
-                number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10.01</label>',
-                min: '<label style="font-size: 14px; color: red;">O  valor minimo aceite é 0.0001.</label>',
-                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.0001.</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
+                min: '<label style="font-size: 14px; color: red;">O custo mínimo é de 0.01€</label>',
+                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01</label>',
             },
             'simulacao-aqs': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
@@ -537,20 +527,20 @@ $(document).ready(function () {
                         return '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>';
                     }
                 },
-                max: '<label style="font-size: 14px; color: red;">O valor máximo aceite é 70.</label',
-                number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10.01</label>',
-                min: '<label style="font-size: 14px; color: red;">O  valor minimo aceite é 0.01.</label>',
-                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01.</label>',
+                max: '<label style="font-size: 14px; color: red;">O máximo é 70 º</label',
+                number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                min: '<label style="font-size: 14px; color: red;">O mínimo é 0 º</label>',
+                step: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
             },
             'tipo-consumo1': {
-                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que seleccionou um tipo de consumo.</label>'
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou um tipo de consumo.</label>'
             },
             'tipoconsumoval1': {
-                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que seleccionou um tipo de consumo.</label>',
-                min: '<label style="font-size: 14px; color: red;">O  valor minimo aceite é 1.</label>',
-                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 1.</label>',
-                digits: '<label style="font-size: 14px; color: red;">Insira números sem casas decimais. Ex: 10</label>',
-                number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10</label>'
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou um tipo de consumo.</label>',
+                min: '<label style="font-size: 14px; color: red;">O valor mínimo é 1</label>',
+                step: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                digits: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>'
             }
         }
 
@@ -563,16 +553,10 @@ $(document).ready(function () {
     });
     $(".end-but").click(function () {
         if ($("#clima-form").valid()) {
-            areaCalc();
+            run();
         }
     });
 
-
-    $("#reanalise-but").click(function () {
-        if ($("#clima-form").valid()) {
-
-        }
-    });
 
     $('#reload-but').click(function () {
         location.reload();
@@ -606,7 +590,7 @@ function buildUtilizacao() {
             .find('option')
             .remove()
             .end()
-            .append('<option class="op" value="">Seleccionar uma opção</option>')
+            .append('<option class="op" value="">Selecionar opção</option>')
             .val('');
     for (var i = 0; i < utilizacao_calc.length; i++) {
         $('#escolhe').append($('<option class="op"></option>').val(i).html(utilizacao_calc[i].nome));
@@ -619,7 +603,7 @@ function buildDistrito() {
             .find('option')
             .remove()
             .end()
-            .append('<option class="op" value="">Seleccionar uma opção</option>')
+            .append('<option class="op" value="">Selecionar distrito</option>')
             .val('');
     for (var i = 0; i < distrito_info.length; i++) {
         $('#distrito').append($('<option class="op"></option>').val(i).html(distrito_info[i].nome));
@@ -694,7 +678,7 @@ function addRowWaterUsage() {
         $('#tipo-consumo' + aqsRowId).rules("add", {
             required: true,
             messages: {
-                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que seleccionou um tipo de consumo.</label>'
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou um tipo de consumo.</label>'
             }
         });
         $('#tipoconsumoval' + aqsRowId).rules("add", {
@@ -704,11 +688,11 @@ function addRowWaterUsage() {
             step: 1,
             digits: true,
             messages: {
-                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que seleccionou um tipo de consumo.</label>',
-                min: '<label style="font-size: 14px; color: red;">O mínimo é 1.</label>',
-                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 1.</label>',
-                digits: '<label style="font-size: 14px; color: red;">Insira números sem casas decimais. Ex: 10</label>',
-                number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10</label>'
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou um tipo de consumo.</label>',
+                min: '<label style="font-size: 14px; color: red;">O valor mínimo é 1</label>',
+                step: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                digits: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>'
             }
         });
 
@@ -800,11 +784,11 @@ function addRowConsumes() {
             step: 1,
             digits: true,
             messages: {
-                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que seleccionou um tipo de consumo.</label>',
-                min: '<label style="font-size: 14px; color: red;">O mínimo é 1.</label>',
-                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 1.</label>',
-                digits: '<label style="font-size: 14px; color: red;">Insira números sem casas decimais. Ex: 10</label>',
-                number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10</label>'
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou um tipo de consumo.</label>',
+                min: '<label style="font-size: 14px; color: red;">O valor mínimo é 1</label>',
+                step: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                digits: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>'
             }
         });
 
@@ -865,7 +849,7 @@ function buildPerfilSel() {
             .find('option')
             .remove()
             .end()
-            .append('<option class="op" value="">Seleccionar uma opção</option>')
+            .append('<option class="op" value="">Selecionar opção</option>')
             .val('');
     for (var i = 0; i < perfil_necessidades.length; i++) {
         $('#perfil').append($('<option class="op"></option>').val(i).html(perfil_necessidades[i].nome));
@@ -877,7 +861,7 @@ function buildPeriodos() {
             .find('option')
             .remove()
             .end()
-            .append('<option class="op" value="">Seleccionar uma opção</option>')
+            .append('<option class="op" value="">Selecionar opção</option>')
             .val('');
     for (var i = 0; i < periodos_encerramento.length; i++) {
         $('#periodos').append($('<option class="op"></option>').val(i).html(periodos_encerramento[i].periodo));
@@ -889,7 +873,7 @@ function buildClasseEnergia() {
             .find('option')
             .remove()
             .end()
-            .append('<option class="op" value="">Seleccionar uma opção</option>')
+            .append('<option class="op" value="">Selecionar opção</option>')
             .val('');
     for (var i = 0; i < classes.length; i++) {
         $('#classe-en').append($('<option class="op"></option>').val(i).html(classes[i].classe_id));
@@ -901,7 +885,7 @@ function buildAnosConst() {
             .find('option')
             .remove()
             .end()
-            .append('<option class="op" value="">Seleccionar uma opção</option>')
+            .append('<option class="op" value="">Selecionar opção</option>')
             .val('');
     for (var i = 0; i < anos_construcao.length; i++) {
         $('#ano').append($('<option class="op"></option>').val(i).html(anos_construcao[i].nome));
@@ -913,7 +897,7 @@ function buildTipoEnvidracado() {
             .find('option')
             .remove()
             .end()
-            .append('<option class="op" value="">Seleccionar uma opção</option>')
+            .append('<option class="op" value="">Selecionar opção</option>')
             .val('');
     for (var i = 0; i < envidracados.length; i++) {
         $('#tipo-envid').append($('<option class="op"></option>').val(i).html(envidracados[i].nome));
@@ -925,7 +909,7 @@ function buildFonteAquecimento() {
             .find('option')
             .remove()
             .end()
-            .append('<option class="op" value="">Seleccionar uma opção</option>')
+            .append('<option class="op" value="">Selecionar opção</option>')
             .val('');
     for (var i = 0; i < tecnologia_atual_aquecimento.length; i++) {
         $('#fonte-aq').append($('<option class="op"></option>').val(i).html(tecnologia_atual_aquecimento[i].nome));
@@ -938,7 +922,7 @@ function buildFonteNewAquecimento() {
             .find('option')
             .remove()
             .end()
-            .append('<option class="op" value="">Seleccionar uma opção</option>')
+            .append('<option class="op" value="">Selecionar opção</option>')
             .val('');
     for (var i = 0; i < tecnologia_futura_aquecimento.length; i++) {
         $('#new-fonte-aq').append($('<option class="op"></option>').val(i).html(tecnologia_futura_aquecimento[i].nome));
@@ -952,7 +936,7 @@ function buildDesvios() {
             .find('option')
             .remove()
             .end()
-            .append('<option class="op" value="">Seleccionar uma opção</option>')
+            .append('<option class="op" value="">Selecionar opção</option>')
             .val('');
     for (var i = 0; i < desvios.length; i++) {
         $('#orientacao-paineis').append($('<option class="op"></option>').val(i).html(desvios[i].nome));
@@ -965,7 +949,7 @@ function buildPerfilMensal() {
             .find('option')
             .remove()
             .end()
-            .append('<option class="op" value="">Seleccionar uma opção</option>')
+            .append('<option class="op" value="">Selecionar opção</option>')
             .val('');
 
     for (var i = 0; i < perfil_mensal.length; i++) {
@@ -987,7 +971,7 @@ function buildPerfilSemanal() {
             .find('option')
             .remove()
             .end()
-            .append('<option class="op" value="">Seleccionar uma opção</option>')
+            .append('<option class="op" value="">Selecionar opção</option>')
             .val('');
 
     for (var i = 0; i < perfil_semanal.length; i++) {
@@ -1041,7 +1025,8 @@ function fonteAqLink() {
         $("#rendimento").show();
         $("#labelRendimento").show();
         $("#iRendMan").removeAttr("disabled");
-        $('#rendimento').find("option[value='2']").html("Inserir COP");
+		$("#iRendMan").attr("placeholder", "0.0");
+        $('#rendimento').find("option[value='2']").html("Inserir COP (Ex: 3.2)");
     } else if (idLocal == 6) {
         $(".rend").hide();
         $("#labelRendimento").hide();
@@ -1059,7 +1044,8 @@ function fonteAqLink() {
         $("#rendimento").show();
         $("#labelRendimento").show();
         $("#iRendMan").removeAttr("disabled");
-        $('#rend').find("option[value='2']").html("Inserir rendimento");
+		$("#iRendMan").attr("placeholder", "0%");
+        $('#rend').find("option[value='2']").html("Inserir rendimento (%)");
     } else {
         $(".rend").show();
         $("#rendimento").show();
@@ -1071,10 +1057,12 @@ function fonteAqLink() {
         $("#labelIRendman").hide();
         $("#iRendMan").hide();
         $("#iRendMan").removeAttr("disabled");
-        $('#rend').find("option[value='2']").html("Inserir rendimento");
+        $('#rend').find("option[value='2']").html("Inserir rendimento (%) / COP");
     }
     if (idLocal != "" && idLocal != undefined && idLocal >= 0) {
-        $('#custo-en-unit-aq').val(tecnologia_atual_aquecimento[idLocal].custo_unit);
+        custo_en_unit_aq = tecnologia_atual_aquecimento[idLocal].custo_unit*tecnologia_atual_aquecimento[idLocal].fator_conversao;
+        $('#custo-en-unit-aq').val(custo_en_unit_aq.toFixed(2));
+        
         var begin = $("#custo-en-unit-aq-label")[0].textContent.indexOf("(");
         var text = $("#custo-en-unit-aq-label")[0].textContent.substring(0, begin) + " (€/" + tecnologia_atual_aquecimento[idLocal].unidade + ")";
         $("#custo-en-unit-aq-label")[0].textContent = text;
@@ -1115,11 +1103,11 @@ function rendCopLink() {
     var idLocal = $('#fonte-aq').val();
     var selectedRend = $('#rendimento').val();
     if (selectedRend == 2 && (idLocal == 4 || idLocal == 5)) {
-        $('#rendimento').find("option[value='2']").html("Inserir COP");
+        $('#rendimento').find("option[value='2']").html("Inserir COP (Ex: 3.2)");
         $('#iRendMan').show();
         $('#labelIRendman').hide();
     } else if (selectedRend == 2 && $('#fonte-aq').val() != 6) {
-        $('#rendimento').find("option[value='2']").html("Inserir rendimento");
+        $('#rendimento').find("option[value='2']").html("Inserir rendimento (%)");
         $('#iRendMan').show();
         $('#labelIRendman').hide();
     } else if ($('#fonte-aq').val() != 6) {
@@ -1127,7 +1115,7 @@ function rendCopLink() {
         $('#iRendMan').hide();
         $('#labelIRendman').hide();
     } else {
-        $('#rendimento').find("option[value='2']").html("Inserir rendimento");
+        $('#rendimento').find("option[value='2']").html("Inserir rendimento (%) / COP");
         $('#iRendMan').hide();
         $('#labelIRendman').hide();
     }
@@ -1184,7 +1172,7 @@ function buildTipoConsumoClimatizacaoTable() {
                 .find('option')
                 .remove()
                 .end()
-                .append('<option class="op" value="">Seleccionar uma opção</option>')
+                .append('<option class="op" value="">Selecionar opção</option>')
                 .val('');
 
         var html = '';
@@ -1373,11 +1361,11 @@ function buildConsumosAqs() {
                 step: 1,
                 digits: true,
                 messages: {
-                    required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que seleccionou um tipo de consumo.</label>',
-                    min: '<label style="font-size: 14px; color: red;">O mínimo é 1.</label>',
-                    step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 1.</label>',
-                    digits: '<label style="font-size: 14px; color: red;">Insira números sem casas decimais. Ex: 10</label>',
-                    number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10</label>'
+                    required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou um tipo de consumo.</label>',
+                    min: '<label style="font-size: 14px; color: red;">O valor mínimo é 1</label>',
+                    step: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                    digits: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                    number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>'
 
                 }
             });
@@ -1397,11 +1385,11 @@ function buildConsumosAqs() {
             digits: true,
             number: true,
             messages: {
-                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que seleccionou um tipo de consumo.</label>',
-                min: '<label style="font-size: 14px; color: red;">O mínimo é 1.</label>',
-                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 1.</label>',
-                digits: '<label style="font-size: 14px; color: red;">Insira números sem casas decimais. Ex: 10</label>',
-                number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10</label>',
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou um tipo de consumo.</label>',
+                min: '<label style="font-size: 14px; color: red;">O valor mínimo é 1</label>',
+                step: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                digits: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
             }
         });
     }
@@ -1461,12 +1449,11 @@ function buildConsumoTable() {
                 step: 1,
                 digits: true,
                 messages: {
-                    required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que seleccionou um tipo de consumo.</label>',
-                    min: '<label style="font-size: 14px; color: red;">O mínimo é 1.</label>',
-                    step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 1.</label>',
-                    digits: '<label style="font-size: 14px; color: red;">Insira números sem casas decimais. Ex: 10</label>',
-                    number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10</label>'
-
+                    required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou um tipo de consumo.</label>',
+                    min: '<label style="font-size: 14px; color: red;">O valor mínimo é 1</label>',
+                    step: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                    digits: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                    number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>'
                 }
             });
         }
@@ -1485,11 +1472,11 @@ function buildConsumoTable() {
             digits: true,
             number: true,
             messages: {
-                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que seleccionou um tipo de consumo.</label>',
-                min: '<label style="font-size: 14px; color: red;">O mínimo é 1.</label>',
-                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 1.</label>',
-                digits: '<label style="font-size: 14px; color: red;">Insira números sem casas decimais. Ex: 10</label>',
-                number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10</label>',
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou um tipo de consumo.</label>',
+                min: '<label style="font-size: 14px; color: red;">O valor mínimo é 1</label>',
+                step: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                digits: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
             }
         });
     }

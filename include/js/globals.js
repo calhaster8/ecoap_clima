@@ -239,3 +239,4 @@ var aqsRowId = 1;
 
 //custos unitários medidas
 var custo_unit_med_aq  = 0;
+var custo_en_unit_aq = 0;
