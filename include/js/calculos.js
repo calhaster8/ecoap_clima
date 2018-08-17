@@ -226,11 +226,6 @@ function veraoCalc() {
     total_4_kwh_verao = 0;
 
     paredes_kwh_verao = (paredes_area * paredes_u * necessidades_climatizacao_verao);
-    
-
-    /*(cena1) ? cond1.1 : ((cena2) ? cond2.1 : cond2.2)
-
-    (cena1) ? ((cena2) ? cond2.1 : cond2.2) : cond1.1*/
 
     var valor_1 = 0;
     var valor_2 = 0;

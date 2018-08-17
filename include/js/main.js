@@ -184,7 +184,7 @@ $(document).ready(function () {
                 },
                 min: 1,
                 number: true,
-                step: 0.01
+                step: 0.1
             },
             ano: {
                 required: function () {
@@ -231,10 +231,9 @@ $(document).ready(function () {
                 required: true
             },
             'potencia-aq': {
-                required: true,
                 number: true,
                 min: 1,
-                step: 0.01
+                step: 0.1
             },
             'rendimento': {
                 required: true
@@ -248,8 +247,8 @@ $(document).ready(function () {
                     }
                 },
                 number: true,
-                min: 0.01,
-                step: 0.01,
+                min: 1,
+                step: 0.1,
                 max: function () {
                     //se rendimento % max = 100
                     if ($("#fonte-aq").val() != "" && $("#fonte-aq").val() >= 0 && $("#fonte-aq").val() < 4) {
@@ -425,10 +424,10 @@ $(document).ready(function () {
             },
             'area-cobertura-input': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
-                max: '<label style="font-size: 14px; color: red;">Área não pode ser superior à área total a climatizar.</label>',
-                min: '<label style="font-size: 14px; color: red;">O  minimo de área aceite é 1.</label>',
-                number: '<label style="font-size: 14px; color: red;">Por favor introduza um número válido. Ex: 10.01</label>',
-                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01.</label>'
+                max: '<label style="font-size: 14px; color: red;">A área de cobertura não pode ser superior à área total a climatizar</label>',
+                min: '<label style="font-size: 14px; color: red;">A área de cobertura tem que ser superior a 1 m2</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
+                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.1</label>'
             },
             ano: {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
@@ -616,7 +615,7 @@ function buildFontesEnergia() {
             .find('option')
             .remove()
             .end()
-            .append('<option class="op" value="">Seleccionar uma opção</option>')
+            .append('<option class="op" value="">Selecionar fonte energética</option>')
             .val('');
     for (var i = 0; i < fonteEnergeticaI.length; i++) {
         $('#consumos-caixa1').append($('<option class="op"></option>').val(i).html(fonteEnergeticaI[i].nome));
@@ -629,7 +628,7 @@ function buildTipoConsumo() {
             .find('option')
             .remove()
             .end()
-            .append('<option class="op" value="">Seleccionar uma opção</option>')
+            .append('<option class="op" value="">Selecionar opção</option>')
             .val('');
     for (var i = 0; i < consumo_diario_agua.length; i++) {
         $('#tipo-consumo1').append($('<option class="op"></option>').val(i).html(consumo_diario_agua[i].nome));
@@ -706,7 +705,7 @@ function removeRowWaterUsage() {
     var parentRow = $(this).parent().parent();
     if (parentRow.attr("id") != "copy-row-aqs") {
         var r = confirm("Tem a certeza que pretende remover?");
-        //alert(r);
+
         if (r == true) {
             parentRow.prev().find("#remove" + (aqsRowId - 1)).removeAttr("disabled");
             parentRow.remove();
@@ -1136,7 +1135,7 @@ function buildTipoConsumoAqsTable() {
             .find('option')
             .remove()
             .end()
-            .append('<option class="op" value="">Seleccionar uma opção</option>')
+            .append('<option class="op" value="">Selecionar opção</option>')
             .val('');
 
     var html = '';
