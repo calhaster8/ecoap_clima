@@ -238,7 +238,7 @@ var tecnologia_atual_aquecimento = [
     {
         nome: "Expansão direta (aquecimento)",
         id: 5,
-        custo_unit: 0.25, //euros
+        custo_unit: 0.20, //euros
         rendimento: [
             {
                 nome: "< 10 anos",
@@ -419,11 +419,11 @@ var tecnologia_futura_aquecimento = [
         unidade: "kWh",
         fator_conversao: 1,
         fonte_energia: "Energia Elétrica"
-    },
-    {
-        nome: "Não intervir",
-        id: 5
     }
+//    {
+//        nome: "Não intervir",
+//        id: 5
+//    }
 ];
 
 //var tecnologia_futura_arrefecimento = [
@@ -1484,6 +1484,11 @@ var avisos = [
         nome: "Aviso de inclinação",
         valor: 15, //15°
         mensagem: "Um desvio superior em 15º relativamente ao ângulo considerado ideal poderá influenciar a rentabilidade energética do sistema solar."
+    },
+    {
+        nome: "Aviso de racio superior a 1",
+        valor: 100,
+        mensagem: "O consumo de energia para climatização é superior ao consumo global de energia do edifício. Reveja os dados inseridos e tente novamente."
     }
 ];
 

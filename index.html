@@ -47,7 +47,7 @@
                                     </div>
                                     <div class="dado area">
                                         <label for="area-dados-input">Área a climatizar (m2)</label>
-                                        <input id="area-dados-input" name="area-dados-input" type="number" placeholder="0 m2" class="form-control xInput"/>
+                                        <input id="area-dados-input" name="area-dados-input" type="number" placeholder="0 m2 " class="form-control xInput"/>
                                     </div>
                                     <div class="tabela-consumos">
                                         <table id="consumos-energeticos" class="table table-bordered">
@@ -68,7 +68,7 @@
                                                     </td>
                                                     <td id="unidade-consumo1" class="in">unidade</td>
                                                     <td class="input-table">
-                                                        <input id="valor-input-consumo1" name="valor-input-consumo1" type="number" placeholder="0" class="form-control xInput"/>
+                                                        <input id="valor-input-consumo1" name="valor-input-consumo1" min="1" step="1" type="number" placeholder="0" class="form-control xInput"/>
                                                     </td>
                                                     <td id="remove-consumo" rowspan="2" class="in">
                                                         <button id="remove-consume1" type="button" class="but-dados">Remover</button>
@@ -77,7 +77,7 @@
                                                 <tr id="copy-row-consume-2" class="textTR">
                                                     <td id="unidade-custo-consumo1" class="in">€/unidade</td>
                                                     <td class="in">
-                                                        <input id="valor-pred-consumo1" name="valor-pred-consumo1" type="number" placeholder="0" class="form-control xInput"/>
+                                                        <input id="valor-pred-consumo1" name="valor-pred-consumo1" min="0.01" step="0.01" type="number" placeholder="0" class="form-control xInput"/>
                                                     </td>
                                                 </tr>
                                                 <!-- caixa 2-->
@@ -90,9 +90,10 @@
                                             </tbody>
                                         </table>
                                     </div>
-								</div>
-							</div>
-								
+                                </div>
+                                <div class="dado"><span style="color: #0099cc;"><strong>Nota:</strong> A introdução dos dados referentes aos consumos energéticos anuais do edifício permitirá determinar o rácio do consumo de energia para climatização relativamente ao consumo total de energia do edifício (preenchimento facultativo.</span></div>
+                            </div>
+
                             <div id="tecnologia" data-id="2" class="step">
                                 <div class="dados-titulo"><span>Caraterização do Edifício (tecnologia e consumos de energia)</span></div>
                                 <div class="dados-child">
@@ -104,7 +105,7 @@
                                     </div>
                                     <div class="dado pot-aq">
                                         <label for="potencia-aq">Potência nominal (kW)</label>
-                                        <input id="potencia-aq" name="potencia-aq" type="number" min="1" step="0.01" placeholder="0 kW" class="form-control xInput"/>
+                                        <input id="potencia-aq" name="potencia-aq" type="number" min="1" step="0.1" placeholder="0 kW" class="form-control xInput"/>
                                     </div>
                                     <!-- rend or cop dependendo da fonte-->
                                     <div class="dado rend">
@@ -135,8 +136,8 @@
                                                                             <option value="1">Não</option>
                                                                         </select>
                                                                     </div>-->
-                                    
-									<div class="dado consumo-question">
+
+                                    <div class="dado consumo-question">
                                         <label for="consumo-quest">Conhece os consumos anuais de energia para climatização?</label>
                                         <select id="consumo-quest" name="consumo-quest" class="sel">
                                             <option value="">Selecionar opção</option>
@@ -144,7 +145,7 @@
                                             <option value="1">Não</option>
                                         </select>
                                     </div>
-							
+
                                     <div class="dados-titulo conhece-consumos"  style="display: none;"><span>Consumo de Energia para Aquecimento</span></div>
                                     <div class="dados-child conhece-consumos" style="display: none;">
                                         <div id="tableConsumoBox" class="tabelas">
@@ -233,8 +234,8 @@
                                             <option value="1">Não</option>
                                         </select>
                                     </div>
-									
-									<div class="dado use-aqs">
+
+                                    <div class="dado use-aqs">
                                         <label for="use-aqs">A fonte de aquecimento é utilizada também para AQS?</label>
                                         <select id="use-aqs" name="use-aqs" class="sel">
                                             <option value="">Selecionar opção</option>
@@ -250,8 +251,8 @@
                                             <option value="1">Não</option>
                                         </select>
                                     </div>
-                                    
-									<div class="dado cons-aqs pres-aqs-link">
+
+                                    <div class="dado cons-aqs pres-aqs-link">
                                         <label for="cons-aqs">Conhece os consumos energéticos anuais para AQS?</label>
                                         <select id="cons-aqs" name="cons-aqs" class="sel">
                                             <option value="">Selecionar opção</option>
@@ -483,15 +484,15 @@
                                     </div>
                                     <div class="dado pot-med-aq">
                                         <label for="pot-med-aq">Potência (kW)</label>
-                                        <input id="pot-med-aq" name="pot-med-aq" type="number" placeholder="0 kW" class="form-control xInput"/>
+                                        <input id="pot-med-aq" name="pot-med-aq" type="number" placeholder="0 kW" min="1" step="0.1" class="form-control xInput"/>
                                     </div>
                                     <div class="dado rend-med">
                                         <label id="rend-med-label" for="rend-med">Rendimento (%)</label>
-                                        <input id="rend-med" name="rend-med" type="number" placeholder="0%" class="form-control xInput"/>
+                                        <input id="rend-med" name="rend-med" type="number" placeholder="0%" min="0" step="0.1" class="form-control xInput"/>
                                     </div>
                                     <div class="dado custo-unit-med-aq">
                                         <label id="custo-unit-med-aq-label" for="custo-unit-med-aq">Custo energético unitário (€)</label>
-                                        <input id="custo-unit-med-aq" name="custo-unit-med-aq" type="number" placeholder="0.10€" class="form-control xInput"/>
+                                        <input id="custo-unit-med-aq" name="custo-unit-med-aq" type="number" placeholder="0.10€" min="0.01" step="0.01" class="form-control xInput"/>
                                     </div>
                                     <!-- ARREFECIMENTO-->
                                     <!--                <div class="dado new-fonte-ar">
@@ -556,63 +557,64 @@
                             <div id="resumo" data-id="4" class="step">
                                 <div class="dados-titulo"><span>Resumo - Resultados</span></div>
                                 <div class="dados-child">
+                                    <p id="errorAQUEC" style="color: red;"></p>
                                     <table class="table table-bordered" id="tabela-resumo-aqu">
                                         <tbody>
                                             <tr class="titulo_row">
                                                 <th rowspan="2" class="tituloTH">Resultados</th>
                                                 <th colspan="2" class="tituloTH">Aquecimento</th>
                                                 <!--<th colspan="2" class="tituloTH">Arrefecimento</th>-->
-                                                <th colspan="2" class="tituloTH">AQS</th>
+                                                <th colspan="2" class="tituloTH aqs">AQS</th>
                                             </tr>
                                             <tr class="titulo_row"> 
                                                 <th class="tituloTH">Cenário Inicial</th>
                                                 <th class="tituloTH">Cenário Final</th>
                                                 <!--<th class="tituloTH">Inicial</th>-->
                                                 <!--<th class="tituloTH">Final</th>-->
-                                                <th class="tituloTH">Cenário Inicial</th>
-                                                <th class="tituloTH">Cenário Final</th>
+                                                <th class="tituloTH aqs">Cenário Inicial</th>
+                                                <th class="tituloTH aqs">Cenário Final</th>
                                             </tr>
                                             <tr class="textTR">
                                                 <td class="in">Equipamento</td>
                                                 <td class="center" id="equipamento-aqu-inicial"></td>
                                                 <td class="center" id="equipamento-aqu-final"></td>
-                                                <td class="center">-</td>
-                                                <td class="center">-</td>
+                                                <td class="center aqs">-</td>
+                                                <td class="center aqs">-</td>
                                             </tr>
                                             <tr class="textTR">
                                                 <td class="in">Potência nominal</td>
                                                 <td class="center" id="potencia-aqu-inicial"></td>
                                                 <td class="center" id="potencia-aqu-final"></td>
-                                                <td class="center">-</td>
-                                                <td class="center">-</td>
+                                                <td class="center aqs">-</td>
+                                                <td class="center aqs">-</td>
                                             </tr>
                                             <tr class="textTR">
                                                 <td class="in">Rendimento</td>
                                                 <td class="center" id="rendimento-aqu-inicial"></td>
                                                 <td class="center" id="rendimento-aqu-final"></td>
-                                                <td class="center">-</td>
-                                                <td class="center">-</td>
+                                                <td class="center aqs">-</td>
+                                                <td class="center aqs">-</td>
                                             </tr>
                                             <tr class="textTR">
                                                 <td class="in">Fonte de energia</td>
                                                 <td class="center" id="fonte-energia-aqu-inicial"></td>
                                                 <td class="center" id="fonte-energia-aqu-final"></td>
-                                                <td class="center">-</td>
-                                                <td class="center">-</td>
+                                                <td class="center aqs">-</td>
+                                                <td class="center aqs">-</td>
                                             </tr>
                                             <tr class="textTR">
                                                 <td class="in">Consumo energético anual</td>
                                                 <td class="center" id="cons-anual-aqu-inicial"></td>
                                                 <td class="center" id="cons-anual-aqu-final"></td>
-                                                <td class="center" id="cons-anual-aqs-inicial"></td>
-                                                <td class="center" id="cons-anual-aqs-final"></td>
+                                                <td class="center aqs" id="cons-anual-aqs-inicial"></td>
+                                                <td class="center aqs" id="cons-anual-aqs-final"></td>
                                             </tr>
                                             <tr class="textTR">
                                                 <td class="in">Custos energéticos anuais</td>
                                                 <td class="center" id="custo-anual-aqu-inicial"></td>
                                                 <td class="center" id="custo-anual-aqu-final"></td>
-                                                <td class="center" id="custo-anual-aqs-inicial"></td>
-                                                <td class="center" id="custo-anual-aqs-final"></td>
+                                                <td class="center aqs" id="custo-anual-aqs-inicial"></td>
+                                                <td class="center aqs" id="custo-anual-aqs-final"></td>
                                             </tr>
                                             <tr class="titulo_row">
                                                 <th colspan="5" class="tituloTH">Resultados</th>
@@ -620,53 +622,58 @@
                                             <tr class="textTR">
                                                 <td class="in">Redução anual do consumo de energia</td>
                                                 <td colspan="2" class="center" id="reducao-cons-aqu"></td>
-                                                <td colspan="2" class="center" id="reducao-cons-aqs"></td>
+                                                <td colspan="2" class="center aqs" id="reducao-cons-aqs"></td>
                                             </tr>
                                             <tr class="textTR">
                                                 <td rowspan="2" class="in">Redução anual da fatura energética</td>
                                                 <td colspan="2" class="center" id="reducao-custo-aqu"></td>
-                                                <td colspan="2" class="center" id="reducao-custo-aqs"></td>
+                                                <td colspan="2" class="center aqs" id="reducao-custo-aqs"></td>
                                             </tr>
                                             <tr class="textTR">
                                                 <td colspan="2" class="center" id="reducao-custo-aqu-perc"></td>
-                                                <td colspan="2" class="center" id="reducao-custo-aqs-perc"></td>
+                                                <td colspan="2" class="center aqs" id="reducao-custo-aqs-perc"></td>
                                             </tr>
                                             <tr class="textTR">
                                                 <td class="in">Custo energético unitário</td>
                                                 <td class="center" id="custo-unit-aqu-inicial"></td>
                                                 <td class="center" id="custo-unit-aqu-final"></td>
-                                                <td class="center" id="custo-unit-aqs-inicial"></td>
-                                                <td class="center" id="custo-unit-aqs-final"></td>
+                                                <td class="center aqs " id="custo-unit-aqs-inicial"></td>
+                                                <td class="center aqs" id="custo-unit-aqs-final"></td>
                                             </tr>
                                             <tr class="textTR">
                                                 <td class="in">Investimento estimado *</td>
                                                 <td colspan="2" class="center" id="investimento-aqu"></td>
-                                                <td colspan="2" class="center" id="investimento-aqs"></td>
+                                                <td colspan="2" class="center aqs" id="investimento-aqs"></td>
                                             </tr>
                                             <tr class="textTR">
                                                 <td class="in">Período de retorno</td>
                                                 <td colspan="2" class="center" id="pri-aqu"></td>
-                                                <td colspan="2" class="center" id="pri-aqs"></td>
+                                                <td colspan="2" class="center aqs" id="pri-aqs"></td>
                                             </tr>
                                         </tbody>
                                     </table>
 
-                                    <table class="table table-bordered">
+                                    <table id="globals" class="table table-bordered">
                                         <tbody>
                                             <tr class="titulo_row">
                                                 <th colspan="3" class="tituloTH">Resultados globais</th>
                                             </tr>
-                                            <tr class="textTR">
+                                            <tr class="titulo_row">
+                                                <th class="tituloTH">&nbsp;</th>
+                                                <th class="tituloTH">Cenário Inicial</th>
+                                                <th class="tituloTH">Cenário Final</th>
+                                            </tr>
+                                            <tr class="textTR aviso">
                                                 <td class="in">Consumo total anual de energia do edifício</td>
                                                 <td class="center" id="consumo-anual-total-inicial-global"></td>
                                                 <td class="center" id="consumo-anual-total-final-global"></td>
                                             </tr>
-                                            <tr class="textTR">
+                                            <tr class="textTR aviso">
                                                 <td class="in">Consumo anual de energia para climatização</td>
                                                 <td class="center" id="consumo-anual-clima-inicial-global"></td>
                                                 <td class="center" id="consumo-anual-clima-final-global"></td>
                                             </tr>
-                                            <tr class="textTR">
+                                            <tr class="textTR aviso">
                                                 <td class="in">Rácio do consumo de energia para climatização relativamente ao consumo total de energia do edifício</td>
                                                 <td class="center" id="perc-total-inicial-global"></td>
                                                 <td class="center" id="perc-total-final-global"></td>
@@ -702,8 +709,9 @@
                                             </tr>
                                         </tbody>
                                     </table>
-
+                                    <p id="errorRACIO" style="color: red;"></p>
                                 </div>
+                                <div><span style="color: #0099cc;">* O investimento estimado incorpora os custos com equipamentos/tecnologia, com depósitos e/ou acessórios e os respetivos custos de instalação.</span></div>
                             </div>
                         </div>
                     </div>

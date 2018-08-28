@@ -67,6 +67,9 @@ $(document).ready(function () {
         } else if ($('#cons-aqs').val() != "" && $('#cons-aqs').val() == 0) {
             $(".conhece-consumos-aqs").show();
             $(".nconhece-consumos-aqs").hide();
+        } else{
+            $(".conhece-consumos-aqs").hide();
+            $(".nconhece-consumos-aqs").hide();
         }
     });
 
@@ -391,6 +394,40 @@ $(document).ready(function () {
                 min: 1,
                 step: 1,
                 digits: true
+            },
+            'consumos-caixa1':{
+                required: function () {
+                    if (($("#valor-input-consumo1").val() != "" && $("#valor-input-consumo1").val() >=0) || ($("#valor-pred-consumo1").val() != "" && $("#valor-pred-consumo1").val() >=0)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            },
+            'valor-input-consumo1':{
+                required: function () {
+                    if ($("#consumos-caixa1").val() != "" && $("#consumos-caixa1").val() >=0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                number: true,
+                min: 1,
+                step: 1,
+                digits: true
+            },
+            'valor-pred-consumo1':{
+                required: function () {
+                    if ($("#consumos-caixa1").val() != "" && $("#consumos-caixa1").val() >=0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                number: true,
+                min: 0.01,
+                step: 0.01
             }
         },
         messages: {
@@ -540,6 +577,22 @@ $(document).ready(function () {
                 step: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
                 digits: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
                 number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>'
+            },
+            'consumos-caixa1':{
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou uma fonte energética.</label>',
+            },
+            'valor-input-consumo1':{
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou uma fonte energética.</label>',
+                step: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                digits: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                min: '<label style="font-size: 14px; color: red;">O valor mínimo é 1</label>',
+            },
+            'valor-pred-consumo1':{
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou uma fonte energética.</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
+                min: '<label style="font-size: 14px; color: red;">O custo mínimo é de 0.01€</label>',
+                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01</label>'
             }
         }
 
@@ -547,7 +600,15 @@ $(document).ready(function () {
 
     $(".seguinte").click(function () {
         if ($("#clima-form").valid()) {
-            nextStep();
+            var id = $('.step:visible').data('id');
+            var nextId = $('.step:visible').data('id') + 1;
+            
+            if(id==1 && !validateEnergy()){
+                alert("Tem de introduzir os consumos de energia eléctrica do edifício. ");
+            }else{
+                nextStep();
+            }
+            
         }
     });
     $(".end-but").click(function () {
@@ -563,6 +624,25 @@ $(document).ready(function () {
 
 
 });
+
+function validateEnergy(){
+    var valid=false;
+    for(var i=1; i<=inputId; i++){
+        if($("#consumos-caixa"+i).val()==1 ){            
+            return true;            
+        }
+    }  
+    
+    if(valid){
+        return valid;
+    }else if(!valid && $("#consumos-caixa1").val()==""){
+        return true;
+    }else{
+        return valid;
+    }    
+    
+}
+
 
 function buildIdade() {
     for (var i = 0; i < idades.length; i++) {
@@ -620,6 +700,7 @@ function buildFontesEnergia() {
     for (var i = 0; i < fonteEnergeticaI.length; i++) {
         $('#consumos-caixa1').append($('<option class="op"></option>').val(i).html(fonteEnergeticaI[i].nome));
     }
+    $("#consumos-caixa1").val("");
 }
 
 
@@ -727,7 +808,7 @@ function addRowConsumes() {
 
         $('#copy-row-consume').find("#unidade-consumo1").html("");
         $('#copy-row-consume').find("#consumos-caixa1").val("");
-        $('#copy-row-consume').find("#valor-input-consumo1").val("");
+        $('#copy-row-consume').find("#valor-input-consumo1").val("1");
 
         $('#copy-row-consume-2').find("#unidade-custo-consumo1").html("");
         $('#copy-row-consume-2').find("#valor-pred-consumo1").val("");
@@ -790,6 +871,28 @@ function addRowConsumes() {
                 number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>'
             }
         });
+        
+        $('#valor-input-consumo' + inputId).rules("add", {
+            required: function (element) {
+
+                if ($("#consumos-caixa" + inputId).val() != "" && $("#consumos-caixa" + inputId).val() >= 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+            number: true,
+            min: 1,
+            step: 1,
+            digits: true,
+            messages: {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou um tipo de consumo.</label>',
+                min: '<label style="font-size: 14px; color: red;">O valor mínimo é 1</label>',
+                step: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                digits: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>'
+            }
+        });
 
         $('#valor-input-consumo' + inputId).change(dadosFirstTotal);
 
@@ -808,6 +911,7 @@ function addRowConsumes() {
         });
 
         $("#remove-consume" + inputId).click(removeRowConsumes);
+        $("#remove-consume" + inputId).removeAttr("disabled");
         $("#remove-consume" + (inputId - 1)).attr("disabled", "disabled");
     }
 }
@@ -1487,8 +1591,10 @@ function buildConsumoTable() {
 function useAqsLink() {
     if ($('#use-aqs').val() != "" && $('#use-aqs').val() == 0) {
         $('.pres-aqs').removeClass('use-aqs-link');
+        $('.simulacao').show();
     } else {
         $('.pres-aqs').addClass('use-aqs-link');
+        $('.simulacao').hide();
     }
 }
 
@@ -1497,6 +1603,12 @@ function presAqsLink() {
         $('.cons-aqs').removeClass('pres-aqs-link');
     } else {
         $('.cons-aqs').addClass('pres-aqs-link');
+    }
+    
+    if ($('#pres-aqs').val() != "" && $('#pres-aqs').val() == 1) {
+        $('.simulacao').hide();
+    } else {
+        $('.simulacao').show();
     }
 }
 
