@@ -1,10 +1,10 @@
 var utilizacao_calc = [
     {
         nome: "Aquecimento"
+    },
+    {
+        nome: "Arrefecimento"
     }
-//    {
-//        nome: "Arrefecimento"
-//    },
 //    {
 //        nome: "Aquecimento e Arrefecimento"
 //    }
@@ -111,11 +111,11 @@ var periodos_encerramento = [
     },
     {
         periodo: "2 semanas em Dezembro e 2 semanas em Agosto",
-        valor: 0 // 0%
+        valor: 0.50 // 0%
     },
     {
         periodo: "2 semanas em Dezembro, meses de Julho e Agosto",
-        valor: 0 // 0%
+        valor: 0.50 // 0%
     },
     {
         periodo: "Não tem",
@@ -281,88 +281,88 @@ var tecnologia_atual_aquecimento = [
     }
 ];
 
-//var tecnologia_atual_arrefecimento = [
-//    {
-//        nome: "Chiller (ciclo de absorção)",
-//        custo_unit: 0.20, //euros
-//        rendimento: [
-//            {
-//                nome: "< 10 anos",
-//                valor: 3 //300%
-//            },
-//            {
-//                nome: "> 20 anos",
-//                valor: 2.5 //250%
-//            },
-//            {
-//                nome: "10 a 20 anos",
-//                valor: 2.75 //275%
-//            }
-//        ],
-//        unidade: "kWh",
-//        fonte_energia: "Energia Elétrica"
-//    },
-//    {
-//        nome: "Chiller (codensação a ar)",
-//        custo_unit: 0.20, //euros
-//        rendimento: [
-//            {
-//                nome: "< 10 anos",
-//                valor: 2.75 //275%
-//            },
-//            {
-//                nome: "> 20 anos",
-//                valor: 2 //200%
-//            },
-//            {
-//                nome: "10 a 20 anos",
-//                valor: 2.50 //250%
-//            }
-//        ],
-//        unidade: "kWh",
-//        fonte_energia: "Energia Elétrica"
-//    },
-//    {
-//        nome: "Chiller (codensação a água)",
-//        custo_unit: 0.20, //euros
-//        rendimento: [
-//            {
-//                nome: "< 10 anos",
-//                valor: 3 //300%
-//            },
-//            {
-//                nome: "> 20 anos",
-//                valor: 2.5 //250%
-//            },
-//            {
-//                nome: "10 a 20 anos",
-//                valor: 2.75 //275%
-//            }
-//        ],
-//        unidade: "kWh",
-//        fonte_energia: "Energia Elétrica"
-//    },
-//    {
-//        nome: "Expansão direta (arrefecimento)",
-//        custo_unit: 0.20, //euros
-//        rendimento: [
-//            {
-//                nome: "< 10 anos",
-//                valor: 2.75 //275%
-//            },
-//            {
-//                nome: "> 20 anos",
-//                valor: 2 //200%
-//            },
-//            {
-//                nome: "10 a 20 anos",
-//                valor: 2.50 //250%
-//            }
-//        ],
-//        unidade: "kWh",
-//        fonte_energia: "Energia Elétrica"
-//    }
-//];
+var tecnologia_atual_arrefecimento = [
+    {
+        nome: "Chiller (ciclo de absorção)",
+        custo_unit: 0.20, //euros
+        rendimento: [
+            {
+                nome: "< 10 anos",
+                valor: 3 //300%
+            },
+            {
+                nome: "> 20 anos",
+                valor: 2.5 //250%
+            },
+            {
+                nome: "10 a 20 anos",
+                valor: 2.75 //275%
+            }
+        ],
+        unidade: "kWh",
+        fonte_energia: "Energia Elétrica"
+    },
+    {
+        nome: "Chiller (codensação a ar)",
+        custo_unit: 0.20, //euros
+        rendimento: [
+            {
+                nome: "< 10 anos",
+                valor: 2.75 //275%
+            },
+            {
+                nome: "> 20 anos",
+                valor: 2 //200%
+            },
+            {
+                nome: "10 a 20 anos",
+                valor: 2.50 //250%
+            }
+        ],
+        unidade: "kWh",
+        fonte_energia: "Energia Elétrica"
+    },
+    {
+        nome: "Chiller (codensação a água)",
+        custo_unit: 0.20, //euros
+        rendimento: [
+            {
+                nome: "< 10 anos",
+                valor: 3 //300%
+            },
+            {
+                nome: "> 20 anos",
+                valor: 2.5 //250%
+            },
+            {
+                nome: "10 a 20 anos",
+                valor: 2.75 //275%
+            }
+        ],
+        unidade: "kWh",
+        fonte_energia: "Energia Elétrica"
+    },
+    {
+        nome: "Expansão direta (arrefecimento)",
+        custo_unit: 0.20, //euros
+        rendimento: [
+            {
+                nome: "< 10 anos",
+                valor: 2.75 //275%
+            },
+            {
+                nome: "> 20 anos",
+                valor: 2 //200%
+            },
+            {
+                nome: "10 a 20 anos",
+                valor: 2.50 //250%
+            }
+        ],
+        unidade: "kWh",
+        fonte_energia: "Energia Elétrica"
+    }
+];
 
 var tecnologia_futura_aquecimento = [
     {
@@ -426,47 +426,47 @@ var tecnologia_futura_aquecimento = [
 //    }
 ];
 
-//var tecnologia_futura_arrefecimento = [
-//    {
-//        nome: "Chiller (ciclo de absorção)",
-//        custo_unit: 0.20, //euros
-//        rendimento: 3,
-//        potencia: 0.03,
-//        investimento: 1000,
-//        unidade: "kWh",
-//        fonte_energia: "Energia Elétrica"
-//    },
-//    {
-//        nome: "Chiller (condensação a ar",
-//        custo_unit: 0.20, //euros
-//        rendimento: 3.75,
-//        potencia: 0.03,
-//        investimento: 1000,
-//        unidade: "kWh",
-//        fonte_energia: "Energia Elétrica"
-//    },
-//    {
-//        nome: "Chiller (consensação a água)",
-//        custo_unit: 0.20, //euros
-//        rendimento: 4,
-//        potencia: 0.03,
-//        investimento: 1000,
-//        unidade: "kWh",
-//        fonte_energia: "Energia Elétrica"
-//    },
-//    {
-//        nome: "Expansão direta (arrefecimento)",
-//        custo_unit: 0.20, //euros
-//        rendimento: 3.25,
-//        potencia: 0.03,
-//        investimento: 1000,
-//        unidade: "kWh",
-//        fonte_energia: "Energia Elétrica"
-//    },
-//    {
-//        nome: "Não intervir"
-//    }
-//];
+var tecnologia_futura_arrefecimento = [
+    {
+        nome: "Chiller (ciclo de absorção)",
+        custo_unit: 0.20, //euros
+        rendimento: 3,
+        potencia: 0.03,
+        investimento: 1000,
+        unidade: "kWh",
+        fonte_energia: "Energia Elétrica"
+    },
+    {
+        nome: "Chiller (condensação a ar",
+        custo_unit: 0.20, //euros
+        rendimento: 3.75,
+        potencia: 0.03,
+        investimento: 1000,
+        unidade: "kWh",
+        fonte_energia: "Energia Elétrica"
+    },
+    {
+        nome: "Chiller (consensação a água)",
+        custo_unit: 0.20, //euros
+        rendimento: 4,
+        potencia: 0.03,
+        investimento: 1000,
+        unidade: "kWh",
+        fonte_energia: "Energia Elétrica"
+    },
+    {
+        nome: "Expansão direta (arrefecimento)",
+        custo_unit: 0.20, //euros
+        rendimento: 3.25,
+        potencia: 0.03,
+        investimento: 1000,
+        unidade: "kWh",
+        fonte_energia: "Energia Elétrica"
+    },
+    {
+        nome: "Não intervir"
+    }
+];
 
 var distrito_info = [
     {
@@ -700,28 +700,6 @@ var classes = [
         info: [
             {
                 nome: 'Envolvente',
-                valor: 0.30
-            },
-            {
-                nome: 'Envidraçados',
-                valor: 1.50
-            },
-            {
-                nome: 'Fator Solar',
-                valor: 0.60
-            },
-            {
-                nome: 'Cobertura',
-                valor: 0.30
-            }
-        ]
-    },
-    {
-        classe_id: "A",
-        valor_direto: 0.26,
-        info: [
-            {
-                nome: 'Envolvente',
                 valor: 0.25
             },
             {
@@ -735,6 +713,28 @@ var classes = [
             {
                 nome: 'Cobertura',
                 valor: 0.20
+            }
+        ]
+    },
+    {
+        classe_id: "A",
+        valor_direto: 0.26,
+        info: [
+            {
+                nome: 'Envolvente',
+                valor: 0.30
+            },
+            {
+                nome: 'Envidraçados',
+                valor: 1.50
+            },
+            {
+                nome: 'Fator Solar',
+                valor: 0.60
+            },
+            {
+                nome: 'Cobertura',
+                valor: 0.30
             }
         ]
     },
@@ -1489,6 +1489,11 @@ var avisos = [
         nome: "Aviso de racio superior a 1",
         valor: 100,
         mensagem: "O consumo de energia para climatização é superior ao consumo global de energia do edifício. Reveja os dados inseridos e tente novamente."
+    },
+    {
+        nome: "Aviso de colectores menor que 0.5",
+        valor: 0.5,
+        mensagem: "O solar térmico a acoplar não é viável. Por favor reveja os dados inseridos e tente novamente."
     }
 ];
 
@@ -2479,7 +2484,7 @@ var irradiacao_temp_amb_temp_agua = [
                 nomeI: "Agosto",
                 valorIrr: 25.2,
                 valorTempAmb: 23.9,
-                valorTempAgua: 18.4,
+                valorTempAgua: 19.4,
                 valorPrinc: 183,
                 valorPerc: 0.32
             },
