@@ -22,6 +22,7 @@ function dadosFirstTotal() {
 
 function run() {
     var simular_aqs = $('#simulacao-aqs').val();
+    var pres_aqs = $('#pres-aqs').val();
     areaCalc();
 
     if ($("#consumo-quest").val() == 1) {
@@ -76,13 +77,21 @@ function run() {
     if (result == 1) {
         showResumo();
         $("#globals").show();
-        if (simular_aqs == 0 && simular_aqs != "") {
+        if (first_total>0 && pres_aqs == 0 && pres_aqs != "") {
             showGlobalResumo();
-        } else if(consumos_anuais_dados>0 && simular_aqs==1){
+            $(".no-aqs").show();
+        } else if(first_total>0 && pres_aqs==1){
             showGlobalResumo();
             $(".no-aqs").hide();
+        }else if(pres_aqs == 0 && pres_aqs != "") {
+            showGlobalResumo();
+            $(".no-aqs").show();
+		}else if (first_total>0) {
+            showGlobalResumo();
+			$(".no-aqs").hide();
         }else{
             $("#globals").hide();
+            $(".no-aqs").hide();
         }
         nextStep();
     }
@@ -617,9 +626,9 @@ function necessidadesEnergeticas() {
                 necessidades_array[i] = total_medidas * perfil_mensal[perfil_men].tabela[i].valor * perfil_sem_valor * meses_numero_horas[i].n_dias * fatores_conversao[0] * (temperatura_utilizacao - irradiacao_temp_amb_temp_agua[idDistrito].mesI[i].valorTempAgua);
             } else if (conhece_aqs == 0) {
                 if (aqs_cons == 0) {
-                    necessidades_array[i] = aqs_total_input * meses_numero_horas[i].aqs_mensal * fatores_conversao[1] * tecnologia_atual_aquecimento[atual_fonte_tec].fator_conversao * rend_user;
+                    necessidades_array[i] = aqs_total_input * meses_numero_horas[i].aqs_mensal * tecnologia_atual_aquecimento[atual_fonte_tec].fator_conversao * rend_user;
                 } else if (aqs_cons == 1) {
-                    necessidades_array[i] = $("#aqsConsumosMeses" + i).val() * fatores_conversao[1] * tecnologia_atual_aquecimento[atual_fonte_tec].fator_conversao * rend_user;
+                    necessidades_array[i] = $("#aqsConsumosMeses" + i).val() * tecnologia_atual_aquecimento[atual_fonte_tec].fator_conversao * rend_user;
                 }
             }
 
@@ -637,9 +646,9 @@ function necessidadesEnergeticas() {
                 necessidades_array[i] = total_medidas * perfil_mensal[perfil_men].tabela[i].valor * perfil_sem_valor * meses_numero_horas[i].n_dias * fatores_conversao[0] * (temperatura_utilizacao - irradiacao_temp_amb_temp_agua[idDistrito].mesI[i].valorTempAgua);
             } else if (conhece_aqs == 0) {
                 if (aqs_cons == 0) {
-                    necessidades_array[i] = aqs_total_input * meses_numero_horas[i].aqs_mensal * fatores_conversao[1] * tecnologia_atual_aquecimento[atual_fonte_tec].fator_conversao * rend_user;
+                    necessidades_array[i] = aqs_total_input * meses_numero_horas[i].aqs_mensal * tecnologia_atual_aquecimento[atual_fonte_tec].fator_conversao * rend_user;
                 } else if (aqs_cons == 1) {
-                    necessidades_array[i] = $("#aqsConsumosMeses" + i).val() * fatores_conversao[1] * tecnologia_atual_aquecimento[atual_fonte_tec].fator_conversao * rend_user;
+                    necessidades_array[i] = $("#aqsConsumosMeses" + i).val() * tecnologia_atual_aquecimento[atual_fonte_tec].fator_conversao * rend_user;
                 }
             }
 
@@ -651,7 +660,7 @@ function necessidadesEnergeticas() {
 function racio() {
     total_racio = 0;
 
-    total_racio = new Number((total_media_verao_necen / total_media_verao_solar).toFixed(2));
+    total_racio = new Number(((total_media_verao_necen / fatores_conversao[1]) / total_media_verao_solar).toFixed(2));
 }
 
 function energiaSolarCaptadaM2() {
@@ -697,7 +706,7 @@ function energiaSolarUtilizada() {
     energia_solar_utilizada_total = 0;
 
     for (var i = 0; i < meses_numero_horas.length; i++) {
-        energia_solar_utilizada_array[i] = (energia_solar_mj_array[i] > necessidades_array[i]) ? necessidades_array[i] : energia_solar_mj_array[i];
+        energia_solar_utilizada_array[i] = (energia_solar_mj_array[i] > (necessidades_array[i] / fatores_conversao[1])) ? necessidades_array[i] / fatores_conversao[1] : energia_solar_mj_array[i];
 
         energia_solar_utilizada_total += energia_solar_utilizada_array[i];
     }
@@ -725,10 +734,10 @@ function energiaSA() {
     }
 
     for (var i = 0; i < meses_numero_horas.length; i++) {
-        if ((necessidades_array[i] - energia_solar_mj_array[i]) < 0) {
+        if (((necessidades_array[i] / fatores_conversao[1]) - energia_solar_mj_array[i]) < 0) {
             energia_solar_sa_array[i] = 0;
         } else {
-            energia_solar_sa_array[i] = (necessidades_array[i] - energia_solar_mj_array[i]) / rend_user;
+            energia_solar_sa_array[i] = ((necessidades_array[i] / fatores_conversao[1]) - energia_solar_utilizada_array[i]) / rend_user * fatores_conversao[1];
         }
 
         energia_solar_sa_total += energia_solar_sa_array[i];
@@ -775,17 +784,19 @@ function cenarioInicialConsumosAquecimento() {
     var conhece_aqs = $('#cons-aqs').val();
     var conhece_cons = $('#consumo-quest').val();
     var consumo_option = $('#aquecimento-consumo').val();
-
+    var simular_aqs = $('#simulacao-aqs').val();
     var anual_input = $("input[name='aquecimentoConsumoAnualTotal']").val();
     var fonte = $('#fonte-aq').val();
     var idDistrito = $('#distrito').val();
 
+    var rend = ($("#iRendMan").val()!=''  && $("#iRendMan").val()!=undefined && ($("#iRendMan").val()==5 || $("#iRendMan").val()==6)) ? $("#iRendMan").val() : ($("#iRendMan").val()!=''  && $("#iRendMan").val()!=undefined && $("#iRendMan").val()>=0 ? $("#iRendMan").val()/100 : 0);
     cenario_inicial_aquecimento_array = [];
     cenario_inicial_aquecimento_total = 0;
 
     for (var i = 0; i < meses_numero_horas.length; i++) {
 
         if ((i >= 0 && i < 5) || (i >= 9 && i < 12)) {
+
 
             if ((conhece_aqs == 1 || conhece_aqs == '') && conhece_cons != "" && conhece_cons == 0 && consumo_option == 1) {
 
@@ -795,25 +806,26 @@ function cenarioInicialConsumosAquecimento() {
 
                 cenario_inicial_aquecimento_array[i] = anual_input * tecnologia_atual_aquecimento[fonte].fator_conversao * irradiacao_temp_amb_temp_agua[idDistrito].mesI[i].valorPerc;
 
-            } else if (conhece_aqs == 0 && conhece_aqs != "" && conhece_cons != "" && conhece_cons == 0 && consumo_option != "" && consumo_option == 0 && ((anual_input * tecnologia_atual_aquecimento[fonte].fator_conversao * irradiacao_temp_amb_temp_agua[idDistrito].mesI[i].valorPerc) - cenario_inicial_aqs_array[i]) < 0) {
+            } else if (conhece_aqs == 0 && conhece_aqs != "" && conhece_cons != "" && conhece_cons == 0 && consumo_option != "" && consumo_option == 0 && ((anual_input * tecnologia_atual_aquecimento[fonte].fator_conversao * irradiacao_temp_amb_temp_agua[idDistrito].mesI[i].valorPerc)) < 0) {
 
                 cenario_inicial_aquecimento_array[i] = 0;
 
             } else if (conhece_aqs == 0 && conhece_aqs != "" && conhece_cons != "" && conhece_cons == 0 && consumo_option != "" && consumo_option == 0) {
 
-                cenario_inicial_aquecimento_array[i] = anual_input * tecnologia_atual_aquecimento[fonte].fator_conversao * irradiacao_temp_amb_temp_agua[idDistrito].mesI[i].valorPerc - cenario_inicial_aqs_array[i];
+                cenario_inicial_aquecimento_array[i] = anual_input * tecnologia_atual_aquecimento[fonte].fator_conversao * irradiacao_temp_amb_temp_agua[idDistrito].mesI[i].valorPerc;
 
-            } else if (conhece_aqs == 0 && conhece_aqs != "" && conhece_cons != "" && conhece_cons == 0 && consumo_option == 1 && (($("#aquecimentoConsumosMeses" + i).val() * tecnologia_atual_aquecimento[fonte].fator_conversao) - cenario_inicial_aqs_array[i]) < 0) {
+            } else if (conhece_aqs == 0 && conhece_aqs != "" && conhece_cons != "" && conhece_cons == 0 && consumo_option == 1 && (($("#aquecimentoConsumosMeses" + i).val() * tecnologia_atual_aquecimento[fonte].fator_conversao)) < 0) {
 
                 cenario_inicial_aquecimento_array[i] = 0;
 
             } else if (conhece_aqs == 0 && conhece_aqs != "" && conhece_cons != "" && conhece_cons == 0 && consumo_option == 1) {
 
-                cenario_inicial_aquecimento_array[i] = $("#aquecimentoConsumosMeses" + i).val() * tecnologia_atual_aquecimento[fonte].fator_conversao - cenario_inicial_aqs_array[i];
+                cenario_inicial_aquecimento_array[i] = $("#aquecimentoConsumosMeses" + i).val() * tecnologia_atual_aquecimento[fonte].fator_conversao;
 
             } else {
 
                 cenario_inicial_aquecimento_array[i] = consumo_aq_meses[i];
+
             }
         } else {
 
@@ -864,11 +876,11 @@ function cenarioInicialConsumosAqs() {
     for (var i = 0; i < meses_numero_horas.length; i++) {
         if (conhece_aqs == 1) {
 
-            cenario_inicial_aqs_array[i] = (necessidades_array[i] * fatores_conversao[1]) / rend_user;
+            cenario_inicial_aqs_array[i] = necessidades_array[i] / rend_user;
 
         } else if (consumo_option_aqs == 1) {
 
-            cenario_inicial_aqs_array[i] = $("#aqsConsumosMeses" + i).val() * tecnologia_atual_aquecimento[fonte].fator_conversao
+            cenario_inicial_aqs_array[i] = $("#aqsConsumosMeses" + i).val() * tecnologia_atual_aquecimento[fonte].fator_conversao;
 
         } else if (consumo_option_aqs != "" && consumo_option_aqs == 0) {
 
@@ -1013,14 +1025,14 @@ function cenarioFinalConsumosAqs() {
     for (var i = 0; i < meses_numero_horas.length; i++) {
 
         if (simular_aqs == 1 && option_aqs == 1) {
-            cenario_final_aqs_array[i] = ($("#aqsConsumosMeses" + i).val() * tecnologia_atual_aquecimento[fonte_aq].fator_conversao * rend_user) / new_rend;
+            cenario_final_aqs_array[i] = ($("#aqsConsumosMeses" + i).val() * tecnologia_atual_aquecimento[fonte_aq].fator_conversao) / new_rend;
 
         } else if (simular_aqs == 1 && option_aqs != "" && option_aqs == 0) {
 
-            cenario_final_aqs_array[i] = (aqs_anual * meses_numero_horas[i].aqs_mensal * tecnologia_atual_aquecimento[fonte_aq].fator_conversao * rend_user) / new_rend;
+            cenario_final_aqs_array[i] = (aqs_anual * meses_numero_horas[i].aqs_mensal * tecnologia_atual_aquecimento[fonte_aq].fator_conversao) / new_rend;
 
         } else if ((simular_aqs == 0 && simular_aqs != "") || (simular_aqs == 1 && querIncluirAQS != "" && querIncluirAQS == 0)) {
-            cenario_final_aqs_array[i] = energia_solar_sa_array[i] * fatores_conversao[1];
+            cenario_final_aqs_array[i] = energia_solar_sa_array[i];
         } else {
             cenario_final_aqs_array[i] = 0;
         }
@@ -1038,7 +1050,6 @@ function cenarioFinalConsumosTotais() {
     cenario_final_consumos_total_global = cenario_final_aquecimento_total + 0 + cenario_final_aqs_total;
 
     cenario_final_consumos_aq_perc = cenario_final_aquecimento_total / cenario_final_consumos_total_global;
-
 
     cenario_final_consumos_aqs_perc = cenario_final_aqs_total / cenario_final_consumos_total_global;
 }
@@ -1070,6 +1081,7 @@ function cenarioFinalCustosAqs() {
 }
 
 function cenarioFinalCustosTotais() {
+
     cenario_final_custos_total_global = cenario_final_custos_aquecimento_total + cenario_final_custos_arrefecimento_total + cenario_final_custos_aqs_total;
 
     cenario_final_custos_aq_perc = cenario_final_custos_aquecimento_total / cenario_final_custos_total_global;
@@ -1115,14 +1127,14 @@ function cenarioFinalReducaoAqs() {
 }
 
 function cenarioFinalReducaoTotais() {
-    var simula_aqs = $('#simulacao-aqs').val();
+    var use_aqs = $('#use-aqs').val();
 
     cenario_final_reducao_total_global = 0;
     cenario_final_reducao_aq_perc = 0;
     cenario_final_reducao_arr_perc = 0;
     cenario_final_reducao_aqs_perc = 0;
 
-    if (simula_aqs == 0) {
+    if (use_aqs == 0) {
         cenario_final_reducao_total_global = (cenario_final_reducao_aquecimento_total_perc + 0 + cenario_final_reducao_aqs_total_perc) / cenario_inicial_custos_total_global; // 0 - arrefecimento
     } else {
         cenario_final_reducao_total_global = (cenario_final_reducao_aquecimento_total_perc + 0) / cenario_inicial_custos_total_global; // 0 - arrefecimento
@@ -1231,7 +1243,7 @@ function resumoAquecimento() {
 }
 
 function resumoAqs() {
-    var simular_aqs = $('#simulacao-aqs').val();
+    var usa_aqs = $('#use-aqs').val();
 
     resumo_consumo_anual_inicial_aqs = 0;
     resumo_consumo_anual_final_aqs = 0;
@@ -1245,7 +1257,7 @@ function resumoAqs() {
     resumo_investimento_estimado_aqs = 0;
     resumo_pri_simples_aqs = 0;
 
-    if (simular_aqs == 0 && simular_aqs != "") {
+    if (usa_aqs == 0 && usa_aqs != "") {
 
         resumo_consumo_anual_inicial_aqs = new Number((cenario_inicial_aqs_total).toFixed(0));
         resumo_consumo_anual_final_aqs = new Number((cenario_final_aqs_total).toFixed(0));
@@ -1381,10 +1393,10 @@ function resumoGlobals() {
     perc_relativa_total_global_inicial = new Number(((consumo_anual_clima_global_inicial / consumo_anual_total_global_inicial) * 100).toFixed(0));
     perc_relativa_total_global_final = new Number(((consumo_anual_clima_global_final / consumo_anual_total_global_final) * 100).toFixed(0));
     if (consumo_anual_total_global_inicial > 0) {
-        if (perc_relativa_total_global_inicial > 70 && simular_aqs == 0 && simular_aqs != "") {
+        if (perc_relativa_total_global_inicial > 70 && usa_aqs == 0 && usa_aqs != "" && consumos_anuais_dados>0) {
             $("#errorRACIO").html("O consumo de energia para climatização e AQS representa mais de 70% do consumo global de energia do edifício. Poderá ser conveniente rever os dados inseridos.");
             $("#errorRACIO").show();
-        } else if (perc_relativa_total_global_inicial > 70) {
+        } else if (perc_relativa_total_global_inicial > 70 && consumos_anuais_dados>0) {
             $("#errorRACIO").html("O consumo de energia para climatização representa mais de 70% do consumo global de energia do edifício. Poderá ser conveniente rever os dados inseridos.");
             $("#errorRACIO").show();
         } else {
@@ -1395,7 +1407,7 @@ function resumoGlobals() {
         perc_relativa_total_global_final = 0;
     }
     
-    if (total_n_coletores < avisos[5].valor) {
+    if (simular_aqs == 0 && simular_aqs != "" && total_n_coletores < avisos[5].valor) {
         alert(avisos[5].mensagem);
         return 0;
     }
@@ -1486,12 +1498,26 @@ function showResumo() {
 }
 
 function showGlobalResumo() {
+
+    var pres_aqs = $("#pres-aqs").val();
     $('#consumo-anual-total-inicial-global').html(consumo_anual_total_global_inicial + ' kWh');
     $('#consumo-anual-total-final-global').html(consumo_anual_total_global_final + ' kWh');
+
+    if(pres_aqs!="" && pres_aqs==0){
+        $("#consumoAnual").html('Consumo anual de energia para aquecimento e AQS'); 
+    }else{
+        $("#consumoAnual").html('Consumo anual de energia para aquecimento'); 
+    }
 
     $('#consumo-anual-clima-inicial-global').html(consumo_anual_clima_global_inicial + ' kWh');
     $('#consumo-anual-clima-final-global').html(consumo_anual_clima_global_final + ' kWh');
 
+
+    if(pres_aqs!="" && pres_aqs==0){
+        $("#racioGlobal").html('Rácio do consumo de energia para aquecimento e AQS relativamente ao consumo total de energia do edifício'); 
+    }else{
+        $("#racioGlobal").html('Rácio do consumo de energia para aquecimento relativamente ao consumo total de energia do edifício'); 
+    }
     $('#perc-total-inicial-global').html(perc_relativa_total_global_inicial + '%');
     $('#perc-total-final-global').html(perc_relativa_total_global_final + '%');
 

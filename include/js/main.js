@@ -67,7 +67,7 @@ $(document).ready(function () {
         } else if ($('#cons-aqs').val() != "" && $('#cons-aqs').val() == 0) {
             $(".conhece-consumos-aqs").show();
             $(".nconhece-consumos-aqs").hide();
-        } else{
+        } else {
             $(".conhece-consumos-aqs").hide();
             $(".nconhece-consumos-aqs").hide();
         }
@@ -297,7 +297,7 @@ $(document).ready(function () {
                     }
                 }
             },
-            'perfil-mensal':{
+            'perfil-mensal': {
                 required: function () {
                     if ($("#cons-aqs").val() == 1 && $("#cons-aqs").val() != "") {
                         return true;
@@ -395,18 +395,18 @@ $(document).ready(function () {
                 step: 1,
                 digits: true
             },
-            'consumos-caixa1':{
+            'consumos-caixa1': {
                 required: function () {
-                    if (($("#valor-input-consumo1").val() != "" && $("#valor-input-consumo1").val() >=0) || ($("#valor-pred-consumo1").val() != "" && $("#valor-pred-consumo1").val() >=0)) {
+                    if (($("#valor-input-consumo1").val() != "" && $("#valor-input-consumo1").val() >= 0) || ($("#valor-pred-consumo1").val() != "" && $("#valor-pred-consumo1").val() >= 0)) {
                         return true;
                     } else {
                         return false;
                     }
                 }
             },
-            'valor-input-consumo1':{
+            'valor-input-consumo1': {
                 required: function () {
-                    if ($("#consumos-caixa1").val() != "" && $("#consumos-caixa1").val() >=0) {
+                    if ($("#consumos-caixa1").val() != "" && $("#consumos-caixa1").val() >= 0) {
                         return true;
                     } else {
                         return false;
@@ -417,9 +417,9 @@ $(document).ready(function () {
                 step: 1,
                 digits: true
             },
-            'valor-pred-consumo1':{
+            'valor-pred-consumo1': {
                 required: function () {
-                    if ($("#consumos-caixa1").val() != "" && $("#consumos-caixa1").val() >=0) {
+                    if ($("#consumos-caixa1").val() != "" && $("#consumos-caixa1").val() >= 0) {
                         return true;
                     } else {
                         return false;
@@ -521,7 +521,7 @@ $(document).ready(function () {
             'cons-aqs': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
             },
-            'perfil-mensal':{
+            'perfil-mensal': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
             },
             'perfil-semanal': {
@@ -578,17 +578,17 @@ $(document).ready(function () {
                 digits: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
                 number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>'
             },
-            'consumos-caixa1':{
+            'consumos-caixa1': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou uma fonte energética.</label>',
             },
-            'valor-input-consumo1':{
+            'valor-input-consumo1': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou uma fonte energética.</label>',
                 step: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
                 digits: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
                 number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
                 min: '<label style="font-size: 14px; color: red;">O valor mínimo é 1</label>',
             },
-            'valor-pred-consumo1':{
+            'valor-pred-consumo1': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou uma fonte energética.</label>',
                 number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
                 min: '<label style="font-size: 14px; color: red;">O custo mínimo é de 0.01€</label>',
@@ -602,13 +602,13 @@ $(document).ready(function () {
         if ($("#clima-form").valid()) {
             var id = $('.step:visible').data('id');
             var nextId = $('.step:visible').data('id') + 1;
-            
-            if(id==1 && !validateEnergy()){
+
+            if (id == 1 && !validateEnergy()) {
                 alert("Tem de introduzir os consumos de energia eléctrica do edifício. ");
-            }else{
+            } else {
                 nextStep();
             }
-            
+
         }
     });
     $(".end-but").click(function () {
@@ -625,22 +625,22 @@ $(document).ready(function () {
 
 });
 
-function validateEnergy(){
-    var valid=false;
-    for(var i=1; i<=inputId; i++){
-        if($("#consumos-caixa"+i).val()==1 ){            
-            return true;            
+function validateEnergy() {
+    var valid = false;
+    for (var i = 1; i <= inputId; i++) {
+        if ($("#consumos-caixa" + i).val() == 1) {
+            return true;
         }
-    }  
-    
-    if(valid){
+    }
+
+    if (valid) {
         return valid;
-    }else if(!valid && $("#consumos-caixa1").val()==""){
+    } else if (!valid && $("#consumos-caixa1").val() == "") {
         return true;
-    }else{
+    } else {
         return valid;
-    }    
-    
+    }
+
 }
 
 
@@ -808,13 +808,14 @@ function addRowConsumes() {
 
         $('#copy-row-consume').find("#unidade-consumo1").html("");
         $('#copy-row-consume').find("#consumos-caixa1").val("");
-        $('#copy-row-consume').find("#valor-input-consumo1").val("1");
+        $('#copy-row-consume').find("#valor-input-consumo1").val("");
 
         $('#copy-row-consume-2').find("#unidade-custo-consumo1").html("");
         $('#copy-row-consume-2').find("#valor-pred-consumo1").val("");
 
         $('#copy-row-consume').show();
         $('#copy-row-consume-2').show();
+        $("#valor-input-consumo1").change(dadosFirstTotal);
     } else {
         var firstRow = $("#copy-row-consume");
         var secondRow = $("#copy-row-consume-2");
@@ -871,7 +872,7 @@ function addRowConsumes() {
                 number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>'
             }
         });
-        
+
         $('#valor-input-consumo' + inputId).rules("add", {
             required: function (element) {
 
@@ -1128,7 +1129,7 @@ function fonteAqLink() {
         $("#rendimento").show();
         $("#labelRendimento").show();
         $("#iRendMan").removeAttr("disabled");
-		$("#iRendMan").attr("placeholder", "0.0");
+        $("#iRendMan").attr("placeholder", "0.0");
         $('#rendimento').find("option[value='2']").html("Inserir COP (Ex: 3.2)");
     } else if (idLocal == 6) {
         $(".rend").hide();
@@ -1147,7 +1148,7 @@ function fonteAqLink() {
         $("#rendimento").show();
         $("#labelRendimento").show();
         $("#iRendMan").removeAttr("disabled");
-		$("#iRendMan").attr("placeholder", "0%");
+        $("#iRendMan").attr("placeholder", "0%");
         $('#rend').find("option[value='2']").html("Inserir rendimento (%)");
     } else {
         $(".rend").show();
@@ -1162,14 +1163,52 @@ function fonteAqLink() {
         $("#iRendMan").removeAttr("disabled");
         $('#rend').find("option[value='2']").html("Inserir rendimento (%) / COP");
     }
-    if (idLocal != "" && idLocal != undefined && idLocal >= 0) {
-        custo_en_unit_aq = tecnologia_atual_aquecimento[idLocal].custo_unit*tecnologia_atual_aquecimento[idLocal].fator_conversao;
+
+    //verificar se a tecnologia existe na lista de consumos energéticos anuais
+    var setted = false;
+    if (inputId > 0 && $("#consumos-caixa1").val() != '') {
+        for (var i = 1; i <= inputId; i++) {
+            if (idLocal == 0 && $("#consumos-caixa" + i).val() == 0 && $("#consumos-caixa" + i).val() != '') {
+                
+                custo_en_unit_aq = $("#valor-pred-consumo" + i).val();
+                $('#custo-en-unit-aq').val(custo_en_unit_aq);
+                 var begin = $("#custo-en-unit-aq-label")[0].textContent.indexOf("(");
+                $("#custo-en-unit-aq-label")[0].textContent =  $("#custo-en-unit-aq-label")[0].textContent.substring(0, begin) + "(" + fonteEnergeticaI[0].unidade[1].unid_custo_nome + ")";
+                setted = true;
+            }else if((idLocal == 1 || idLocal == 2 || idLocal == 3)  && $("#consumos-caixa" + i).val() == (i+1)){
+                
+                custo_en_unit_aq = $("#valor-pred-consumo" + i).val();
+                $('#custo-en-unit-aq').val(custo_en_unit_aq);
+                 var begin = $("#custo-en-unit-aq-label")[0].textContent.indexOf("(");
+                $("#custo-en-unit-aq-label")[0].textContent =  $("#custo-en-unit-aq-label")[0].textContent.substring(0, begin) + "(" + fonteEnergeticaI[i+1].unidade[1].unid_custo_nome + ")";
+                setted = true;
+            }else if((idLocal == 4 || idLocal == 5 || idLocal == 6)  && $("#consumos-caixa" + i).val() == 1){
+                
+                custo_en_unit_aq = $("#valor-pred-consumo" + i).val();
+                $('#custo-en-unit-aq').val(custo_en_unit_aq);
+                 var begin = $("#custo-en-unit-aq-label")[0].textContent.indexOf("(");
+                $("#custo-en-unit-aq-label")[0].textContent = $("#custo-en-unit-aq-label")[0].textContent.substring(0, begin) +  "(" + fonteEnergeticaI[1].unidade[1].unid_custo_nome + ")";
+                setted = true;
+            }
+        }
+
+        if(!setted){
+            custo_en_unit_aq = tecnologia_atual_aquecimento[idLocal].custo_unit * tecnologia_atual_aquecimento[idLocal].fator_conversao;
+            $('#custo-en-unit-aq').val(custo_en_unit_aq.toFixed(2));
+
+            var begin = $("#custo-en-unit-aq-label")[0].textContent.indexOf("(");
+            var text = $("#custo-en-unit-aq-label")[0].textContent.substring(0, begin) + " (€/" + tecnologia_atual_aquecimento[idLocal].unidade + ")";
+            $("#custo-en-unit-aq-label")[0].textContent = text;
+        }
+    } else if (idLocal != "" && idLocal != undefined && idLocal >= 0) {
+        custo_en_unit_aq = tecnologia_atual_aquecimento[idLocal].custo_unit * tecnologia_atual_aquecimento[idLocal].fator_conversao;
         $('#custo-en-unit-aq').val(custo_en_unit_aq.toFixed(2));
-        
+
         var begin = $("#custo-en-unit-aq-label")[0].textContent.indexOf("(");
         var text = $("#custo-en-unit-aq-label")[0].textContent.substring(0, begin) + " (€/" + tecnologia_atual_aquecimento[idLocal].unidade + ")";
         $("#custo-en-unit-aq-label")[0].textContent = text;
     }
+
     rendCopLink();
 }
 
@@ -1185,13 +1224,66 @@ function getCustoUnit() {
 
         if (newFont >= 0 && newFont < 5) {
             $("#rend-med").val(new Number((tecnologia_futura_aquecimento[newFont].rendimento * ((newFont == 3 || newFont == 4) ? 1 : 100)).toFixed(2)));
-            custo_unit_med_aq = tecnologia_futura_aquecimento[newFont].custo_unit * tecnologia_futura_aquecimento[newFont].fator_conversao;
-            $("#custo-unit-med-aq").val((custo_unit_med_aq).toFixed(2));
             
+            //verificar se a tecnologia existe na lista de consumos energéticos anuais
+            var setted = false;
+            if (inputId > 0 && $("#consumos-caixa1").val() != '') {
+                for (var i = 1; i <= inputId; i++) {
+                    if (newFont == 0 && $("#consumos-caixa" + i).val() == 0 && $("#consumos-caixa" + i).val() != '') {
+                        
+                        custo_unit_med_aq = $("#valor-pred-consumo" + i).val();
+                        $('#custo-unit-med-aq').val(custo_unit_med_aq);
+                        
+                        var begin = $("#custo-unit-med-aq-label")[0].textContent.indexOf("(");
+                        $("#custo-unit-med-aq-label")[0].textContent = $("#custo-unit-med-aq-label")[0].textContent.substring(0, begin) + "(" + fonteEnergeticaI[0].unidade[1].unid_custo_nome + ")";
+                        setted = true;
+                    }else if(newFont == 1  && $("#consumos-caixa" + i).val() == 2){
 
-            var begin = $("#custo-unit-med-aq-label")[0].textContent.indexOf("(");
-            var text = $("#custo-unit-med-aq-label")[0].textContent.substring(0, begin) + " (€/" + tecnologia_futura_aquecimento[newFont].unidade + ")";
-            $("#custo-unit-med-aq-label")[0].textContent = text;
+                        custo_unit_med_aq = $("#valor-pred-consumo" + i).val();
+                        $('#custo-unit-med-aq').val(custo_unit_med_aq);
+                        
+                        var begin = $("#custo-unit-med-aq-label")[0].textContent.indexOf("(");
+                        $("#custo-unit-med-aq-label")[0].textContent = $("#custo-unit-med-aq-label")[0].textContent.substring(0, begin) + "(" + fonteEnergeticaI[2].unidade[1].unid_custo_nome + ")";
+                        setted = true;
+                    }else if(newFont == 2  && $("#consumos-caixa" + i).val() == 3){ 
+                        
+                        custo_unit_med_aq = $("#valor-pred-consumo" + i).val();
+                        $('#custo-unit-med-aq').val(custo_unit_med_aq);
+                        
+                        var begin = $("#custo-unit-med-aq-label")[0].textContent.indexOf("(");
+                        $("#custo-unit-med-aq-label")[0].textContent = $("#custo-unit-med-aq-label")[0].textContent.substring(0, begin) + "(" + fonteEnergeticaI[3].unidade[1].unid_custo_nome + ")";
+                        setted = true;
+                    }else if((newFont == 3 || newFont == 4)  && $("#consumos-caixa" + i).val() == 1){
+                                        
+                        custo_unit_med_aq = $("#valor-pred-consumo" + i).val();
+                        $('#custo-unit-med-aq').val(custo_unit_med_aq);
+                        
+                        var begin = $("#custo-unit-med-aq-label")[0].textContent.indexOf("(");
+                        $("#custo-unit-med-aq-label")[0].textContent = $("#custo-unit-med-aq-label")[0].textContent.substring(0, begin) + "(" + fonteEnergeticaI[1].unidade[1].unid_custo_nome + ")";
+                        setted = true;
+                        
+                    }
+                    
+                    
+                }
+
+                if(!setted){
+                    custo_unit_med_aq = tecnologia_futura_aquecimento[newFont].custo_unit * tecnologia_futura_aquecimento[newFont].fator_conversao;
+                    $("#custo-unit-med-aq").val((custo_unit_med_aq).toFixed(2));
+
+                    var begin = $("#custo-unit-med-aq-label")[0].textContent.indexOf("(");
+                    var text = $("#custo-unit-med-aq-label")[0].textContent.substring(0, begin) + " (€/" + tecnologia_futura_aquecimento[newFont].unidade + ")";
+                    $("#custo-unit-med-aq-label")[0].textContent = text;
+                }
+            } else if (newFont != "" && newFont != undefined && newFont >= 0) {
+                custo_unit_med_aq = tecnologia_futura_aquecimento[newFont].custo_unit * tecnologia_futura_aquecimento[newFont].fator_conversao;
+                $("#custo-unit-med-aq").val((custo_unit_med_aq).toFixed(2));
+
+                var begin = $("#custo-unit-med-aq-label")[0].textContent.indexOf("(");
+                var text = $("#custo-unit-med-aq-label")[0].textContent.substring(0, begin) + " (€/" + tecnologia_futura_aquecimento[newFont].unidade + ")";
+                $("#custo-unit-med-aq-label")[0].textContent = text;
+            }
+            
         } else {
             $("#rend-med").val("");
             $("#custo-unit-med-aq").val("");
@@ -1460,12 +1552,12 @@ function buildConsumosAqs() {
                     }
                 },
                 number: true,
-                min: 1,
+                min: 0,
                 step: 1,
                 digits: true,
                 messages: {
                     required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou um tipo de consumo.</label>',
-                    min: '<label style="font-size: 14px; color: red;">O valor mínimo é 1</label>',
+                    min: '<label style="font-size: 14px; color: red;">O valor mínimo é 0</label>',
                     step: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
                     digits: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
                     number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>'
@@ -1548,12 +1640,12 @@ function buildConsumoTable() {
                     }
                 },
                 number: true,
-                min: 1,
+                min: 0,
                 step: 1,
                 digits: true,
                 messages: {
                     required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou um tipo de consumo.</label>',
-                    min: '<label style="font-size: 14px; color: red;">O valor mínimo é 1</label>',
+                    min: '<label style="font-size: 14px; color: red;">O valor mínimo é 0</label>',
                     step: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
                     digits: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
                     number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>'
@@ -1604,7 +1696,7 @@ function presAqsLink() {
     } else {
         $('.cons-aqs').addClass('pres-aqs-link');
     }
-    
+
     if ($('#pres-aqs').val() != "" && $('#pres-aqs').val() == 1) {
         $('.simulacao').hide();
     } else {
@@ -1716,6 +1808,7 @@ function nextStep() {
         $(".end-step").show();
         $(".reload-but").hide();
         $(".end-but").show();
+        $('#disclaimer').hide();
     }
     //resultados
     if (nextId == 4) {
@@ -1724,7 +1817,10 @@ function nextStep() {
         $(".reload-but").show();
         $(".end-but").hide();
         $(".print_pdf").show();
+        $('#disclaimer').show();
     }
+    
+    location.hash = "html";
 }
 
 
@@ -1736,6 +1832,8 @@ function prevStep() {
 
     if (prevId == 1) {
         $(".anterior").hide();
+        $('#disclaimer').hide();
+        
     }
 
     if (prevId == 2) {
@@ -1744,6 +1842,7 @@ function prevStep() {
         $(".end-but").hide();
         $(".anterior").show();
         $(".but-2").show();
+        $('#disclaimer').hide();
     }
 
     if (prevId == 3) {
@@ -1751,6 +1850,8 @@ function prevStep() {
         $(".reload-but").hide();
         $(".end-but").show();
         $(".print_pdf").hide();
+        $('#disclaimer').hide();
     }
-
+    
+    location.hash = "html";
 }

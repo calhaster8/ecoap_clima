@@ -404,7 +404,7 @@ var tecnologia_futura_aquecimento = [
         custo_unit: 0.20, //euros
         rendimento: 3.60,
         potencia: 0.03,
-        investimento: 1000,
+        investimento: 500,
         unidade: "kWh",
         fator_conversao: 1,
         fonte_energia: "Energia Elétrica"
@@ -415,7 +415,7 @@ var tecnologia_futura_aquecimento = [
         custo_unit: 0.20, //euros
         rendimento: 3.60,
         potencia: 0.03,
-        investimento: 1000,
+        investimento: 600,
         unidade: "kWh",
         fator_conversao: 1,
         fonte_energia: "Energia Elétrica"
@@ -432,7 +432,7 @@ var tecnologia_futura_arrefecimento = [
         custo_unit: 0.20, //euros
         rendimento: 3,
         potencia: 0.03,
-        investimento: 1000,
+        investimento: 400,
         unidade: "kWh",
         fonte_energia: "Energia Elétrica"
     },
@@ -441,7 +441,7 @@ var tecnologia_futura_arrefecimento = [
         custo_unit: 0.20, //euros
         rendimento: 3.75,
         potencia: 0.03,
-        investimento: 1000,
+        investimento: 500,
         unidade: "kWh",
         fonte_energia: "Energia Elétrica"
     },
@@ -450,7 +450,7 @@ var tecnologia_futura_arrefecimento = [
         custo_unit: 0.20, //euros
         rendimento: 4,
         potencia: 0.03,
-        investimento: 1000,
+        investimento: 500,
         unidade: "kWh",
         fonte_energia: "Energia Elétrica"
     },
@@ -459,7 +459,7 @@ var tecnologia_futura_arrefecimento = [
         custo_unit: 0.20, //euros
         rendimento: 3.25,
         potencia: 0.03,
-        investimento: 1000,
+        investimento: 600,
         unidade: "kWh",
         fonte_energia: "Energia Elétrica"
     },
@@ -1763,32 +1763,32 @@ var irradiacao_temp_amb_temp_agua = [
             {
                 nomeI: "Fevereiro",
                 valorIrr: 9.1,
-                valorTempAmb: 12.9,
-                valorTempAgua: 14.1,
+                valorTempAmb: 9.2,
+                valorTempAgua: 11.4,
                 valorPrinc: 246,
                 valorPerc: 0.15
             },
             {
                 nomeI: "Março",
                 valorIrr: 12.2,
-                valorTempAmb: 13.4,
-                valorTempAgua: 14.6,
+                valorTempAmb: 10.8,
+                valorTempAgua: 11.9,
                 valorPrinc: 223,
                 valorPerc: 0.14
             },
             {
                 nomeI: "Abril",
                 valorIrr: 17.6,
-                valorTempAmb: 14.1,
-                valorTempAgua: 15.1,
+                valorTempAmb: 12.4,
+                valorTempAgua: 12.9,
                 valorPrinc: 168,
                 valorPerc: 0.11
             },
             {
                 nomeI: "Maio",
                 valorIrr: 20.7,
-                valorTempAmb: 15.7,
-                valorTempAgua: 15.5,
+                valorTempAmb: 14.9,
+                valorTempAgua: 13.8,
                 valorPrinc: 96,
                 valorPerc: 0.06
             },
@@ -1796,7 +1796,7 @@ var irradiacao_temp_amb_temp_agua = [
                 nomeI: "Junho",
                 valorIrr: 22.1,
                 valorTempAmb: 17.6,
-                valorTempAgua: 16.5,
+                valorTempAgua: 15.3,
                 valorPrinc: 0,
                 valorPerc: 0
             },
@@ -1804,47 +1804,47 @@ var irradiacao_temp_amb_temp_agua = [
                 nomeI: "Julho",
                 valorIrr: 23.9,
                 valorTempAmb: 19.7,
-                valorTempAgua: 17.5,
+                valorTempAgua: 16.3,
                 valorPrinc: 53,
                 valorPerc: 0.49
             },
             {
                 nomeI: "Agosto",
                 valorIrr: 21.7,
-                valorTempAmb: 20.8,
-                valorTempAgua: 18.0,
+                valorTempAmb: 19.5,
+                valorTempAgua: 16.2,
                 valorPrinc: 47,
                 valorPerc: 0.43
             },
             {
                 nomeI: "Setembro",
                 valorIrr: 15.8,
-                valorTempAmb: 19.8,
-                valorTempAgua: 17.4,
+                valorTempAmb: 18.3,
+                valorTempAgua: 15.7,
                 valorPrinc: 9,
                 valorPerc: 0.08
             },
             {
                 nomeI: "Outubro",
                 valorIrr: 11.4,
-                valorTempAmb: 18.0,
-                valorTempAgua: 16.9,
+                valorTempAmb: 15.4,
+                valorTempAgua: 14.2,
                 valorPrinc: 81,
                 valorPerc: 0.05
             },
             {
                 nomeI: "Novembro",
                 valorIrr: 7.6,
-                valorTempAmb: 15.8,
-                valorTempAgua: 15.4,
+                valorTempAmb: 11.2,
+                valorTempAgua: 12.2,
                 valorPrinc: 204,
                 valorPerc: 0.13
             },
             {
                 nomeI: "Dezembro",
                 valorIrr: 5.9,
-                valorTempAmb: 14.4,
-                valorTempAgua: 14.9,
+                valorTempAmb: 8.8,
+                valorTempAgua: 10.7,
                 valorPrinc: 285,
                 valorPerc: 0.18
             },
@@ -1902,7 +1902,7 @@ var irradiacao_temp_amb_temp_agua = [
                 valorTempAmb: 17.6,
                 valorTempAgua: 17.7,
                 valorPrinc: 12,
-                valorPerc: 0.01
+                valorPerc: 0
             },
             {
                 nomeI: "Junho",
@@ -1982,7 +1982,7 @@ var irradiacao_temp_amb_temp_agua = [
                 valorTempAmb: 7.7,
                 valorTempAgua: 10.3,
                 valorPrinc: 319,
-                valorPerc: 0.18
+                valorPerc: 0.19
             },
             {
                 nomeI: "Fevereiro",
@@ -2014,7 +2014,7 @@ var irradiacao_temp_amb_temp_agua = [
                 valorTempAmb: 15.0,
                 valorTempAgua: 14.3,
                 valorPrinc: 93,
-                valorPerc: 0.05
+                valorPerc: 0.06
             },
             {
                 nomeI: "Junho",
@@ -2326,7 +2326,7 @@ var irradiacao_temp_amb_temp_agua = [
                 valorTempAmb: 9.5,
                 valorTempAgua: 11.7,
                 valorPrinc: 238,
-                valorPerc: 0.15
+                valorPerc: 0.16
             },
             {
                 nomeI: "Março",
@@ -2686,7 +2686,7 @@ var irradiacao_temp_amb_temp_agua = [
                 valorTempAmb: 13.0,
                 valorTempAgua: 12.3,
                 valorPrinc: 155,
-                valorPerc: 0.07
+                valorPerc: 0.06
             },
             {
                 nomeI: "Junho",
@@ -2822,7 +2822,7 @@ var irradiacao_temp_amb_temp_agua = [
                 valorTempAmb: 21.1,
                 valorTempAgua: 18.1,
                 valorPrinc: 96,
-                valorPerc: 0.34
+                valorPerc: 0.35
             },
             {
                 nomeI: "Setembro",
@@ -2894,7 +2894,7 @@ var irradiacao_temp_amb_temp_agua = [
                 valorTempAmb: 13.2,
                 valorTempAgua: 14.7,
                 valorPrinc: 149,
-                valorPerc: 0.15
+                valorPerc: 0.16
             },
             {
                 nomeI: "Abril",
@@ -3046,7 +3046,7 @@ var irradiacao_temp_amb_temp_agua = [
                 valorTempAmb: 21.9,
                 valorTempAgua: 19.5,
                 valorPrinc: 121,
-                valorPerc: 0.34
+                valorPerc: 0.33
             },
             {
                 nomeI: "Setembro",
@@ -3142,7 +3142,7 @@ var irradiacao_temp_amb_temp_agua = [
                 valorTempAmb: 19.9,
                 valorTempAgua: 16.8,
                 valorPrinc: 57,
-                valorPerc: 0.13
+                valorPerc: 0.14
             },
             {
                 nomeI: "Julho",
@@ -3222,7 +3222,7 @@ var irradiacao_temp_amb_temp_agua = [
                 valorTempAmb: 8.7,
                 valorTempAgua: 10.8,
                 valorPrinc: 260,
-                valorPerc: 0.15
+                valorPerc: 0.16
             },
             {
                 nomeI: "Março",
@@ -3278,7 +3278,7 @@ var irradiacao_temp_amb_temp_agua = [
                 valorTempAmb: 18.2,
                 valorTempAgua: 15.6,
                 valorPrinc: 6,
-                valorPerc: 0.06
+                valorPerc: 0.05
             },
             {
                 nomeI: "Outubro",
@@ -3342,7 +3342,7 @@ var irradiacao_temp_amb_temp_agua = [
                 valorTempAmb: 12.9,
                 valorTempAgua: 14.1,
                 valorPrinc: 164,
-                valorPerc: 0.15
+                valorPerc: 0.14
             },
             {
                 nomeI: "Abril",
@@ -3462,7 +3462,7 @@ var irradiacao_temp_amb_temp_agua = [
                 valorTempAmb: 14.7,
                 valorTempAgua: 15.5,
                 valorPrinc: 99,
-                valorPerc: 0.10
+                valorPerc: 0.09
             },
             {
                 nomeI: "Maio",
@@ -3550,7 +3550,7 @@ var irradiacao_temp_amb_temp_agua = [
                 valorTempAmb: 9.6,
                 valorTempAgua: 11.8,
                 valorPrinc: 260,
-                valorPerc: 0.19
+                valorPerc: 0.18
             },
             {
                 nomeI: "Fevereiro",

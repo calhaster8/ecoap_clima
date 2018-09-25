@@ -18,11 +18,11 @@
         <script src="include/js/info.js"></script>
         <script src="include/js/calculos.js"></script>
         <script src="include/js/globals.js"></script>
-        <title>ECO.AP - Calculadora Climatização - Aquecimento</title>
+        <title>ECO.AP - Calculadora - Climatização</title>
     </head>
     <body>
         <header class="header">
-            <!--.logo--><span class="header-title">Calculadora Climatização - Aquecimento</span>
+            <!--.logo--><span class="header-title">Calculadora - Climatização (Aquecimento)</span>
         </header>
         <main class="main container">
             <form id="clima-form">
@@ -91,7 +91,7 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="dado"><span style="color: #0099cc;"><strong>Nota:</strong> A introdução dos dados referentes aos consumos energéticos anuais do edifício permitirá determinar o rácio do consumo de energia para climatização relativamente ao consumo total de energia do edifício (preenchimento facultativo.</span></div>
+                                <div class="dado"><span style="color: #0099cc;"><strong>Nota:</strong> A introdução dos dados referentes aos consumos energéticos anuais do edifício permitirá determinar o rácio do consumo de energia para climatização relativamente ao consumo total de energia do edifício (preenchimento facultativo). Se optar pelo preenchimento da tabela para conhecer este rácio terá sempre de introduzir os consumos de energia elétrica do edifício, independentemente desta fonte ser ou não utilizada para climatização.</span></div>
                             </div>
 
                             <div id="tecnologia" data-id="2" class="step">
@@ -138,7 +138,7 @@
                                                                     </div>-->
 
                                     <div class="dado consumo-question">
-                                        <label for="consumo-quest">Conhece os consumos anuais de energia para climatização?</label>
+                                        <label id="lb-consumo-quest" for="consumo-quest">Conhece os consumos anuais de energia para aquecimento?</label>
                                         <select id="consumo-quest" name="consumo-quest" class="sel">
                                             <option value="">Selecionar opção</option>
                                             <option value="0">Sim</option>
@@ -189,7 +189,7 @@
                                         <!--  <small class="nota">Área não pode ser superior à área total a climatizar</small>-->
                                     </div>
                                     <div class="dado perfil-semanal hid consumo-link">
-                                        <label for="perfil">Perfil semanal das necessidades de climatização</label>
+                                        <label for="perfil">Perfil semanal das necessidades de aquecimento</label>
                                         <select id="perfil" name="perfil" class="sel">
                                             <option value="">Selecionar opção</option>
                                         </select>
@@ -475,7 +475,7 @@
                             <div id="medidas" data-id="3" class="step">
                                 <div class="dados-titulo"><span>Medidas de Melhoria da Eficiência Energética</span></div>
                                 <div class="dados-child">
-                                    <!-- AQUECIMENTO-->
+                                    <!-- AQUECIMENTO -->
                                     <div class="dado new-fonte-aq">
                                         <label for="new-fonte-aq">Nova fonte de aquecimento</label>
                                         <select id="new-fonte-aq" name="new-fonte-aq" class="sel">
@@ -669,12 +669,12 @@
                                                 <td class="center" id="consumo-anual-total-final-global"></td>
                                             </tr>
                                             <tr class="textTR aviso">
-                                                <td class="in">Consumo anual de energia para climatização</td>
+                                                <td class="in" id="consumoAnual">Consumo anual de energia para </td>
                                                 <td class="center" id="consumo-anual-clima-inicial-global"></td>
                                                 <td class="center" id="consumo-anual-clima-final-global"></td>
                                             </tr>
                                             <tr class="textTR aviso">
-                                                <td class="in">Rácio do consumo de energia para climatização relativamente ao consumo total de energia do edifício</td>
+                                                <td class="in" id="racioGlobal">Rácio do consumo de energia para climatização relativamente ao consumo total de energia do edifício</td>
                                                 <td class="center" id="perc-total-inicial-global"></td>
                                                 <td class="center" id="perc-total-final-global"></td>
                                             </tr>
@@ -735,6 +735,13 @@
                                 <button type="button" onclick="printJS('resumo', 'html')" class="print_link">Clique aqui</button>
                             </span>
                         </div>
+                    </div>
+                    
+                    
+                    <div class="col-md-12" id="disclaimer" style="display:none; text-align: justify; margin-top: 20px;">
+                        <span>Esta calculadora insere-se na campanha “A Energia tem ECO no futuro” dinamizada pela ADENE – Agência para a Energia em 2018 no âmbito do Programa ECO.AP e utiliza algoritmos de cálculo baseados em valores padrão e em médias estatísticas.
+                            Não pretende substituir o trabalho aprofundado de especialistas na área e/ou de peritos qualificados mas sim permitir ao Gestor Local de Energia, ou a outros utilizadores, determinar, de forma indicativa, mas aproximada, o resultado da implementação de medidas de melhoria da eficiência energética em edifícios, nomeadamente edifícios da Administração Pública Central.
+                            Os resultados obtidos podem, portanto, divergir relativamente a relatórios de auditorias energéticas ou de processos de certificação energética.</span>
                     </div>
                 </div>
             </form>
