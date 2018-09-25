@@ -4,10 +4,10 @@ var utilizacao_calc = [
     },
     {
         nome: "Arrefecimento"
+    },
+    {
+        nome: "Aquecimento e Arrefecimento"
     }
-//    {
-//        nome: "Aquecimento e Arrefecimento"
-//    }
 ];
 
 var escolhas = [
@@ -462,10 +462,10 @@ var tecnologia_futura_arrefecimento = [
         investimento: 600,
         unidade: "kWh",
         fonte_energia: "Energia Elétrica"
-    },
-    {
-        nome: "Não intervir"
     }
+//    {
+//        nome: "Não intervir"
+//    }
 ];
 
 var distrito_info = [
@@ -1111,12 +1111,6 @@ var consumo_diario_agua = [
         litros_por: "litro/pessoa",
         numero_de: "n° de pessoas"
     },
-//    {
-//        nome: "Escola",
-//        valor: 3,
-//        litros_por: "litro/aluno",
-//        numero_de: "n° de alunos"
-//    },
     {
         nome: "Escritório",
         valor: 3,
@@ -1327,61 +1321,6 @@ var perfil_mensal = [
             }
         ]
     }
-//    {
-//        nome: "Definir 'perfil'",
-//        latitude: -5,
-//        consumo: 0.6, //60%
-//        tabela: [
-//            {
-//                mes: 'Jan',
-//                valor: 0
-//            },
-//            {
-//                mes: 'Fev',
-//                valor: 0
-//            },
-//            {
-//                mes: 'Mar',
-//                valor: 0
-//            },
-//            {
-//                mes: 'Abr',
-//                valor: 0
-//            },
-//            {
-//                mes: 'Mai',
-//                valor: 0
-//            },
-//            {
-//                mes: 'Jun',
-//                valor: 0
-//            },
-//            {
-//                mes: 'Jul',
-//                valor: 0
-//            },
-//            {
-//                mes: 'Ago',
-//                valor: 0
-//            },
-//            {
-//                mes: 'Set',
-//                valor: 0
-//            },
-//            {
-//                mes: 'Out',
-//                valor: 0
-//            },
-//            {
-//                mes: 'Nov',
-//                valor: 0
-//            },
-//            {
-//                mes: 'Dez',
-//                valor: 0
-//            }
-//        ]
-//    }
 ];
 
 var perfil_semanal = [
@@ -1400,11 +1339,6 @@ var perfil_semanal = [
         valor: 0, //0%
         consumo: 0.8 //80%
     }
-//    {
-//        nome: "Definir 'perfil'",
-//        valor: 0, //0%
-//        consumo: 0.8 //80%
-//    }
 ];
 
 var temperatura_utilizacao = 50; //°C
@@ -1418,14 +1352,6 @@ var desvios = [
         nome: "Desvio de Sul +/- 20°",
         valor: 20
     },
-//    {
-//        nome: "Este",
-//        valor: "!"
-//    },
-//    {
-//        nome: "Oeste",
-//        valor: "!"
-//    },
     {
         nome: "Sul",
         valor: 0

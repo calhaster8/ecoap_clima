@@ -90,7 +90,8 @@ body {
       .main .main-content .dados-child .dado label {
         margin-bottom: 5px;
         color: #0099cc;
-        font-weight: 400; }
+        font-weight: 400; 
+        display: block; }
       .main .main-content .dados-child .dado input {
         width: 52%;
         padding: 5px 20px;

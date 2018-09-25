@@ -8,11 +8,22 @@ $(document).ready(function () {
     buildClasseEnergia();
     buildAnosConst();
     buildTipoEnvidracado();
+    
+    buildPerfilSelArr();
+    buildPeriodosArr();
+    buildClasseEnergiaArr();
+    buildAnosConstArr();
+    buildTipoEnvidracadoArr();
     //step 2 - aqueciemnto
     buildFonteAquecimento();
+    buildFonteArrefecimento();
     buildIdade();
     rendCopLink();
     fonteAqLink();
+    
+    rendEERLink();
+    fonteArLink();
+    
     buildConsumosAqs();
     buildTipoConsumo();
     buildTipoConsumoAqsTable();
@@ -45,13 +56,21 @@ $(document).ready(function () {
 
     $("#add-consume").click(addRowConsumes);
     $("#remove-consume1").click(removeRowConsumes);
-    $('#consumo-quest').change(buildTipoConsumoClimatizacaoTable);
+    
 
+    $('#consumo-quest-arr').change(buildTipoConsumoArrefTable);
+    $('#arrefecimento-consumo').change(buildConsumoArrefTable);
+    $('#cobertura-arr').change(coberturaLinksArr);
+    $('#classe-en-arr').change(classeLinksArr);
+    $('#ano-arr').change(anoLinksArr);
+    $('#tipo-envid-arr').change(selWidthArr);
+    
+    
+    $('#consumo-quest').change(buildTipoConsumoClimatizacaoTable);
+    $('#aquecimento-consumo').change(buildConsumoTable);
     $('#cobertura').change(coberturaLinks);
     $('#classe-en').change(classeLinks);
-    $('#ano').change(anoLinks);
-
-    $('#aquecimento-consumo').change(buildConsumoTable);
+    $('#ano').change(anoLinks);   
     $('#tipo-envid').change(selWidth);
 
     //step 2 - aqueciemtno
@@ -59,6 +78,11 @@ $(document).ready(function () {
     $('#rendimento').change(rendCopLink);
     $('#use-aqs').change(useAqsLink);
     $('#pres-aqs').change(presAqsLink);
+    
+    $('#fonte-ar').change(fonteArLink);
+    $('#eer').change(rendEERLink);
+    
+    
 
     $('#cons-aqs').change(function () {
         if ($('#cons-aqs').val() == 1) {
@@ -106,7 +130,10 @@ $(document).ready(function () {
     // ------------------------------------------------
 
     $("#clima-form").validate({
-        rules: {
+        rules: {            
+            escolhe: {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
+            },
             //passo 1
             distrito: {
                 required: true
@@ -428,9 +455,162 @@ $(document).ready(function () {
                 number: true,
                 min: 0.01,
                 step: 0.01
-            }
+            },            
+            'arrefecimento-consumo': {
+                required: function () {
+                    if ($(".conhece-consumos").is(":hidden")) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+
+                }
+            },
+            'consumo-quest-arr': {
+                required: true
+            },
+            'cobertura-arr': {
+                required: function () {
+                    if ($("#consumo-quest-arr").val() == 1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+
+                }
+            },
+            'perfil-arr': {
+                required: function () {
+                    if ($("#consumo-quest-arr").val() == 1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+
+                }
+            },
+            'periodos-arr': {
+                required: function () {
+                    if ($("#consumo-quest-arr").val() == 1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+
+                }
+            },
+            'classe-en-arr': {
+                required: function () {
+                    if ($("#consumo-quest-arr").val() == 1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+
+                }
+            },
+            'area-cobertura-input-arr': {
+                required: function () {
+                    if ($("#cobertura-arr").val() != "" && $("#cobertura-arr").val() == 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                max: function () {
+                    if ($("#area-dados-input").val() != "" && $("#area-dados-input").val() > 0) {
+                        return new Number($("#area-dados-input").val());
+                    } else {
+                        return 0;
+                    }
+                },
+                min: 1,
+                number: true,
+                step: 0.1
+            },
+            'ano-arr':{
+                required: function(){
+                     if ($("#classe-en-arr").val() == 8) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            },
+            'tipo-envid-arr': {
+                required: function () {
+                    if ($("#ano-arr").val() == 1 || $("#ano-arr").val() == 4) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+
+                }
+            },
+            'isol-paredes-arr': {
+                required: function () {
+                    if ($("#ano-arr").val() == 1 || $("#ano-arr").val() == 4) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+
+                }
+            },
+            'isol-cobertura-arr': {
+                required: function () {
+                    if ($("#ano-arr").val() == 1 || $("#ano-arr").val() == 4) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+
+                }
+            },
+            'fonte-ar': {
+                required: true
+            },
+            'potencia-ar': {
+                number: true,
+                min: 1,
+                step: 0.1
+            },
+            'eer': {
+                required: true
+            },
+            'iEERMan': {
+                required: function () {
+                    if ($("#eer").val() == 2) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                number: true,
+                min: 1,
+                step: 0.1,
+                max: 7,
+            },
+            'age-eer': {
+                required: function () {
+                    if ($("#eer").val() == 0 && $("#eer").val() != "") {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            },
+            'custo-en-unit-ar': {
+                required: true,
+                number: true,
+                min: 0.01,
+                step: 0.01
+            },
         },
         messages: {
+            escolhe: {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
+            },
             //passo 2
             distrito: {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
@@ -510,7 +690,7 @@ $(document).ready(function () {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
                 number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
                 min: '<label style="font-size: 14px; color: red;">O custo mínimo é de 0.01€</label>',
-                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01</label>',
+                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01</label>'
             },
             'use-aqs': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
@@ -593,6 +773,70 @@ $(document).ready(function () {
                 number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
                 min: '<label style="font-size: 14px; color: red;">O custo mínimo é de 0.01€</label>',
                 step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01</label>'
+            },
+            'arrefecimento-consumo': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
+            },
+            'consumo-quest-arr': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
+            },
+            'cobertura-arr': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
+            },
+            'perfil-arr': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
+            },
+            'periodos-arr': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
+            },
+            'classe-en-arr': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
+            },
+            'area-cobertura-input-arr': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
+                max: '<label style="font-size: 14px; color: red;">A área de cobertura não pode ser superior à área total a climatizar</label>',
+                min: '<label style="font-size: 14px; color: red;">A área de cobertura tem que ser superior a 1 m2</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
+                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.1</label>'
+            },
+            'ano-arr':{
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
+            },
+            'tipo-envid-arr': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
+            },
+            'isol-paredes-arr': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
+            },
+            'isol-cobertura-arr': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
+            },
+            'fonte-ar': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
+            },
+            'potencia-ar': {
+                number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
+                min: '<label style="font-size: 14px; color: red;">A potência da fonte de aquecimento tem que ser superior a 1 kW</label>',
+                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.1</label>'
+            },
+            'eer': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
+            },
+            'iEERMan': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
+                min: '<label style="font-size: 14px; color: red;">O valor mínimo é 1</label>',
+                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.1</label>',
+                max: '<label style="font-size: 14px; color: red;">O EER máximo é 7</label>'
+            },
+            'age-eer': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
+            },
+            'custo-en-unit-ar': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
+                min: '<label style="font-size: 14px; color: red;">O custo mínimo é de 0.01€</label>',
+                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01</label>'
             }
         }
 
@@ -604,11 +848,10 @@ $(document).ready(function () {
             var nextId = $('.step:visible').data('id') + 1;
 
             if (id == 1 && !validateEnergy()) {
-                alert("Tem de introduzir os consumos de energia eléctrica do edifício. ");
+                alert("Tem de introduzir os consumos de energia eléctrica do edifício.");
             } else {
                 nextStep();
             }
-
         }
     });
     $(".end-but").click(function () {
@@ -663,6 +906,18 @@ function selWidth() {
     }
 }
 
+function selWidthArr() {
+    if ($('#tipo-envid-arr').val() == 0) {
+        $('#tipo-envid-arr').css('width', '50%');
+    } else if ($('#tipo-envid-arr').val() == 1) {
+        $('#tipo-envid-arr').css('width', '60%');
+    } else if ($('#tipo-envid-arr').val() == 2) {
+        $('#tipo-envid-arr').css('width', '75%');
+    } else if ($('#tipo-envid-arr').val() == 3) {
+        $('#tipo-envid-arr').css('width', '90%');
+    }
+}
+
 
 function buildUtilizacao() {
     $("#escolhe")
@@ -674,7 +929,7 @@ function buildUtilizacao() {
     for (var i = 0; i < utilizacao_calc.length; i++) {
         $('#escolhe').append($('<option class="op"></option>').val(i).html(utilizacao_calc[i].nome));
     }
-    $('#escolhe').val(0);
+    
 }
 
 function buildDistrito() {
@@ -1021,6 +1276,19 @@ function buildFonteAquecimento() {
 }
 
 
+//fonte-ar
+function buildFonteArrefecimento() {
+    $("#fonte-ar")
+            .find('option')
+            .remove()
+            .end()
+            .append('<option class="op" value="">Selecionar opção</option>')
+            .val('');
+    for (var i = 0; i < tecnologia_atual_arrefecimento.length; i++) {
+        $('#fonte-ar').append($('<option class="op"></option>').val(i).html(tecnologia_atual_arrefecimento[i].nome));
+    }
+}
+
 function buildFonteNewAquecimento() {
     $("#new-fonte-aq")
             .find('option')
@@ -1049,6 +1317,7 @@ function buildDesvios() {
 
 
 function buildPerfilMensal() {
+    
     $("#perfil-mensal")
             .find('option')
             .remove()
@@ -1110,6 +1379,30 @@ function classeLinks() {
 
 function anoLinks() {
     if (($('#ano').val() == 0 || $('#ano').val() == 2 || $('#ano').val() == 3) && $('#ano').val() != "" && $('#ano').val() != undefined) {
+        $('.hid-ano').removeClass('ano-construct-link');
+    } else {
+        $('.hid-ano').addClass('ano-construct-link');
+    }
+}
+
+function coberturaLinksArr() {
+    if ($('#cobertura-arr').val() != "" && $('#cobertura-arr').val() == 0) {
+        $('.cobertura-answer').removeClass('cobertura-link');
+    } else {
+        $('.cobertura-answer').addClass('cobertura-link');
+    }
+}
+
+function classeLinksArr() {
+    if ($('#classe-en-arr').val() == 8) {
+        $('.ano-construct').removeClass('classe-link');
+    } else {
+        $('.ano-construct').addClass('classe-link');
+    }
+}
+
+function anoLinksArr() {
+    if (($('#ano-arr').val() == 0 || $('#ano-arr').val() == 2 || $('#ano-arr').val() == 3) && $('#ano-arr').val() != "" && $('#ano-arr').val() != undefined) {
         $('.hid-ano').removeClass('ano-construct-link');
     } else {
         $('.hid-ano').addClass('ano-construct-link');
@@ -1292,7 +1585,6 @@ function getCustoUnit() {
     }
 }
 
-
 function rendCopLink() {
     //NOVO
     var idLocal = $('#fonte-aq').val();
@@ -1325,6 +1617,70 @@ function rendCopLink() {
 
 }
 
+
+function fonteArLink() {
+    var idLocal = $('#fonte-ar').val();
+    
+    //sempre so para arrefecimento
+    $('#eer').val("");
+    $("#iEERMan").val("");
+    $("#iEERMan").hide();    
+
+    //verificar se a tecnologia existe na lista de consumos energéticos anuais
+    var setted = false;
+    if (inputId > 0 && $("#consumos-caixa1").val() != '') {
+        for (var i = 1; i <= inputId; i++) {
+            if ( $("#consumos-caixa" + i).val() == 1) {                
+                custo_en_unit_ar = $("#valor-pred-consumo" + i).val();
+                $('#custo-en-unit-ar').val(custo_en_unit_ar);
+                 var begin = $("#custo-en-unit-ar-label")[0].textContent.indexOf("(");
+                $("#custo-en-unit-ar-label")[0].textContent = $("#custo-en-unit-ar-label")[0].textContent.substring(0, begin) +  "(" + fonteEnergeticaI[1].unidade[1].unid_custo_nome + ")";
+                setted = true;
+            }
+        }
+
+        if(!setted){
+            custo_en_unit_ar = tecnologia_atual_arrefecimento[idLocal].custo_unit;
+            $('#custo-en-unit-ar').val(custo_en_unit_ar.toFixed(2));
+
+            var begin = $("#custo-en-unit-ar-label")[0].textContent.indexOf("(");
+            var text = $("#custo-en-unit-ar-label")[0].textContent.substring(0, begin) + " (€/" + tecnologia_atual_arrefecimento[idLocal].unidade + ")";
+            $("#custo-en-unit-ar-label")[0].textContent = text;
+        }
+        
+    } else if (idLocal != "" && idLocal != undefined && idLocal >= 0) {
+        custo_en_unit_ar = tecnologia_atual_arrefecimento[idLocal].custo_unit;
+        $('#custo-en-unit-ar').val(custo_en_unit_ar.toFixed(2));
+
+        var begin = $("#custo-en-unit-ar-label")[0].textContent.indexOf("(");
+        var text = $("#custo-en-unit-ar-label")[0].textContent.substring(0, begin) + " (€/" + tecnologia_atual_arrefecimento[idLocal].unidade + ")";
+        $("#custo-en-unit-ar-label")[0].textContent = text;
+    }
+
+    rendEERLink();
+}
+function rendEERLink(){
+    //NOVO
+    var idLocal = $('#fonte-ar').val();
+    var selectedEER = $('#eer').val();
+    
+
+    if (selectedEER == 0 && selectedEER != "" && selectedEER != undefined) {
+        $('.age-eer-ar').show();
+        $('#age-eer').show();
+        $('#iEERMan').hide();
+        $('#iEERMan').val("");
+    } else if (selectedEER == 2) {
+        $('#iEERMan').show();
+        $('.age-eer-ar').hide();
+        $('#age-eer').val("");
+    } else {
+        $('.age-eer-ar').hide();
+        $('#age-eer').val("");
+    }
+    
+}
+
 function buildTipoConsumoAqsTable() {
 
     $("#aqs-consumo")
@@ -1351,6 +1707,49 @@ function buildTipoConsumoAqsTable() {
         $('#aqs-consumo').append($('<option class="op"></option>').val(i).html(consumos[i]));
     }
 
+}
+
+function buildTipoConsumoArrefTable(){
+    if ($('#consumo-quest-arr').val() == 1) {
+        $('.hid').removeClass('consumo-link');
+        $(".conhece-consumos-ar").hide();
+
+
+    } else if ($('#consumo-quest-arr').val() != "" && $('#consumo-quest-arr').val() == 0) {
+        $("#arrefecimento-consumo")
+                .find('option')
+                .remove()
+                .end()
+                .append('<option class="op" value="">Selecionar opção</option>')
+                .val('');
+
+        var html = '';
+        var option = [];
+        var size = 0;
+        var escolha = $('#escolhe').val();
+        var escolhaConsumosCli = $('#consumo-quest-arr').val();
+
+        //clean as tabelas
+        option[size++] = 'arrefecimento';
+
+        for (j = 0; j < size; j++) {
+            $("#tabela-consumo-" + option[j]).html(html);
+        }
+
+        option = [];
+
+        for (var i = 0; i < consumos.length; i++) {
+            if (escolhaConsumosCli != "" && escolhaConsumosCli != undefined && escolhaConsumosCli == 0) {
+                if ( escolha == 1) {
+                    $('#arrefecimento-size').show();
+                    $('#arrefecimento-consumo').append($('<option class="op"></option>').val(i).html(consumos[i]));
+                }
+            }
+        }
+
+        $(".conhece-consumos-ar").show();
+        $('.hid').addClass('consumo-link');
+    }
 }
 
 
@@ -1678,6 +2077,150 @@ function buildConsumoTable() {
 
 }
 
+function buildConsumoArrefTable() {
+
+    var html = '';
+    var option = [];
+    var size = 0;
+    html = '<table class="table table-bordered" id="arrefecimentoTable"><tbody>';
+
+    var consumo_build = $('#arrefecimento-consumo').val();
+
+    if (consumo_build != "" && consumo_build != undefined && consumo_build == 0) {
+        //anual
+        html += '<tr class="textTR"><td class="in">TOTAL ANUAL</td><td class="in"><input id="arrefecimentoConsumoAnualTotal" name="arrefecimentoConsumoAnualTotal" type="number" placeholder="0" class="form-control xInput"/></td></tr>';
+    } else if (consumo_build != "" && consumo_build != undefined && consumo_build == 1) {
+        //mensal
+        html += '<tr class="textTR"><td class="in">MESES</td><td class="in">Unidade</td></tr>';
+        for (j = 0; j < meses_numero_horas.length; j++) {
+            html += '<tr class="textTR"><td class="in">' + meses_numero_horas[j].mes + '</td><td class="in"><input id="arrefecimentoConsumosMeses' + j + '" name="arrefecimentoConsumosMeses' + j + '" type="number" placeholder="0" class="form-control xInput"/></td></tr>';
+        }
+        html += '<tr class="textTR"><td class="in">TOTAL ANUAL</td><td class="in"><input type="number" id="total_consumo_somatorio_arrefecimento" disabled="disabled" placeholder="0"  class="form-control xInput"/></label></td></tr>';
+    }
+
+    html += '</tbody></table>';
+
+    $("#tabela-consumo-arrefecimento").html(html);
+
+
+    if (consumo_build != "" && consumo_build != undefined && consumo_build == 1) {
+        for (j = 0; j < meses_numero_horas.length; j++) {
+            $("#arrefecimentoConsumosMeses" + j).change(function () {
+                totalAnualConsumos = 0;
+                for (k = 0; k < meses_numero_horas.length; k++) {
+                    totalAnualConsumos += new Number($("#arrefecimentoConsumosMeses" + k).val());
+                }
+                $("#total_consumo_somatorio_arrefecimento").val(totalAnualConsumos);
+            });
+
+            $("#arrefecimentoConsumosMeses" + j).rules("add", {
+                required: function (element) {
+
+                    if ($('#arrefecimento-consumo').val() != "" && $('#arrefecimento-consumo').val() == 1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                number: true,
+                min: 0,
+                step: 1,
+                digits: true,
+                messages: {
+                    required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou um tipo de consumo.</label>',
+                    min: '<label style="font-size: 14px; color: red;">O valor mínimo é 0</label>',
+                    step: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                    digits: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                    number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>'
+                }
+            });
+        }
+    } else if (consumo_build != "" && consumo_build != undefined && consumo_build == 0) {
+        $("#arrefecimentoConsumoAnualTotal").rules("add", {
+            required: function (element) {
+
+                if ($('#arrefecimento-consumo').val() != "" && $('#arrefecimento-consumo').val() == 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+            min: 1,
+            step: 1,
+            digits: true,
+            number: true,
+            messages: {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório dado que selecionou um tipo de consumo.</label>',
+                min: '<label style="font-size: 14px; color: red;">O valor mínimo é 1</label>',
+                step: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                digits: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números inteiros</label>',
+            }
+        });
+    }
+
+}
+
+function buildPerfilSelArr() {
+    $("#perfil-arr")
+            .find('option')
+            .remove()
+            .end()
+            .append('<option class="op" value="">Selecionar opção</option>')
+            .val('');
+    for (var i = 0; i < perfil_necessidades.length; i++) {
+        $('#perfil-arr').append($('<option class="op"></option>').val(i).html(perfil_necessidades[i].nome));
+    }
+}
+
+function buildPeriodosArr() {
+    $("#periodos-arr")
+            .find('option')
+            .remove()
+            .end()
+            .append('<option class="op" value="">Selecionar opção</option>')
+            .val('');
+    for (var i = 0; i < periodos_encerramento.length; i++) {
+        $('#periodos-arr').append($('<option class="op"></option>').val(i).html(periodos_encerramento[i].periodo));
+    }
+}
+
+function buildClasseEnergiaArr() {
+    $("#classe-en-arr")
+            .find('option')
+            .remove()
+            .end()
+            .append('<option class="op" value="">Selecionar opção</option>')
+            .val('');
+    for (var i = 0; i < classes.length; i++) {
+        $('#classe-en-arr').append($('<option class="op"></option>').val(i).html(classes[i].classe_id));
+    }
+}
+
+function buildAnosConstArr() {
+    $("#ano-arr")
+            .find('option')
+            .remove()
+            .end()
+            .append('<option class="op" value="">Selecionar opção</option>')
+            .val('');
+    for (var i = 0; i < anos_construcao.length; i++) {
+        $('#ano-arr').append($('<option class="op"></option>').val(i).html(anos_construcao[i].nome));
+    }
+}
+
+function buildTipoEnvidracadoArr() {
+    $("#tipo-envid-arr")
+            .find('option')
+            .remove()
+            .end()
+            .append('<option class="op" value="">Selecionar opção</option>')
+            .val('');
+    for (var i = 0; i < envidracados.length; i++) {
+        $('#tipo-envid-arr').append($('<option class="op"></option>').val(i).html(envidracados[i].nome));
+    }
+}
+
 
 
 function useAqsLink() {
@@ -1796,11 +2339,23 @@ function fonteToTecnologia() {
 function nextStep() {
     var id = $('.step:visible').data('id');
     var nextId = $('.step:visible').data('id') + 1;
+    
+    var escolha = $("#escolhe").val(); //0 - Aquecimento | 1 - Arrefecimento | 2 - both    
+    
     $('[data-id="' + id + '"]').hide();
-    $('[data-id="' + nextId + '"]').show();
 
     if ($('.anterior:hidden').length > 1) {
         $('.anterior').show();
+    }
+    
+    if((escolha == 2 && nextId==2) || (escolha == 2 && nextId==3)){
+        $("#arref-title").hide();
+    }
+    
+    if(escolha==1 && id==1){
+        $('[data-id="' + nextId + '1"]').show();
+    }else{
+        $('[data-id="' + nextId + '"]').show();
     }
 
     if (nextId == 3) {
@@ -1828,12 +2383,14 @@ function prevStep() {
     var id = $('.step:visible').data('id');
     var prevId = $('.step:visible').data('id') - 1;
     $('[data-id="' + id + '"]').hide();
-    $('[data-id="' + prevId + '"]').show();
+    
 
     if (prevId == 1) {
+        $('[data-id="' + prevId + '"]').show();
         $(".anterior").hide();
         $('#disclaimer').hide();
-        
+    }else if(prevId==20){
+        $('[data-id="' + 1 + '"]').show();
     }
 
     if (prevId == 2) {

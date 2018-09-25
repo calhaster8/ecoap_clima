@@ -242,3 +242,5 @@ var custo_unit_med_aq  = 0;
 
 // custo unitario aquecimento
 var custo_en_unit_aq = 0;
+
+var custo_en_unit_ar = 0;
