@@ -161,6 +161,11 @@ var cenario_final_reducao_aquecimento_total = 0;
 var cenario_final_reducao_aquecimento_array_perc = 0;
 var cenario_final_reducao_aquecimento_total_perc = 0;
 
+var cenario_final_reducao_arr_array = [];
+var cenario_final_reducao_arr_total = 0;
+var cenario_final_reducao_arr_array_perc = 0;
+var cenario_final_reducao_arr_total_perc = 0;
+
 var cenario_final_reducao_aqs_array = [];
 var cenario_final_reducao_aqs_total = 0;
 var cenario_final_reducao_aqs_array_perc = 0;
@@ -193,6 +198,28 @@ var resumo_custo_unit_inicial = 0;
 var resumo_custo_unit_final = 0;
 var resumo_investimento_estimado = 0;
 var resumo_pri_simples = 0;
+
+
+//Arrefecimento
+var resumo_equipamento_inicial_arr = '';
+var resumo_equipamento_final_arr = '';
+var resumo_potencia_inicial_arr = 0;
+var resumo_potencia_final_arr = 0;
+var resumo_rendimento_inicial_arr = 0;
+var resumo_rendimento_final_arr = 0;
+var resumo_fonte_energia_inicial_arr = 0;
+var resumo_fonte_energia_final_arr = 0;
+var resumo_consumo_anual_inicial_arr = 0;
+var resumo_consumo_anual_final_arr = 0;
+var resumo_custo_anual_inicial_arr = 0;
+var resumo_custo_anual_final_arr = 0;
+var resumo_reducao_consumo_arr = 0;
+var resumo_reducao_custos_valor_arr = 0;
+var resumo_reducao_custos_perc_arr = 0;
+var resumo_custo_unit_inicial_arr = 0;
+var resumo_custo_unit_final_arr = 0;
+var resumo_investimento_estimado_arr = 0;
+var resumo_pri_simples_arr = 0;
 
     //Aqs
 var resumo_consumo_anual_inicial_aqs = 0;
@@ -240,7 +267,11 @@ var aqsRowId = 1;
 //custos unitários medidas
 var custo_unit_med_aq  = 0;
 
+var custo_unit_med_ar = 0;
+
 // custo unitario aquecimento
 var custo_en_unit_aq = 0;
 
 var custo_en_unit_ar = 0;
+
+var lastStep = 0;

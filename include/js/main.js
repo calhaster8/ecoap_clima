@@ -32,6 +32,7 @@ $(document).ready(function () {
 
     //step 3 - medidas
     buildFonteNewAquecimento();
+    buildFonteNewArrefecimento();
     buildDesvios();
 
 
@@ -103,6 +104,7 @@ $(document).ready(function () {
 
     //step 3 - medidas
     $('#new-fonte-aq').change(getCustoUnit);
+    $('#new-fonte-ar').change(getCustoUnitArr);
     $("#simulacao-aqs").change(function () {
         if ($('#simulacao-aqs').val() == 1) {
             $("#tbl-simular-solar").hide();
@@ -589,7 +591,7 @@ $(document).ready(function () {
                 number: true,
                 min: 1,
                 step: 0.1,
-                max: 7,
+                max: 7
             },
             'age-eer': {
                 required: function () {
@@ -606,6 +608,27 @@ $(document).ready(function () {
                 min: 0.01,
                 step: 0.01
             },
+            'new-fonte-ar': {
+                required: true
+            },
+            'pot-med-ar': {
+                number: true,
+                min: 1,
+                step: 0.1
+            },
+            'eer-med-ar': {
+                required: true,
+                number: true,
+                min: 1,
+                step: 0.01,
+                max: 7
+            },
+            'custo-unit-med-ar': {
+                required: true,
+                number: true,
+                min: 0.01,
+                step: 0.01
+            }
         },
         messages: {
             escolhe: {
@@ -833,6 +856,27 @@ $(document).ready(function () {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>'
             },
             'custo-en-unit-ar': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
+                min: '<label style="font-size: 14px; color: red;">O custo mínimo é de 0.01€</label>',
+                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01</label>'
+            },            
+            'new-fonte-ar': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
+            },
+            'pot-med-ar': {
+                number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
+                min: '<label style="font-size: 14px; color: red;">A potência da fonte de aquecimento tem que ser superior a 1 kW</label>',
+                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.1</label>'
+            },
+            'eer-med-ar': {
+                required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
+                number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
+                min: '<label style="font-size: 14px; color: red;">O valor mínimo é 1</label>',
+                step: '<label style="font-size: 14px; color: red;">O passo de incremento é de 0.01</label>',
+                max: '<label style="font-size: 14px; color: red;">O EER máximo é 7</label>'
+            },
+            'custo-unit-med-ar': {
                 required: '<label style="font-size: 14px; color: red;">Este campo é obrigatório.</label>',
                 number: '<label style="font-size: 14px; color: red;">Introduza números com (.) em vez de (,)</label>',
                 min: '<label style="font-size: 14px; color: red;">O custo mínimo é de 0.01€</label>',
@@ -1301,6 +1345,18 @@ function buildFonteNewAquecimento() {
     }
 }
 
+function buildFonteNewArrefecimento() {
+    $("#new-fonte-ar")
+            .find('option')
+            .remove()
+            .end()
+            .append('<option class="op" value="">Selecionar opção</option>')
+            .val('');
+    for (var i = 0; i < tecnologia_futura_arrefecimento.length; i++) {
+        $('#new-fonte-ar').append($('<option class="op"></option>').val(i).html(tecnologia_futura_arrefecimento[i].nome));
+    }
+}
+
 
 
 function buildDesvios() {
@@ -1581,6 +1637,58 @@ function getCustoUnit() {
             $("#rend-med").val("");
             $("#custo-unit-med-aq").val("");
             $("#custo-unit-med-aq-label")[0].textContent = "Custo energético unitário (€/kWh)";
+        }
+    }
+}
+
+
+function getCustoUnitArr(){
+    
+    var newFont = $("#new-fonte-ar").val();
+    if (newFont != "" && newFont != undefined && newFont >= 0) {
+        
+        if (newFont >= 0 && newFont < 4) {
+            $("#eer-med-ar").val(tecnologia_futura_arrefecimento[newFont].rendimento);
+            
+            //verificar se a tecnologia existe na lista de consumos energéticos anuais
+            var setted = false;
+            if (inputId > 0 && $("#consumos-caixa1").val() != '') {
+                for (var i = 1; i <= inputId; i++) {
+                    if ($("#consumos-caixa" + i).val() == 1 && $("#consumos-caixa" + i).val() != '') {
+                                       
+                        custo_unit_med_ar = $("#valor-pred-consumo" + i).val();
+                        $('#custo-unit-med-ar').val(custo_unit_med_ar);
+                        
+                        var begin = $("#custo-unit-med-ar-label")[0].textContent.indexOf("(");
+                        $("#custo-unit-med-ar-label")[0].textContent = $("#custo-unit-med-ar-label")[0].textContent.substring(0, begin) + "(" + fonteEnergeticaI[1].unidade[1].unid_custo_nome + ")";
+                        setted = true;
+                        
+                    }
+                    
+                    
+                }
+
+                if(!setted){
+                    custo_unit_med_ar = tecnologia_futura_arrefecimento[newFont].custo_unit;
+                    $("#custo-unit-med-ar").val((custo_unit_med_ar).toFixed(2));
+
+                    var begin = $("#custo-unit-med-ar-label")[0].textContent.indexOf("(");
+                    var text = $("#custo-unit-med-ar-label")[0].textContent.substring(0, begin) + " (€/" + tecnologia_futura_arrefecimento[newFont].unidade + ")";
+                    $("#custo-unit-med-ar-label")[0].textContent = text;
+                }
+            } else if (newFont != "" && newFont != undefined && newFont >= 0) {
+                custo_unit_med_ar = tecnologia_futura_arrefecimento[newFont].custo_unit;
+                $("#custo-unit-med-ar").val((custo_unit_med_ar).toFixed(2));
+
+                var begin = $("#custo-unit-med-ar-label")[0].textContent.indexOf("(");
+                var text = $("#custo-unit-med-ar-label")[0].textContent.substring(0, begin) + " (€/" + tecnologia_futura_arrefecimento[newFont].unidade + ")";
+                $("#custo-unit-med-ar-label")[0].textContent = text;
+            }
+            
+        } else {
+            $("#eer-med-ar").val("");
+            $("#custo-unit-med-ar").val("");
+            $("#custo-unit-med-ar-label")[0].textContent = "Custo energético unitário (€/kWh)";
         }
     }
 }
@@ -2339,7 +2447,7 @@ function fonteToTecnologia() {
 function nextStep() {
     var id = $('.step:visible').data('id');
     var nextId = $('.step:visible').data('id') + 1;
-    
+        
     var escolha = $("#escolhe").val(); //0 - Aquecimento | 1 - Arrefecimento | 2 - both    
     
     $('[data-id="' + id + '"]').hide();
@@ -2354,11 +2462,13 @@ function nextStep() {
     
     if(escolha==1 && id==1){
         $('[data-id="' + nextId + '1"]').show();
+    }else if(escolha==1 && id==22){
+        $('[data-id="4"]').show();
     }else{
-        $('[data-id="' + nextId + '"]').show();
+        $('[data-id="' + nextId + '"]').show();        
     }
 
-    if (nextId == 3) {
+    if (nextId == 3 ||  nextId == 22) {
         $(".but-2").hide();
         $(".end-step").show();
         $(".reload-but").hide();
@@ -2366,7 +2476,7 @@ function nextStep() {
         $('#disclaimer').hide();
     }
     //resultados
-    if (nextId == 4) {
+    if (nextId == 4 || nextId == 23) {
         $(".end-step").show();
         $(".step-but").show();
         $(".reload-but").show();
@@ -2374,6 +2484,8 @@ function nextStep() {
         $(".print_pdf").show();
         $('#disclaimer').show();
     }
+    
+    lastStep=id;
     
     location.hash = "html";
 }
@@ -2383,32 +2495,39 @@ function prevStep() {
     var id = $('.step:visible').data('id');
     var prevId = $('.step:visible').data('id') - 1;
     $('[data-id="' + id + '"]').hide();
-    
-
+        
     if (prevId == 1) {
         $('[data-id="' + prevId + '"]').show();
         $(".anterior").hide();
         $('#disclaimer').hide();
     }else if(prevId==20){
         $('[data-id="' + 1 + '"]').show();
+        $(".anterior").hide();
+        $('#disclaimer').hide();
+    }else if(prevId==21){
+        $('[data-id="' + prevId + '"]').show();
+    }else if(lastStep==22){
+        $('[data-id="' + lastStep + '"]').show();
+    }else{
+        $('[data-id="' + prevId + '"]').show();
     }
 
-    if (prevId == 2) {
+    if (prevId == 2 || prevId==21) {
         $(".end-step").hide();
-        $(".step-but").hide();
-        $(".end-but").hide();
         $(".anterior").show();
         $(".but-2").show();
         $('#disclaimer').hide();
     }
 
-    if (prevId == 3) {
+    if (prevId == 3 || prevId==22) {
         $(".end-step").show();
         $(".reload-but").hide();
         $(".end-but").show();
         $(".print_pdf").hide();
         $('#disclaimer').hide();
     }
+    
+    lastStep=id;
     
     location.hash = "html";
 }

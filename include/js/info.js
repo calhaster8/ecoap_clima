@@ -4,10 +4,10 @@ var utilizacao_calc = [
     },
     {
         nome: "Arrefecimento"
-    },
-    {
-        nome: "Aquecimento e Arrefecimento"
     }
+//    {
+//        nome: "Aquecimento e Arrefecimento"
+//    }
 ];
 
 var escolhas = [
@@ -283,6 +283,7 @@ var tecnologia_atual_aquecimento = [
 
 var tecnologia_atual_arrefecimento = [
     {
+        id: 0,
         nome: "Chiller (ciclo de absorção)",
         custo_unit: 0.20, //euros
         rendimento: [
@@ -303,6 +304,7 @@ var tecnologia_atual_arrefecimento = [
         fonte_energia: "Energia Elétrica"
     },
     {
+        id: 1,
         nome: "Chiller (codensação a ar)",
         custo_unit: 0.20, //euros
         rendimento: [
@@ -323,6 +325,7 @@ var tecnologia_atual_arrefecimento = [
         fonte_energia: "Energia Elétrica"
     },
     {
+        id: 2,
         nome: "Chiller (codensação a água)",
         custo_unit: 0.20, //euros
         rendimento: [
@@ -343,6 +346,7 @@ var tecnologia_atual_arrefecimento = [
         fonte_energia: "Energia Elétrica"
     },
     {
+        id: 3,
         nome: "Expansão direta (arrefecimento)",
         custo_unit: 0.20, //euros
         rendimento: [
@@ -428,6 +432,7 @@ var tecnologia_futura_aquecimento = [
 
 var tecnologia_futura_arrefecimento = [
     {
+        id: 0,
         nome: "Chiller (ciclo de absorção)",
         custo_unit: 0.20, //euros
         rendimento: 3,
@@ -437,6 +442,7 @@ var tecnologia_futura_arrefecimento = [
         fonte_energia: "Energia Elétrica"
     },
     {
+        id: 1,
         nome: "Chiller (condensação a ar",
         custo_unit: 0.20, //euros
         rendimento: 3.75,
@@ -446,6 +452,7 @@ var tecnologia_futura_arrefecimento = [
         fonte_energia: "Energia Elétrica"
     },
     {
+        id: 2,
         nome: "Chiller (consensação a água)",
         custo_unit: 0.20, //euros
         rendimento: 4,
@@ -455,6 +462,7 @@ var tecnologia_futura_arrefecimento = [
         fonte_energia: "Energia Elétrica"
     },
     {
+        id: 3,
         nome: "Expansão direta (arrefecimento)",
         custo_unit: 0.20, //euros
         rendimento: 3.25,
@@ -464,6 +472,7 @@ var tecnologia_futura_arrefecimento = [
         fonte_energia: "Energia Elétrica"
     }
 //    {
+//        id: 4,
 //        nome: "Não intervir"
 //    }
 ];

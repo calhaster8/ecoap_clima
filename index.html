@@ -22,7 +22,7 @@
     </head>
     <body>
         <header class="header">
-            <!--.logo--><span class="header-title">Calculadora - Climatização (Aquecimento)</span>
+            <!--.logo--><span class="header-title">Calculadora - Climatização</span>
         </header>
         <main class="main container">
             <form id="clima-form">
@@ -128,14 +128,14 @@
                                         <label id="custo-en-unit-aq-label" for="custo-en-unit-aq">Custo energético unitário (€/kWh)</label>
                                         <input id="custo-en-unit-aq" name="custo-en-unit-aq" type="number"  min="0.01" step="0.01" placeholder="0.10€" class="form-control xInput"/>
                                     </div>                              
-                                    <div class="dado use-arr">
+<!--                                    <div class="dado use-arr">
                                         <label for="use-arr">Utilizada também para arrefecimento?</label>
                                         <select id="use-arr" name="use-arr" class="sel">
                                             <option value="">Selecionar opção</option>
                                             <option value="0">Sim</option>
                                             <option value="1">Não</option>
                                         </select>
-                                    </div>
+                                    </div>-->
 
                                     <div class="dado consumo-question">
                                         <label id="lb-consumo-quest" for="consumo-quest">Conhece os consumos anuais de energia para aquecimento?</label>
@@ -348,7 +348,7 @@
                                     </div>
                                     <div class="dado pot-ar">
                                         <label for="potencia-ar">Potência (kW)</label>
-                                        <input type="number" placeholder="0 kW" class="form-control xInput"/>
+                                        <input id="potencia-ar" name="potencia-ar" type="number" placeholder="0 kW" class="form-control xInput"/>
                                     </div>
                                     <div class="dado eer-ar">
                                         <label for="eer">EER</label>
@@ -357,7 +357,7 @@
                                             <option value="0">Não conhece</option>
                                             <option value="2">Inserir EER</option>
                                         </select>
-                                        <input id="iEERMan" type="number" name="iEERMan" placeholder="0" min="0" step="0.1" style="display:none;" />
+                                        <input id="iEERMan" type="number" name="iEERMan" placeholder="0" min="0" step="0.01" style="display:none;" />
                                     </div>
                                     <div class="dado age-eer-ar eer-link">
                                         <label for="age-eer">Idade (aprox.)</label>
@@ -373,14 +373,14 @@
                                         <input id="custo-en-unit-ar" type="number"  min="0.01" step="0.01" placeholder="0.10€" class="form-control xInput"/>
                                     </div>
 
-                                    <div class="dado use-aquec-ar">
+<!--                                    <div class="dado use-aquec-ar">
                                         <label for="use-aquec">Utilizada também para aquecimento?</label>
                                         <select id="use-aquec" name="use-aquec" class="sel">
                                             <option value="">Selecionar opção</option>
                                             <option value="0">Sim</option>
                                             <option value="1">Não</option>
                                         </select>
-                                    </div>
+                                    </div>-->
 
                                     <div class="dado consumo-question-ar">
                                         <label id="lb-consumo-quest-arr" for="consumo-quest-arr">Conhece os consumos anuais de energia para arrefecimento?</label>
@@ -677,7 +677,7 @@
                                             <tr class="textTR">
                                                 <td class="in">Investimento estimado *</td>
                                                 <td colspan="2" class="center aq" id="investimento-aqu"></td>
-                                                <td colspan="2" class="center arr" id="investimento-aqu"></td>
+                                                <td colspan="2" class="center arr" id="investimento-arr"></td>
                                                 <td colspan="2" class="center aqs" id="investimento-aqs"></td>
                                             </tr>
                                             <tr class="textTR">
@@ -775,9 +775,9 @@
 
 
                     <div class="col-md-12" id="disclaimer" style="display:none; text-align: justify; margin-top: 20px;">
-                        <span>Esta calculadora insere-se na campanha “A Energia tem ECO no futuro” dinamizada pela ADENE – Agência para a Energia em 2018 no âmbito do Programa ECO.AP e utiliza algoritmos de cálculo baseados em valores padrão e em médias estatísticas.
-                            Não pretende substituir o trabalho aprofundado de especialistas na área e/ou de peritos qualificados mas sim permitir ao Gestor Local de Energia, ou a outros utilizadores, determinar, de forma indicativa, mas aproximada, o resultado da implementação de medidas de melhoria da eficiência energética em edifícios, nomeadamente edifícios da Administração Pública Central.
-                            Os resultados obtidos podem, portanto, divergir relativamente a relatórios de auditorias energéticas ou de processos de certificação energética.</span>
+                        <span>Esta calculadora insere-se na campanha com o mote “A Energia tem ECO no futuro” dinamizada pela ADENE – Agência para a Energia, em 2018, promovida no âmbito de uma Campanha de Sensibilização e Promoção da Eficiência Energética na Administração Pública Central, cofinanciada pelo PO SEUR, e utiliza algoritmos de cálculo baseados em valores padrão e em médias estatísticas.
+                            Não pretende substituir o trabalho aprofundado de especialistas na área e/ou de peritos qualificados mas sim, permitir ao Gestor Local de Energia, ou a outros utilizadores, determinar, de forma indicativa, mas aproximada, o resultado da implementação de medidas de melhoria da eficiência energética em edifícios, nomeadamente da Administração Pública Central.
+                            Os resultados obtidos podem divergir relativamente a relatórios de auditorias energéticas ou de processos de certificação energética.</span>
                     </div>
                 </div>
             </form>
