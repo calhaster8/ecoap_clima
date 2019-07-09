@@ -1767,6 +1767,9 @@ function showResumo() {
     $('#pri-aqu').html((resumo_pri_simples < 0 ? '-' : resumo_pri_simples.toFixed(1)) + ' anos');
     $('#pri-arr').html((resumo_pri_simples_arr < 0 ? '-' : resumo_pri_simples_arr.toFixed(1)) + ' anos');
     $('#pri-aqs').html((resumo_pri_simples_aqs < 0 ? '-' : resumo_pri_simples_aqs.toFixed(1)) + ' anos');
+
+
+
 }
 
 function showGlobalResumo() {
@@ -1815,5 +1818,114 @@ function showGlobalResumo() {
     $('#investimento-global').html(investimento_estimado_global + ' €');
 
     $('#pri-global').html((pri_simples_global < 0 ? '-' : pri_simples_global.toFixed(1)) + ' anos');
+
+    chartData();
 }
 
+//GRAFICO
+
+function chartData() {
+    var custosMensaisChart = document.getElementById("custos_mensais_chart_v2").getContext('2d');
+    var aqsSolarTermChart = document.getElementById("aqs_solar_term_chart_v2").getContext('2d');
+
+    //var maxCustos = maxChart(cenarioI_custos) > maxChart(cenarioF_custos) ? maxChart(cenarioI_custos) : maxChart(cenarioF_custos);
+
+    //var maxSolarTerm = maxChart(necessidades_mes) > maxChart(totalExcedenteSolarArray) ? maxChart(necessidades_mes) : maxChart(totalExcedenteSolarArray) > maxChart(energiaSolarUtilizada) ? maxChart(totalExcedenteSolarArray) : maxChart(energiaSolarUtilizada);
+
+    var varCustosMensais = new Chart(custosMensaisChart, {
+        type: 'bar',
+        data: {
+            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            datasets: [{
+                label: 'Aquecimento (Inicial)',
+                data: cenario_inicial_custos_aq_array,
+                backgroundColor: 'rgba(230, 103, 38, 1)',
+                borderColor: 'rgba(230, 103, 38, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Aquecimento (Final)',
+                data: cenario_final_custos_aquecimento_array,
+                backgroundColor: 'rgba(239, 161, 112, 1)',
+                borderColor: 'rgba(239, 161, 112, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Arrefecimento (Inicial)',
+                data: cenario_inicial_custos_arr_array,
+                backgroundColor: 'rgba(74, 136, 203, 1)',
+                borderColor: 'rgba(74, 136, 203, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Arrefecimento (Final)',
+                data: cenario_final_custos_arrefecimento_array,
+                backgroundColor: 'rgba(140, 181, 223, 1)',
+                borderColor: 'rgba(140, 181, 223, 1)',
+                borderWidth: 1
+            }, {
+                label: 'AQS (Inicial)',
+                data: cenario_inicial_custos_aqs_array,
+                backgroundColor: 'rgba(253, 181, 9, 1)',
+                borderColor: 'rgba(253, 181, 9, 1)',
+                borderWidth: 1
+            }, {
+                label: 'AQS (Final)',
+                data: cenario_final_custos_aqs_array,
+                backgroundColor: 'rgba(254, 210, 84, 1)',
+                borderColor: 'rgba(254, 210, 84, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    var varAqsSolarTerm = new Chart(aqsSolarTermChart, {
+        type: 'bar',
+        data: {
+            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            datasets: [{
+                label: 'Energia Solar',
+                data: energia_solar_utilizada_array,
+                backgroundColor: 'rgba(95, 160, 55, 1)',
+                borderColor: 'rgba(95, 160, 55, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Energia de apoio',
+                data: energia_solar_sa_array,
+                backgroundColor: 'rgba(230, 103, 38, 1)',
+                borderColor: 'rgba(230, 103, 38, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Excedente',
+                data: excedente_solar_array,
+                backgroundColor: 'rgba(254, 204, 60, 1)',
+                borderColor: 'rgba(254, 204, 60, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Necessidades',
+                data: necessidades_array,
+                backgroundColor: 'rgba(53, 91, 183, 0)',
+                borderColor: 'rgba(53, 91, 183, 1)',
+                pointBackgroundColor: 'rgba(0,0,0,0)',
+                pointBorderColor: 'rgba(0,0,0,0)',
+                borderWidth: 1,
+                type: 'line'
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+}
