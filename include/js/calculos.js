@@ -1823,15 +1823,35 @@ function showGlobalResumo() {
 }
 
 //GRAFICO
-
 function chartData() {
     var custosMensaisChart = document.getElementById("custos_mensais_chart_v2").getContext('2d');
     var aqsSolarTermChart = document.getElementById("aqs_solar_term_chart_v2").getContext('2d');
 
-    //var maxCustos = maxChart(cenarioI_custos) > maxChart(cenarioF_custos) ? maxChart(cenarioI_custos) : maxChart(cenarioF_custos);
+    if ((maxChart(cenario_inicial_custos_aq_array) > maxChart(cenario_final_custos_aquecimento_array)) && (maxChart(cenario_inicial_custos_aq_array) > maxChart(cenario_inicial_custos_arr_array)) && (maxChart(cenario_inicial_custos_aq_array) > maxChart(cenario_final_custos_arrefecimento_array)) && (maxChart(cenario_inicial_custos_aq_array) > maxChart(cenario_inicial_custos_aqs_array)) && (maxChart(cenario_inicial_custos_aq_array) > maxChart(cenario_final_custos_aqs_array))) {
+        var maxCustos = maxChart(cenario_inicial_custos_aq_array);
+    } else if ((maxChart(cenario_final_custos_aquecimento_array) > maxChart(cenario_inicial_custos_aq_array)) && (maxChart(cenario_final_custos_aquecimento_array) > maxChart(cenario_inicial_custos_arr_array)) && (maxChart(cenario_final_custos_aquecimento_array) > maxChart(cenario_final_custos_arrefecimento_array)) && (maxChart(cenario_final_custos_aquecimento_array) > maxChart(cenario_inicial_custos_aqs_array)) && (maxChart(cenario_final_custos_aquecimento_array) > maxChart(cenario_final_custos_aqs_array))) {
+        var maxCustos = maxChart(cenario_final_custos_aquecimento_array);
+    } else if ((maxChart(cenario_inicial_custos_arr_array) > maxChart(cenario_inicial_custos_aq_array)) && (maxChart(cenario_inicial_custos_arr_array) > maxChart(cenario_final_custos_aquecimento_array)) && (maxChart(cenario_inicial_custos_arr_array) > maxChart(cenario_final_custos_arrefecimento_array)) && (maxChart(cenario_inicial_custos_arr_array) > maxChart(cenario_inicial_custos_aqs_array)) && (maxChart(cenario_inicial_custos_arr_array) > maxChart(cenario_final_custos_aqs_array))) {
+        var maxCustos = maxChart(cenario_inicial_custos_arr_array);
+    } else if ((maxChart(cenario_final_custos_arrefecimento_array) > maxChart(cenario_inicial_custos_aq_array)) && (maxChart(cenario_final_custos_arrefecimento_array) > maxChart(cenario_final_custos_aquecimento_array)) && (maxChart(cenario_final_custos_arrefecimento_array) > maxChart(cenario_inicial_custos_arr_array)) && (maxChart(cenario_final_custos_arrefecimento_array) > maxChart(cenario_inicial_custos_aqs_array)) && (maxChart(cenario_final_custos_arrefecimento_array) > maxChart(cenario_final_custos_aqs_array))) {
+        var maxCustos = maxChart(cenario_final_custos_arrefecimento_array);
+    } else if ((maxChart(cenario_inicial_custos_aqs_array) > maxChart(cenario_inicial_custos_aq_array)) && (maxChart(cenario_inicial_custos_aqs_array) > maxChart(cenario_final_custos_aquecimento_array)) && (maxChart(cenario_inicial_custos_aqs_array) > maxChart(cenario_inicial_custos_arr_array)) && (maxChart(cenario_inicial_custos_aqs_array) > maxChart(cenario_final_custos_arrefecimento_array)) && (maxChart(cenario_inicial_custos_aqs_array) > maxChart(cenario_final_custos_aqs_array))) {
+        var maxCustos = maxChart(cenario_inicial_custos_aqs_array);
+    } else {
+        var maxCustos = maxChart(cenario_final_custos_aqs_array);
+    }
 
-    //var maxSolarTerm = maxChart(necessidades_mes) > maxChart(totalExcedenteSolarArray) ? maxChart(necessidades_mes) : maxChart(totalExcedenteSolarArray) > maxChart(energiaSolarUtilizada) ? maxChart(totalExcedenteSolarArray) : maxChart(energiaSolarUtilizada);
+    if ((maxChart(energia_solar_utilizada_array) > maxChart(energia_solar_sa_array)) && (maxChart(energia_solar_utilizada_array) > maxChart(excedente_solar_array)) && (maxChart(energia_solar_utilizada_array) > maxChart(necessidades_array))) {
+        var maxSolarTerm = maxChart(energia_solar_utilizada_array);
+    } else if ((maxChart(energia_solar_sa_array) > maxChart(energia_solar_utilizada_array)) && (maxChart(energia_solar_sa_array) > maxChart(excedente_solar_array)) && (maxChart(energia_solar_sa_array) > maxChart(necessidades_array))) {
+        var maxSolarTerm = maxChart(energia_solar_sa_array);
+    } else if ((maxChart(excedente_solar_array) > maxChart(energia_solar_utilizada_array)) && (maxChart(excedente_solar_array) > maxChart(energia_solar_sa_array)) && (maxChart(excedente_solar_array) > maxChart(necessidades_array))) {
+        var maxSolarTerm = maxChart(excedente_solar_array);
+    } else {
+        var maxSolarTerm = maxChart(necessidades_array);
+    }
 
+    
     var varCustosMensais = new Chart(custosMensaisChart, {
         type: 'bar',
         data: {
@@ -1878,7 +1898,8 @@ function chartData() {
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        max: maxCustos
                     }
                 }]
             }
@@ -1922,10 +1943,26 @@ function chartData() {
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        max: maxSolarTerm
                     }
                 }]
             }
         }
     });
+}
+
+function maxChart(array) {
+    var max = 0;
+    if (array.length > 0) {
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] > max || max == 0) {
+                max = array[i];
+            }
+        }
+    }
+    max += (max * 0.10);
+
+    return max;
+
 }
