@@ -1824,8 +1824,68 @@ function showGlobalResumo() {
 
 //GRAFICO
 function chartData() {
+    $('.chart_1 #custos_mensais_chart_v2').remove();
+    $('.chart_1 #aqs_solar_term_chart_v2').remove();
+    $('.chart_1').append('<canvas id="custos_mensais_chart_v2" width="400" height="400" responsive="true"></canvas>');
+    $('.chart_1').append('<canvas id="aqs_solar_term_chart_v2" width="400" height="400" responsive="true"></canvas>');
+
     var custosMensaisChart = document.getElementById("custos_mensais_chart_v2").getContext('2d');
     var aqsSolarTermChart = document.getElementById("aqs_solar_term_chart_v2").getContext('2d');
+
+    //to Fix arrays
+    var cenario_inicial_custos_aq_array_fixed = [];
+    var cenario_final_custos_aquecimento_array_fixed = [];
+    var cenario_inicial_custos_arr_array_fixed = [];
+    var cenario_final_custos_arrefecimento_array_fixed = [];
+    var cenario_inicial_custos_aqs_array_fixed = [];
+    var cenario_final_custos_aqs_array_fixed = [];
+
+    var energia_solar_utilizada_array_fixed = [];
+    var energia_solar_sa_array_fixed = [];
+    //var excedente_solar_array_fixed = [];
+    var energia_solar_mj_array_fixed = [];
+    var necessidades_array_fixed = [];
+
+    for (let i = 0; i < cenario_inicial_custos_aq_array.length; i++) {
+        cenario_inicial_custos_aq_array_fixed[i] = cenario_inicial_custos_aq_array[i].toFixed(0);
+    }
+
+    for (let i = 0; i < cenario_final_custos_aquecimento_array.length; i++) {
+        cenario_final_custos_aquecimento_array_fixed[i] = cenario_final_custos_aquecimento_array[i].toFixed(0);
+    }
+
+    for (let i = 0; i < cenario_inicial_custos_arr_array.length; i++) {
+        cenario_inicial_custos_arr_array_fixed[i] = cenario_inicial_custos_arr_array[i].toFixed(0);
+    }
+
+    for (let i = 0; i < cenario_final_custos_arrefecimento_array.length; i++) {
+        cenario_final_custos_arrefecimento_array_fixed[i] = cenario_final_custos_arrefecimento_array[i].toFixed(0);
+    }
+
+    for (let i = 0; i < cenario_inicial_custos_aqs_array.length; i++) {
+        cenario_inicial_custos_aqs_array_fixed[i] = cenario_inicial_custos_aqs_array[i].toFixed(0);
+    }
+
+    for (let i = 0; i < cenario_final_custos_aqs_array.length; i++) {
+        cenario_final_custos_aqs_array_fixed[i] = cenario_final_custos_aqs_array[i].toFixed(0);
+    }
+
+    for (let i = 0; i < energia_solar_utilizada_array.length; i++) {
+        energia_solar_utilizada_array_fixed[i] = energia_solar_utilizada_array[i].toFixed(0);
+    }
+
+    for (let i = 0; i < energia_solar_sa_array.length; i++) {
+        energia_solar_sa_array_fixed[i] = energia_solar_sa_array[i].toFixed(0);
+    }
+
+    for (let i = 0; i < energia_solar_mj_array.length; i++) {
+        energia_solar_mj_array_fixed[i] = energia_solar_mj_array[i].toFixed(0);
+    }
+
+    for (let i = 0; i < necessidades_array.length; i++) {
+        necessidades_array_fixed[i] = necessidades_array[i].toFixed(0);
+    }
+
 
     // Condition
     var incluirAqs = ($('#pres-aqs').val() == 0 && $('#use-aqs').val() == 0) ? true : false;
@@ -1845,12 +1905,12 @@ function chartData() {
         var maxCustos = maxChart(cenario_final_custos_aqs_array);
     }
 
-    if ((maxChart(energia_solar_utilizada_array) > maxChart(energia_solar_sa_array)) && (maxChart(energia_solar_utilizada_array) > maxChart(excedente_solar_array)) && (maxChart(energia_solar_utilizada_array) > maxChart(necessidades_array))) {
+    if ((maxChart(energia_solar_utilizada_array) > maxChart(energia_solar_sa_array)) && (maxChart(energia_solar_utilizada_array) > maxChart(energia_solar_mj_array)) && (maxChart(energia_solar_utilizada_array) > maxChart(necessidades_array))) {
         var maxSolarTerm = maxChart(energia_solar_utilizada_array);
-    } else if ((maxChart(energia_solar_sa_array) > maxChart(energia_solar_utilizada_array)) && (maxChart(energia_solar_sa_array) > maxChart(excedente_solar_array)) && (maxChart(energia_solar_sa_array) > maxChart(necessidades_array))) {
+    } else if ((maxChart(energia_solar_sa_array) > maxChart(energia_solar_utilizada_array)) && (maxChart(energia_solar_sa_array) > maxChart(energia_solar_mj_array)) && (maxChart(energia_solar_sa_array) > maxChart(necessidades_array))) {
         var maxSolarTerm = maxChart(energia_solar_sa_array);
-    } else if ((maxChart(excedente_solar_array) > maxChart(energia_solar_utilizada_array)) && (maxChart(excedente_solar_array) > maxChart(energia_solar_sa_array)) && (maxChart(excedente_solar_array) > maxChart(necessidades_array))) {
-        var maxSolarTerm = maxChart(excedente_solar_array);
+    } else if ((maxChart(energia_solar_mj_array) > maxChart(energia_solar_utilizada_array)) && (maxChart(energia_solar_mj_array) > maxChart(energia_solar_sa_array)) && (maxChart(energia_solar_mj_array) > maxChart(necessidades_array))) {
+        var maxSolarTerm = maxChart(energia_solar_mj_array);
     } else {
         var maxSolarTerm = maxChart(necessidades_array);
     }
@@ -1862,37 +1922,37 @@ function chartData() {
             labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
             datasets: [{
                 label: 'Aquecimento (Inicial)',
-                data: cenario_inicial_custos_aq_array,
+                data: cenario_inicial_custos_aq_array_fixed,
                 backgroundColor: 'rgba(230, 103, 38, 1)',
                 borderColor: 'rgba(230, 103, 38, 1)',
                 borderWidth: 1
             }, {
                 label: 'Aquecimento (Final)',
-                data: cenario_final_custos_aquecimento_array,
+                data: cenario_final_custos_aquecimento_array_fixed,
                 backgroundColor: 'rgba(239, 161, 112, 1)',
                 borderColor: 'rgba(239, 161, 112, 1)',
                 borderWidth: 1
             }, {
                 label: 'Arrefecimento (Inicial)',
-                data: cenario_inicial_custos_arr_array,
+                data: cenario_inicial_custos_arr_array_fixed,
                 backgroundColor: 'rgba(74, 136, 203, 1)',
                 borderColor: 'rgba(74, 136, 203, 1)',
                 borderWidth: 1
             }, {
                 label: 'Arrefecimento (Final)',
-                data: cenario_final_custos_arrefecimento_array,
+                data: cenario_final_custos_arrefecimento_array_fixed,
                 backgroundColor: 'rgba(140, 181, 223, 1)',
                 borderColor: 'rgba(140, 181, 223, 1)',
                 borderWidth: 1
             }, {
                 label: 'AQS (Inicial)',
-                data: cenario_inicial_custos_aqs_array,
+                data: cenario_inicial_custos_aqs_array_fixed,
                 backgroundColor: 'rgba(253, 181, 9, 1)',
                 borderColor: 'rgba(253, 181, 9, 1)',
                 borderWidth: 1
             }, {
                 label: 'AQS (Final)',
-                data: cenario_final_custos_aqs_array,
+                data: cenario_final_custos_aqs_array_fixed,
                 backgroundColor: 'rgba(254, 210, 84, 1)',
                 borderColor: 'rgba(254, 210, 84, 1)',
                 borderWidth: 1
@@ -1903,9 +1963,25 @@ function chartData() {
                 yAxes: [{
                     ticks: {
                         beginAtZero: true,
-                        max: maxCustos
+                        max: maxCustos,
+                        callback: function (value, index, values) {
+                            return value.toFixed(0) + '€';
+                        }
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 90,
+                        minRotation: 90
                     }
                 }]
+            },
+            title: {
+                display: true,
+                text: 'Custos Mensais de Energia',
+                fontSize: 16,
+                fontColor: '#0099cc'
             }
         }
     });
@@ -1919,25 +1995,25 @@ function chartData() {
                 labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
                 datasets: [{
                     label: 'Energia Solar',
-                    data: energia_solar_utilizada_array,
+                    data: energia_solar_utilizada_array_fixed,
                     backgroundColor: 'rgba(95, 160, 55, 1)',
                     borderColor: 'rgba(95, 160, 55, 1)',
                     borderWidth: 1
                 }, {
                     label: 'Energia de apoio',
-                    data: energia_solar_sa_array,
+                    data: energia_solar_sa_array_fixed,
                     backgroundColor: 'rgba(230, 103, 38, 1)',
                     borderColor: 'rgba(230, 103, 38, 1)',
                     borderWidth: 1
                 }, {
                     label: 'Excedente',
-                    data: excedente_solar_array,
+                    data: energia_solar_mj_array_fixed,
                     backgroundColor: 'rgba(254, 204, 60, 1)',
                     borderColor: 'rgba(254, 204, 60, 1)',
                     borderWidth: 1
                 }, {
                     label: 'Necessidades',
-                    data: necessidades_array,
+                    data: necessidades_array_fixed,
                     backgroundColor: 'rgba(53, 91, 183, 0)',
                     borderColor: 'rgba(53, 91, 183, 1)',
                     pointBackgroundColor: 'rgba(0,0,0,0)',
@@ -1951,9 +2027,31 @@ function chartData() {
                     yAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            max: maxSolarTerm
+                            max: maxSolarTerm,
+                            callback: function (value, index, values) {
+                                return value.toFixed(0) + ' MJ';
+                            }
                         }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            autoSkip: false,
+                            maxRotation: 90,
+                            minRotation: 90
+                        },
+                        stacked: true
                     }]
+                },
+                title: {
+                    display: true,
+                    text: 'Balanço Energético - AQS - Solar Térmico (MJ)',
+                    fontSize: 16,
+                    fontColor: '#0099cc'
+                },
+                legend: {
+                    labels: {
+                        useLineStyle: true
+                    }
                 }
             }
         });
@@ -1967,7 +2065,7 @@ function maxChart(array) {
     if (array.length > 0) {
         for (var i = 0; i < array.length; i++) {
             if (array[i] > max || max == 0) {
-                max = array[i];
+                max = new Number(array[i]);
             }
         }
     }

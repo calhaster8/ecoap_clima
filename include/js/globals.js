@@ -200,7 +200,7 @@ var resumo_investimento_estimado = 0;
 var resumo_pri_simples = 0;
 
 
-//Arrefecimento
+    //Arrefecimento
 var resumo_equipamento_inicial_arr = '';
 var resumo_equipamento_final_arr = '';
 var resumo_potencia_inicial_arr = 0;
