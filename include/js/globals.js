@@ -51,6 +51,9 @@ var total_consumo_aqs_meses = 0;
 var necessidades_array = [];
 var necessidades_total = 0;
 
+var necessidades_solar_array = [];
+var necessidades_solar_total = 0;
+
 var energia_solar_array = [];
 var energia_solar_total = 0;
 

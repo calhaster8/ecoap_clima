@@ -709,12 +709,25 @@ function necessidadesEnergeticas() {
             necessidades_total += necessidades_array[i];
         }
     }
+
+    necessidadesEnergeticasSolar();
 }
 
 function racio() {
     total_racio = 0;
 
     total_racio = new Number(((total_media_verao_necen / fatores_conversao[1]) / total_media_verao_solar).toFixed(2));
+}
+
+function necessidadesEnergeticasSolar() {
+    necessidades_solar_array = [];
+    necessidades_solar_total = 0;
+
+    for (let i = 0; i < meses_numero_horas.length; i++) {
+        necessidades_solar_array[i] = necessidades_array[i] / fatores_conversao[1];
+        
+        necessidades_solar_total += necessidades_solar_array[i];
+    }
 }
 
 function energiaSolarCaptadaM2() {
@@ -1844,7 +1857,8 @@ function chartData() {
     var energia_solar_sa_array_fixed = [];
     //var excedente_solar_array_fixed = [];
     var energia_solar_mj_array_fixed = [];
-    var necessidades_array_fixed = [];
+    //var necessidades_array_fixed = [];
+    var necessidades_solar_array_fixed = [];
 
     for (let i = 0; i < cenario_inicial_custos_aq_array.length; i++) {
         cenario_inicial_custos_aq_array_fixed[i] = cenario_inicial_custos_aq_array[i].toFixed(0);
@@ -1882,13 +1896,15 @@ function chartData() {
         energia_solar_mj_array_fixed[i] = energia_solar_mj_array[i].toFixed(0);
     }
 
-    for (let i = 0; i < necessidades_array.length; i++) {
-        necessidades_array_fixed[i] = necessidades_array[i].toFixed(0);
+    for (let i = 0; i < necessidades_solar_array.length; i++) {
+        necessidades_solar_array_fixed[i] = necessidades_solar_array[i].toFixed(0);
     }
 
 
     // Condition
     var incluirAqs = ($('#pres-aqs').val() == 0 && $('#use-aqs').val() == 0) ? true : false;
+    var isAquecimento = ($('#escolhe').val() == 0) ? true : false;
+    var isArrefecimento = ($('#escolhe').val() == 1) ? true : false;
 
     // MAX
     if ((maxChart(cenario_inicial_custos_aq_array) > maxChart(cenario_final_custos_aquecimento_array)) && (maxChart(cenario_inicial_custos_aq_array) > maxChart(cenario_inicial_custos_arr_array)) && (maxChart(cenario_inicial_custos_aq_array) > maxChart(cenario_final_custos_arrefecimento_array)) && (maxChart(cenario_inicial_custos_aq_array) > maxChart(cenario_inicial_custos_aqs_array)) && (maxChart(cenario_inicial_custos_aq_array) > maxChart(cenario_final_custos_aqs_array))) {
@@ -1905,86 +1921,204 @@ function chartData() {
         var maxCustos = maxChart(cenario_final_custos_aqs_array);
     }
 
-    if ((maxChart(energia_solar_utilizada_array) > maxChart(energia_solar_sa_array)) && (maxChart(energia_solar_utilizada_array) > maxChart(energia_solar_mj_array)) && (maxChart(energia_solar_utilizada_array) > maxChart(necessidades_array))) {
+    if ((maxChart(energia_solar_utilizada_array) > maxChart(energia_solar_sa_array)) && (maxChart(energia_solar_utilizada_array) > maxChart(energia_solar_mj_array)) && (maxChart(energia_solar_utilizada_array) > maxChart(necessidades_solar_array))) {
         var maxSolarTerm = maxChart(energia_solar_utilizada_array);
-    } else if ((maxChart(energia_solar_sa_array) > maxChart(energia_solar_utilizada_array)) && (maxChart(energia_solar_sa_array) > maxChart(energia_solar_mj_array)) && (maxChart(energia_solar_sa_array) > maxChart(necessidades_array))) {
+    } else if ((maxChart(energia_solar_sa_array) > maxChart(energia_solar_utilizada_array)) && (maxChart(energia_solar_sa_array) > maxChart(energia_solar_mj_array)) && (maxChart(energia_solar_sa_array) > maxChart(necessidades_solar_array))) {
         var maxSolarTerm = maxChart(energia_solar_sa_array);
-    } else if ((maxChart(energia_solar_mj_array) > maxChart(energia_solar_utilizada_array)) && (maxChart(energia_solar_mj_array) > maxChart(energia_solar_sa_array)) && (maxChart(energia_solar_mj_array) > maxChart(necessidades_array))) {
+    } else if ((maxChart(energia_solar_mj_array) > maxChart(energia_solar_utilizada_array)) && (maxChart(energia_solar_mj_array) > maxChart(energia_solar_sa_array)) && (maxChart(energia_solar_mj_array) > maxChart(necessidades_solar_array))) {
         var maxSolarTerm = maxChart(energia_solar_mj_array);
     } else {
-        var maxSolarTerm = maxChart(necessidades_array);
+        var maxSolarTerm = maxChart(necessidades_solar_array);
     }
-
     
-    var varCustosMensais = new Chart(custosMensaisChart, {
-        type: 'bar',
-        data: {
-            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            datasets: [{
-                label: 'Aquecimento (Inicial)',
-                data: cenario_inicial_custos_aq_array_fixed,
-                backgroundColor: 'rgba(230, 103, 38, 1)',
-                borderColor: 'rgba(230, 103, 38, 1)',
-                borderWidth: 1
-            }, {
-                label: 'Aquecimento (Final)',
-                data: cenario_final_custos_aquecimento_array_fixed,
-                backgroundColor: 'rgba(239, 161, 112, 1)',
-                borderColor: 'rgba(239, 161, 112, 1)',
-                borderWidth: 1
-            }, {
-                label: 'Arrefecimento (Inicial)',
-                data: cenario_inicial_custos_arr_array_fixed,
-                backgroundColor: 'rgba(74, 136, 203, 1)',
-                borderColor: 'rgba(74, 136, 203, 1)',
-                borderWidth: 1
-            }, {
-                label: 'Arrefecimento (Final)',
-                data: cenario_final_custos_arrefecimento_array_fixed,
-                backgroundColor: 'rgba(140, 181, 223, 1)',
-                borderColor: 'rgba(140, 181, 223, 1)',
-                borderWidth: 1
-            }, {
-                label: 'AQS (Inicial)',
-                data: cenario_inicial_custos_aqs_array_fixed,
-                backgroundColor: 'rgba(253, 181, 9, 1)',
-                borderColor: 'rgba(253, 181, 9, 1)',
-                borderWidth: 1
-            }, {
-                label: 'AQS (Final)',
-                data: cenario_final_custos_aqs_array_fixed,
-                backgroundColor: 'rgba(254, 210, 84, 1)',
-                borderColor: 'rgba(254, 210, 84, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        max: maxCustos,
-                        callback: function (value, index, values) {
-                            return value.toFixed(0) + '€';
-                        }
-                    }
-                }],
-                xAxes: [{
-                    ticks: {
-                        autoSkip: false,
-                        maxRotation: 90,
-                        minRotation: 90
-                    }
+
+    if (isAquecimento) {
+        var varCustosMensaisAquecimento = new Chart(custosMensaisChart, {
+            type: 'bar',
+            data: {
+                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                datasets: [{
+                    label: 'Aquecimento (Inicial)',
+                    data: cenario_inicial_custos_aq_array_fixed,
+                    backgroundColor: 'rgba(230, 103, 38, 1)',
+                    borderColor: 'rgba(230, 103, 38, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Aquecimento (Final)',
+                    data: cenario_final_custos_aquecimento_array_fixed,
+                    backgroundColor: 'rgba(239, 161, 112, 1)',
+                    borderColor: 'rgba(239, 161, 112, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'AQS (Inicial)',
+                    data: cenario_inicial_custos_aqs_array_fixed,
+                    backgroundColor: 'rgba(253, 181, 9, 1)',
+                    borderColor: 'rgba(253, 181, 9, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'AQS (Final)',
+                    data: cenario_final_custos_aqs_array_fixed,
+                    backgroundColor: 'rgba(254, 210, 84, 1)',
+                    borderColor: 'rgba(254, 210, 84, 1)',
+                    borderWidth: 1
                 }]
             },
-            title: {
-                display: true,
-                text: 'Custos Mensais de Energia',
-                fontSize: 16,
-                fontColor: '#0099cc'
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: maxCustos,
+                            callback: function (value, index, values) {
+                                return value.toFixed(0) + '€';
+                            }
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            autoSkip: false,
+                            maxRotation: 90,
+                            minRotation: 90
+                        }
+                    }]
+                },
+                title: {
+                    display: true,
+                    text: 'Custos Mensais de Energia',
+                    fontSize: 16,
+                    fontColor: '#0099cc'
+                }
             }
-        }
-    });
+        });
+    } else if (isArrefecimento) {
+        var varCustosMensais = new Chart(custosMensaisChart, {
+            type: 'bar',
+            data: {
+                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                datasets: [{
+                    label: 'Arrefecimento (Inicial)',
+                    data: cenario_inicial_custos_arr_array_fixed,
+                    backgroundColor: 'rgba(74, 136, 203, 1)',
+                    borderColor: 'rgba(74, 136, 203, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Arrefecimento (Final)',
+                    data: cenario_final_custos_arrefecimento_array_fixed,
+                    backgroundColor: 'rgba(140, 181, 223, 1)',
+                    borderColor: 'rgba(140, 181, 223, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'AQS (Inicial)',
+                    data: cenario_inicial_custos_aqs_array_fixed,
+                    backgroundColor: 'rgba(253, 181, 9, 1)',
+                    borderColor: 'rgba(253, 181, 9, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'AQS (Final)',
+                    data: cenario_final_custos_aqs_array_fixed,
+                    backgroundColor: 'rgba(254, 210, 84, 1)',
+                    borderColor: 'rgba(254, 210, 84, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: maxCustos,
+                            callback: function (value, index, values) {
+                                return value.toFixed(0) + '€';
+                            }
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            autoSkip: false,
+                            maxRotation: 90,
+                            minRotation: 90
+                        }
+                    }]
+                },
+                title: {
+                    display: true,
+                    text: 'Custos Mensais de Energia',
+                    fontSize: 16,
+                    fontColor: '#0099cc'
+                }
+            }
+        });
+    } else {
+        var varCustosMensais = new Chart(custosMensaisChart, {
+            type: 'bar',
+            data: {
+                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                datasets: [{
+                    label: 'Aquecimento (Inicial)',
+                    data: cenario_inicial_custos_aq_array_fixed,
+                    backgroundColor: 'rgba(230, 103, 38, 1)',
+                    borderColor: 'rgba(230, 103, 38, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Aquecimento (Final)',
+                    data: cenario_final_custos_aquecimento_array_fixed,
+                    backgroundColor: 'rgba(239, 161, 112, 1)',
+                    borderColor: 'rgba(239, 161, 112, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Arrefecimento (Inicial)',
+                    data: cenario_inicial_custos_arr_array_fixed,
+                    backgroundColor: 'rgba(74, 136, 203, 1)',
+                    borderColor: 'rgba(74, 136, 203, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Arrefecimento (Final)',
+                    data: cenario_final_custos_arrefecimento_array_fixed,
+                    backgroundColor: 'rgba(140, 181, 223, 1)',
+                    borderColor: 'rgba(140, 181, 223, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'AQS (Inicial)',
+                    data: cenario_inicial_custos_aqs_array_fixed,
+                    backgroundColor: 'rgba(253, 181, 9, 1)',
+                    borderColor: 'rgba(253, 181, 9, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'AQS (Final)',
+                    data: cenario_final_custos_aqs_array_fixed,
+                    backgroundColor: 'rgba(254, 210, 84, 1)',
+                    borderColor: 'rgba(254, 210, 84, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: maxCustos,
+                            callback: function (value, index, values) {
+                                return value.toFixed(0) + '€';
+                            }
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            autoSkip: false,
+                            maxRotation: 90,
+                            minRotation: 90
+                        }
+                    }]
+                },
+                title: {
+                    display: true,
+                    text: 'Custos Mensais de Energia',
+                    fontSize: 16,
+                    fontColor: '#0099cc'
+                }
+            }
+        });
+    }
 
 
     if (incluirAqs) {
@@ -2013,7 +2147,7 @@ function chartData() {
                     borderWidth: 1
                 }, {
                     label: 'Necessidades',
-                    data: necessidades_array_fixed,
+                    data: necessidades_solar_array_fixed,
                     backgroundColor: 'rgba(53, 91, 183, 0)',
                     borderColor: 'rgba(53, 91, 183, 1)',
                     pointBackgroundColor: 'rgba(0,0,0,0)',
