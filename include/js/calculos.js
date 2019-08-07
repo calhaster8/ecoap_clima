@@ -1885,19 +1885,23 @@ function chartData() {
     }
 
     for (let i = 0; i < energia_solar_utilizada_array.length; i++) {
-        energia_solar_utilizada_array_fixed[i] = energia_solar_utilizada_array[i].toFixed(0);
+        energia_solar_utilizada_array_fixed[i] = energia_solar_utilizada_array[i] / 3.6;
+        energia_solar_utilizada_array_fixed[i] = new Number(energia_solar_utilizada_array_fixed[i].toFixed(0));
     }
 
     for (let i = 0; i < energia_solar_sa_array.length; i++) {
-        energia_solar_sa_array_fixed[i] = energia_solar_sa_array[i].toFixed(0);
+        energia_solar_sa_array_fixed[i] = energia_solar_sa_array[i] / 3.6;
+        energia_solar_sa_array_fixed[i] = new Number(energia_solar_sa_array_fixed[i].toFixed(0));
     }
 
     for (let i = 0; i < energia_solar_mj_array.length; i++) {
-        energia_solar_mj_array_fixed[i] = energia_solar_mj_array[i].toFixed(0);
+        energia_solar_mj_array_fixed[i] = energia_solar_mj_array[i] / 3.6;
+        energia_solar_mj_array_fixed[i] = new Number(energia_solar_mj_array_fixed[i].toFixed(0));
     }
 
     for (let i = 0; i < necessidades_solar_array.length; i++) {
-        necessidades_solar_array_fixed[i] = necessidades_solar_array[i].toFixed(0);
+        necessidades_solar_array_fixed[i] = necessidades_solar_array[i] / 3.6;
+        necessidades_solar_array_fixed[i] = new Number(necessidades_solar_array_fixed[i].toFixed(0));
     }
 
 
@@ -1921,14 +1925,14 @@ function chartData() {
         var maxCustos = maxChart(cenario_final_custos_aqs_array);
     }
 
-    if ((maxChart(energia_solar_utilizada_array) > maxChart(energia_solar_sa_array)) && (maxChart(energia_solar_utilizada_array) > maxChart(energia_solar_mj_array)) && (maxChart(energia_solar_utilizada_array) > maxChart(necessidades_solar_array))) {
-        var maxSolarTerm = maxChart(energia_solar_utilizada_array);
-    } else if ((maxChart(energia_solar_sa_array) > maxChart(energia_solar_utilizada_array)) && (maxChart(energia_solar_sa_array) > maxChart(energia_solar_mj_array)) && (maxChart(energia_solar_sa_array) > maxChart(necessidades_solar_array))) {
-        var maxSolarTerm = maxChart(energia_solar_sa_array);
-    } else if ((maxChart(energia_solar_mj_array) > maxChart(energia_solar_utilizada_array)) && (maxChart(energia_solar_mj_array) > maxChart(energia_solar_sa_array)) && (maxChart(energia_solar_mj_array) > maxChart(necessidades_solar_array))) {
-        var maxSolarTerm = maxChart(energia_solar_mj_array);
+    if ((maxChart(energia_solar_utilizada_array_fixed) > maxChart(energia_solar_sa_array_fixed)) && (maxChart(energia_solar_utilizada_array_fixed) > maxChart(energia_solar_mj_array_fixed)) && (maxChart(energia_solar_utilizada_array_fixed) > maxChart(necessidades_solar_array_fixed))) {
+        var maxSolarTerm = maxChart(energia_solar_utilizada_array_fixed);
+    } else if ((maxChart(energia_solar_sa_array_fixed) > maxChart(energia_solar_utilizada_array_fixed)) && (maxChart(energia_solar_sa_array_fixed) > maxChart(energia_solar_mj_array_fixed)) && (maxChart(energia_solar_sa_array_fixed) > maxChart(necessidades_solar_array_fixed))) {
+        var maxSolarTerm = maxChart(energia_solar_sa_array_fixed);
+    } else if ((maxChart(energia_solar_mj_array_fixed) > maxChart(energia_solar_utilizada_array_fixed)) && (maxChart(energia_solar_mj_array_fixed) > maxChart(energia_solar_sa_array_fixed)) && (maxChart(energia_solar_mj_array_fixed) > maxChart(necessidades_solar_array_fixed))) {
+        var maxSolarTerm = maxChart(energia_solar_mj_array_fixed);
     } else {
-        var maxSolarTerm = maxChart(necessidades_solar_array);
+        var maxSolarTerm = maxChart(necessidades_solar_array_fixed);
     }
     
 
@@ -1984,9 +1988,12 @@ function chartData() {
                 },
                 title: {
                     display: true,
-                    text: 'Custos Mensais de Energia',
+                    text: 'Custos Energéticos',
                     fontSize: 16,
                     fontColor: '#0099cc'
+                },
+                legend: {
+                    onClick: function (event, legendItem) {},
                 }
             }
         });
@@ -2042,9 +2049,12 @@ function chartData() {
                 },
                 title: {
                     display: true,
-                    text: 'Custos Mensais de Energia',
+                    text: 'Custos Energéticos',
                     fontSize: 16,
                     fontColor: '#0099cc'
+                },
+                legend: {
+                    onClick: function (event, legendItem) {},
                 }
             }
         });
@@ -2112,9 +2122,12 @@ function chartData() {
                 },
                 title: {
                     display: true,
-                    text: 'Custos Mensais de Energia',
+                    text: 'Custos Energéticos',
                     fontSize: 16,
                     fontColor: '#0099cc'
+                },
+                legend: {
+                    onClick: function (event, legendItem) {},
                 }
             }
         });
@@ -2163,7 +2176,7 @@ function chartData() {
                             beginAtZero: true,
                             max: maxSolarTerm,
                             callback: function (value, index, values) {
-                                return value.toFixed(0) + ' MJ';
+                                return value.toFixed(0) + ' kWh';
                             }
                         }
                     }],
@@ -2178,11 +2191,12 @@ function chartData() {
                 },
                 title: {
                     display: true,
-                    text: 'Balanço Energético - AQS - Solar Térmico (MJ)',
+                    text: 'Balanço Energético (kWh)',
                     fontSize: 16,
                     fontColor: '#0099cc'
                 },
                 legend: {
+                    onClick: function(event, legendItem) {},
                     labels: {
                         useLineStyle: true
                     }
