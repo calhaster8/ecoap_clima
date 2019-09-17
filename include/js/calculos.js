@@ -716,7 +716,7 @@ function necessidadesEnergeticas() {
 function racio() {
     total_racio = 0;
 
-    total_racio = new Number(((total_media_verao_necen / fatores_conversao[1]) / total_media_verao_solar).toFixed(2));
+    total_racio = new Number((total_media_verao_necen / total_media_verao_solar).toFixed(2));
 }
 
 function necessidadesEnergeticasSolar() {
@@ -773,7 +773,7 @@ function energiaSolarUtilizada() {
     energia_solar_utilizada_total = 0;
 
     for (var i = 0; i < meses_numero_horas.length; i++) {
-        energia_solar_utilizada_array[i] = (energia_solar_mj_array[i] > (necessidades_array[i] / fatores_conversao[1])) ? necessidades_array[i] / fatores_conversao[1] : energia_solar_mj_array[i];
+        energia_solar_utilizada_array[i] = (energia_solar_mj_array[i] > necessidades_array[i]) ? necessidades_array[i] : energia_solar_mj_array[i];
 
         energia_solar_utilizada_total += energia_solar_utilizada_array[i];
     }
@@ -801,10 +801,10 @@ function energiaSA() {
     }
 
     for (var i = 0; i < meses_numero_horas.length; i++) {
-        if (((necessidades_array[i] / fatores_conversao[1]) - energia_solar_mj_array[i]) < 0) {
+        if ((necessidades_array[i] - energia_solar_mj_array[i]) < 0) {
             energia_solar_sa_array[i] = 0;
         } else {
-            energia_solar_sa_array[i] = ((necessidades_array[i] / fatores_conversao[1]) - energia_solar_utilizada_array[i]) / rend_user * fatores_conversao[1];
+            energia_solar_sa_array[i] = (necessidades_array[i] - energia_solar_utilizada_array[i]) / rend_user * fatores_conversao[1];
         }
 
         energia_solar_sa_total += energia_solar_sa_array[i];
@@ -995,7 +995,7 @@ function cenarioInicialConsumosAqs() {
     for (var i = 0; i < meses_numero_horas.length; i++) {
         if (conhece_aqs == 1) {
 
-            cenario_inicial_aqs_array[i] = necessidades_array[i] / rend_user;
+            cenario_inicial_aqs_array[i] = (necessidades_array[i] / rend_user) / 3.6;
 
         } else if (consumo_option_aqs == 1) {
 
@@ -1885,22 +1885,22 @@ function chartData() {
     }
 
     for (let i = 0; i < energia_solar_utilizada_array.length; i++) {
-        energia_solar_utilizada_array_fixed[i] = energia_solar_utilizada_array[i] / 3.6;
+        energia_solar_utilizada_array_fixed[i] = (energia_solar_utilizada_array[i] / 3.6);
         energia_solar_utilizada_array_fixed[i] = new Number(energia_solar_utilizada_array_fixed[i].toFixed(0));
     }
 
     for (let i = 0; i < energia_solar_sa_array.length; i++) {
-        energia_solar_sa_array_fixed[i] = energia_solar_sa_array[i] / 3.6;
+        energia_solar_sa_array_fixed[i] = energia_solar_sa_array[i] + (energia_solar_utilizada_array[i] / 3.6);
         energia_solar_sa_array_fixed[i] = new Number(energia_solar_sa_array_fixed[i].toFixed(0));
     }
 
     for (let i = 0; i < energia_solar_mj_array.length; i++) {
-        energia_solar_mj_array_fixed[i] = energia_solar_mj_array[i] / 3.6;
+        energia_solar_mj_array_fixed[i] = (energia_solar_mj_array[i] / 3.6);
         energia_solar_mj_array_fixed[i] = new Number(energia_solar_mj_array_fixed[i].toFixed(0));
     }
 
     for (let i = 0; i < necessidades_solar_array.length; i++) {
-        necessidades_solar_array_fixed[i] = necessidades_solar_array[i] / 3.6;
+        necessidades_solar_array_fixed[i] = (necessidades_solar_array[i] / 3.6) / 3.6;
         necessidades_solar_array_fixed[i] = new Number(necessidades_solar_array_fixed[i].toFixed(0));
     }
 
