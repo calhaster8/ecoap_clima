@@ -1832,7 +1832,7 @@ function showGlobalResumo() {
 
     $('#pri-global').html((pri_simples_global < 0 ? '-' : pri_simples_global.toFixed(1)) + ' anos');
 
-    chartData();
+    // chartData();
 }
 
 //GRAFICO
@@ -1936,7 +1936,7 @@ function chartData() {
     }
     
 
-    if (isAquecimento) {
+    if (isAquecimento && incluirAqs) {
         var varCustosMensaisAquecimento = new Chart(custosMensaisChart, {
             type: 'bar',
             data: {
@@ -1952,6 +1952,67 @@ function chartData() {
                     data: cenario_final_custos_aquecimento_array_fixed,
                     backgroundColor: 'rgba(239, 161, 112, 1)',
                     borderColor: 'rgba(239, 161, 112, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'AQS (Inicial)',
+                    data: cenario_inicial_custos_aqs_array_fixed,
+                    backgroundColor: 'rgba(253, 181, 9, 1)',
+                    borderColor: 'rgba(253, 181, 9, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'AQS (Final)',
+                    data: cenario_final_custos_aqs_array_fixed,
+                    backgroundColor: 'rgba(254, 210, 84, 1)',
+                    borderColor: 'rgba(254, 210, 84, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: maxCustos,
+                            callback: function (value, index, values) {
+                                return value.toFixed(0) + '€';
+                            }
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            autoSkip: false,
+                            maxRotation: 90,
+                            minRotation: 90
+                        }
+                    }]
+                },
+                title: {
+                    display: true,
+                    text: 'Custos Energéticos',
+                    fontSize: 16,
+                    fontColor: '#0099cc'
+                },
+                legend: {
+                    onClick: function (event, legendItem) {},
+                }
+            }
+        });
+    } else if (isArrefecimento && incluirAqs) {
+        var varCustosMensais = new Chart(custosMensaisChart, {
+            type: 'bar',
+            data: {
+                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                datasets: [{
+                    label: 'Arrefecimento (Inicial)',
+                    data: cenario_inicial_custos_arr_array_fixed,
+                    backgroundColor: 'rgba(74, 136, 203, 1)',
+                    borderColor: 'rgba(74, 136, 203, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Arrefecimento (Final)',
+                    data: cenario_final_custos_arrefecimento_array_fixed,
+                    backgroundColor: 'rgba(140, 181, 223, 1)',
+                    borderColor: 'rgba(140, 181, 223, 1)',
                     borderWidth: 1
                 }, {
                     label: 'AQS (Inicial)',
@@ -2014,17 +2075,54 @@ function chartData() {
                     backgroundColor: 'rgba(140, 181, 223, 1)',
                     borderColor: 'rgba(140, 181, 223, 1)',
                     borderWidth: 1
-                }, {
-                    label: 'AQS (Inicial)',
-                    data: cenario_inicial_custos_aqs_array_fixed,
-                    backgroundColor: 'rgba(253, 181, 9, 1)',
-                    borderColor: 'rgba(253, 181, 9, 1)',
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: maxCustos,
+                            callback: function (value, index, values) {
+                                return value.toFixed(0) + '€';
+                            }
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            autoSkip: false,
+                            maxRotation: 90,
+                            minRotation: 90
+                        }
+                    }]
+                },
+                title: {
+                    display: true,
+                    text: 'Custos Energéticos',
+                    fontSize: 16,
+                    fontColor: '#0099cc'
+                },
+                legend: {
+                    onClick: function (event, legendItem) {},
+                }
+            }
+        });
+    } else if (isAquecimento) {
+        var varCustosMensaisAquecimento = new Chart(custosMensaisChart, {
+            type: 'bar',
+            data: {
+                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                datasets: [{
+                    label: 'Aquecimento (Inicial)',
+                    data: cenario_inicial_custos_aq_array_fixed,
+                    backgroundColor: 'rgba(230, 103, 38, 1)',
+                    borderColor: 'rgba(230, 103, 38, 1)',
                     borderWidth: 1
                 }, {
-                    label: 'AQS (Final)',
-                    data: cenario_final_custos_aqs_array_fixed,
-                    backgroundColor: 'rgba(254, 210, 84, 1)',
-                    borderColor: 'rgba(254, 210, 84, 1)',
+                    label: 'Aquecimento (Final)',
+                    data: cenario_final_custos_aquecimento_array_fixed,
+                    backgroundColor: 'rgba(239, 161, 112, 1)',
+                    borderColor: 'rgba(239, 161, 112, 1)',
                     borderWidth: 1
                 }]
             },
@@ -2191,7 +2289,7 @@ function chartData() {
                 },
                 title: {
                     display: true,
-                    text: 'Balanço Energético (kWh)',
+                    text: 'Balanço Energético - AQS (kWh)',
                     fontSize: 16,
                     fontColor: '#0099cc'
                 },

@@ -2483,6 +2483,8 @@ function nextStep() {
         $(".end-but").hide();
         $(".print_pdf").show();
         $('#disclaimer').show();
+
+        chartData();
     }
     
     lastStep=id;
