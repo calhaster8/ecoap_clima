@@ -47,6 +47,14 @@
 		"oF": 0,
 		"oS": 3
 		},
+	"/include/css/style.css.map": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/include/css/style.css.map",
+		"oF": 0
+		},
 	"/include/css/style.sass": {
 		"aP": 0,
 		"bl": 0,

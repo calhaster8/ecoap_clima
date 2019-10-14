@@ -489,7 +489,7 @@ body
         #resumo
             table
                 background-color: #f2f2f2
-                width: 50%
+                width: 100%
 
                 @media screen and (max-width: $small)
                     width: 100%
@@ -504,6 +504,11 @@ body
                             text-align: center
                             vertical-align: middle
                             color: #0099cc
+
+                            @media print 
+                                text-align: center
+                                vertical-align: middle
+                                color: #0099cc 
 
                         td,
                         td.in

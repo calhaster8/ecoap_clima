@@ -2320,3 +2320,72 @@ function maxChart(array) {
     return max;
 
 }
+
+function printCanvas() {
+    const error = document.getElementById('errorAQUEC').outerHTML;
+    const resumo_table = document.getElementById('tabela-resumo-aqu').outerHTML;
+    const resumo_table_global = document.getElementById('globals').outerHTML;
+    const dataUrlCustos = document.getElementById('custos_mensais_chart_v2').toDataURL();
+    const dataUrlAqs = document.getElementById('aqs_solar_term_chart_v2').toDataURL();
+
+    var incluirAqs = ($('#pres-aqs').val() == 0 && $('#use-aqs').val() == 0) ? true : false;
+
+    let windowContent = '<!DOCTYPE html>';
+    windowContent += '<html>';
+    windowContent += '<head>';
+    windowContent += '<title>ECO.AP - Calculadora - Climatização</title>';
+    windowContent += '</head>';
+    windowContent += '<body>';
+    windowContent += '<main class="main container">';
+    windowContent += '<form id="clima-form">';
+    windowContent += '<div class="row">';
+    windowContent += '<div class="col-xs-12">';
+    windowContent += '<div class="main-content">';
+    windowContent += '<div class="dados">';
+    windowContent += '<div class="dados-child">';
+    windowContent += '<div id="resumo" class="step">';
+    windowContent += '<h2 class="resumo-title">Resumo - Resultados</h2>';
+    windowContent += error;
+
+    windowContent += '<div class="col-xs-12">';
+    windowContent += resumo_table;
+    windowContent += '</div>';
+
+    if (incluirAqs) {
+        windowContent += '<div class="col-xs-12">';
+        windowContent += resumo_table_global;
+        windowContent += '</div>';
+    }
+
+    windowContent += '<div class="col-xs-6 final-graph">';
+    windowContent += '<img src="' + dataUrlCustos + '">';
+    windowContent += '</div>';
+    
+    if (incluirAqs) {
+        windowContent += '<div class="col-xs-6 final-graph">';
+        windowContent += '<img src="' + dataUrlAqs + '">';
+        windowContent += '</div>';
+    }
+
+    windowContent += '</div>';
+    windowContent += '</div>';
+    windowContent += '</div>';
+    windowContent += '</div>';
+    windowContent += '</div>';
+    windowContent += '</div>';
+    windowContent += '</form>';
+    windowContent += '</main>';
+    windowContent += '</body>';
+    windowContent += '</html>';
+
+    const printWin = window.open('', '', 'width=' + screen.availWidth + ',height=' + screen.availHeight);
+    printWin.document.open();
+    printWin.document.write(windowContent);
+
+    printWin.document.addEventListener('load', function () {
+        printWin.focus();
+        printWin.print();
+        printWin.document.close();
+        printWin.close();
+    }, true);
+}

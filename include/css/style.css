@@ -18,8 +18,8 @@
 
 body {
   font-family: 'Amelia-Basic', sans-serif;
-  /*background-image: url("../img/fundo.png");
-  background-repeat: repeat-y;*/
+  background-image: url("../img/fundo.png");
+  background-repeat: no-repeat;
   width: 100%;
   height: 100vh; }
   body::after {
@@ -57,11 +57,6 @@ body {
 .main {
   margin: 0 50px 50px 50px;
   padding: 0 25px; }
-  @media screen and (min-width: 1480px) {
-    .container {
-      width: 1480px;
-    }
-  }
   @media screen and (max-width: 768px) {
     .main {
       margin: 0;
@@ -95,8 +90,7 @@ body {
       .main .main-content .dados-child .dado label {
         margin-bottom: 5px;
         color: #0099cc;
-        font-weight: 400; 
-        display: block; }
+        font-weight: 400; }
       .main .main-content .dados-child .dado input {
         width: 52%;
         padding: 5px 20px;
@@ -265,7 +259,7 @@ body {
             width: 100%;
             height: 80px;
             border: none;
-            background-color: transparent;
+            background-color: rgba(0, 0, 0, 0);
             text-align-last: center; }
             .main .main-content .dados-child .tabela-consumos table tbody tr td.select-cell select:focus,
             .main .main-content .dados-child .tabela-consumos table tbody .textTR td.select-cell select:focus {
@@ -278,7 +272,7 @@ body {
             width: 100%;
             height: 40px;
             border: none;
-            background-color: transparent;
+            background-color: rgba(0, 0, 0, 0);
             text-align-last: center; }
             .main .main-content .dados-child .tabela-consumos table tbody tr td.select-cell #boolean-caixa:focus,
             .main .main-content .dados-child .tabela-consumos table tbody .textTR td.select-cell #boolean-caixa:focus {
@@ -534,7 +528,7 @@ body {
           .main .main-content .dados-child .tabelas table tbody .textTR td.select-cell select {
             width: 100%;
             border: none;
-            background-color: transparent;
+            background-color: rgba(0, 0, 0, 0);
             text-align-last: center; }
             .main .main-content .dados-child .tabela-consumos table tbody tr td.select-cell select:focus,
             .main .main-content .dados-child .tabela-consumos table tbody .textTR td.select-cell select:focus,
@@ -575,7 +569,8 @@ body {
   .main .main-content .perfil-hidden {
     display: none; }
   .main .main-content #resumo table {
-    background-color: #f2f2f2; }
+    background-color: #f2f2f2;
+    width: 100%; }
     @media screen and (max-width: 515px) {
       .main .main-content #resumo table {
         width: 100%; } }
@@ -588,6 +583,12 @@ body {
         text-align: center;
         vertical-align: middle;
         color: #0099cc; }
+        @media print {
+          .main .main-content #resumo table tbody tr .tituloTH,
+          .main .main-content #resumo table tbody .textTR .tituloTH {
+            text-align: center;
+            vertical-align: middle;
+            color: #0099cc; } }
       .main .main-content #resumo table tbody tr td,
       .main .main-content #resumo table tbody tr td.in,
       .main .main-content #resumo table tbody .textTR td,
